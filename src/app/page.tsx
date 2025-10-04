@@ -1,3 +1,6 @@
+'use client'
+
+import { Button } from 'hg-storybook'
 import Image from 'next/image'
 
 export default function Home() {
@@ -12,6 +15,7 @@ export default function Home() {
           height={38}
           priority
         />
+        <Button variant="primary">Hello</Button>
         <ol className="list-inside list-decimal text-center font-mono text-sm/6 sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
             Get started by editing{' '}
