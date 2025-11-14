@@ -6,6 +6,7 @@ import { betterAuth } from 'better-auth'
 const auth = betterAuth({
   database: new Database('./sqlite.db'),
   trustedOrigins: [`${process.env.BASE_URL}`],
+  authSecret: process.env.BETTER_AUTH_SECRET,
   plugins: [
     nextCookies(),
     genericOAuth({
