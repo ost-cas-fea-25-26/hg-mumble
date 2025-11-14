@@ -23,6 +23,7 @@ const auth = betterAuth({
             'urn:zitadel:iam:org:project:id:346667548860744250:aud',
           ],
           pkce: true,
+          redirectURI: `${process.env.BASE_URL}/feed`,
         },
       ],
     }),
