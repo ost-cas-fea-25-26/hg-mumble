@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Avatar, Button, Logout, Mumble, Settings } from 'hg-storybook'
 
