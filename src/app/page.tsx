@@ -1,6 +1,6 @@
 'use client'
 import { Button } from 'hg-storybook'
-import Header from '@/components/Header/Header'
+import Header from '@/components/header/Header'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
