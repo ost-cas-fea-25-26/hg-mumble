@@ -98,3 +98,8 @@
         }
     }
 }
+
+:focus-visible {
+    outline: 3px solid var(--color-sky-500);
+    outline-offset: 3px;
+}
