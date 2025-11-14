@@ -5,6 +5,7 @@ import { betterAuth } from 'better-auth'
 
 const auth = betterAuth({
   database: new Database('./sqlite.db'),
+  trustedOrigins: [`${process.env.BASE_URL}`],
   plugins: [
     nextCookies(),
     genericOAuth({
@@ -22,7 +23,6 @@ const auth = betterAuth({
             'urn:zitadel:iam:org:project:id:346667548860744250:aud',
           ],
           pkce: true,
-          redirectURI: `${process.env.BASE_URL}/feed`,
         },
       ],
     }),
