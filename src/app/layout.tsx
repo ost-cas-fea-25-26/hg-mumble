@@ -2,6 +2,10 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import 'hg-storybook/style'
+import { SWRConfig } from 'swr'
+import fetcher from '@/methods/data/getFetcher'
+import { Toaster } from 'sonner'
+import { NextIntlClientProvider } from 'next-intl'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -25,7 +29,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`h-full antialiased`}>{children}</body>
+      <NextIntlClientProvider>
+        <SWRConfig
+          value={{
+            fetcher: fetcher,
+          }}
+        >
+          <body className={`h-full antialiased`}>
+            <Toaster
+              toastOptions={{
+                duration: 100000,
+                style: {
+                  backgroundColor: 'var(--color-primary-200)',
+                  borderColor: 'var(--color-primary-400)',
+                },
+                closeButton: true,
+              }}
+            />
+            {children}
+          </body>
+        </SWRConfig>
+      </NextIntlClientProvider>
     </html>
   )
 }
