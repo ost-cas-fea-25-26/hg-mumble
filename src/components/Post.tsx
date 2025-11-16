@@ -15,9 +15,11 @@ import {
   Toggle,
 } from 'hg-storybook'
 import clsx from 'clsx'
+import { useTranslations } from 'use-intl'
 
 export default function Post({ post }: { post: MumblePost }) {
   const { data } = useSWR('user', () => getUser(post.creator))
+  const translate = useTranslations('mumble-post')
   return (
     <div className="relative m-2 flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white pt-26 pr-4 pb-4 pl-4">
       <div
@@ -56,22 +58,22 @@ export default function Post({ post }: { post: MumblePost }) {
           onChange={() => {}}
           uncheckedProps={{
             icon: <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />,
-            label: `${post.replyCount ?? 0} replies`,
+            label: translate('comments', { count: post.replyCount }),
           }}
           checkedProps={{
             icon: <SpeechBubble color={'currentColor'} size={'xs'} />,
-            label: `${post.replyCount ?? 0} replies`,
+            label: translate('comments', { count: post.replyCount }),
           }}
         />
         <Toggle
           color={'contrast'}
           checkedProps={{
             icon: <Heart color={'currentColor'} size={'xs'} />,
-            label: `${post.replyCount ?? 0} replies`,
+            label: translate('liked'),
           }}
           uncheckedProps={{
             icon: <HeartEmpty color={'currentColor'} size={'xs'} />,
-            label: `${post.replyCount ?? 0} replies`,
+            label: translate('likes', { count: post.likeCount }),
           }}
         />
         <TimedButton
@@ -79,14 +81,14 @@ export default function Post({ post }: { post: MumblePost }) {
           childrenOnClick={
             <div className={'text-secondary flex items-center gap-2'}>
               <Share color={'currentColor'} size={'xs'} />
-              <span>Link Kopiert</span>
+              <span>{translate('link-copied')}</span>
             </div>
           }
-          animationDuration={2000}
+          animationDuration={1250}
         >
           <div className={'text-secondary flex items-center gap-2'}>
             <Share color={'currentColor'} size={'xs'} />
-            <span>Link Kopieren</span>
+            <span>{translate('link-copy')}</span>
           </div>
         </TimedButton>
       </div>

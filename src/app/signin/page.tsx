@@ -2,8 +2,10 @@
 import React from 'react'
 import { Button, Mumble } from 'hg-storybook'
 import { signIn } from '@/lib/auth-client'
+import { useTranslations } from 'use-intl'
 
 export default function Login() {
+  const translate = useTranslations('general')
   return (
     <section className={'bg-primary flex items-center justify-center'}>
       <div
@@ -12,9 +14,11 @@ export default function Login() {
         }
       >
         <Mumble className={'text-primary'} />
-        <h1 className={'text-primary text-2xl font-bold'}>Login</h1>
+        <h1 className={'text-primary text-2xl font-bold'}>
+          {translate('login-title')}
+        </h1>
         <Button variant={'primary'} onClick={() => signIn()}>
-          Let's gooo!!!
+          {translate('login')}
         </Button>
       </div>
     </section>

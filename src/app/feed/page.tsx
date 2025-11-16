@@ -4,9 +4,11 @@ import useSWR from 'swr'
 import { getPosts } from '@/mumble/api/posts/getPosts'
 import Post from '@/components/Post'
 import clsx from 'clsx'
+import { useTranslations } from 'use-intl'
 
 export default function FeedPage() {
   const { data } = useSWR('what', getPosts)
+  const translate = useTranslations('general')
   return (
     <section className={'flex items-center justify-center bg-blue-100 pt-2'}>
       <div
@@ -16,11 +18,10 @@ export default function FeedPage() {
       >
         <div>
           <h1 className={clsx('text-primary text-4xl font-bold')}>
-            Willkommen auf Mumble
+            {translate('welcome-to-mumble')}
           </h1>
           <span className={clsx('text-secondary text-lg font-semibold')}>
-            Voluptatem qui cumque voluptatem quia tempora dolores distinctio vel
-            repellat dicta.
+            {translate('welcome-subtitle')}
           </span>
         </div>
 
