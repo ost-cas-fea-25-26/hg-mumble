@@ -3,26 +3,27 @@ import React from 'react'
 import useSWR from 'swr'
 import { getPosts } from '@/mumble/api/posts/getPosts'
 import Post from '@/components/Post'
-import { authClient } from '@/lib/auth-client'
-import { Button, Link } from 'hg-storybook'
+import clsx from 'clsx'
 
 export default function FeedPage() {
   const { data } = useSWR('what', getPosts)
   return (
-    <section className={'bg-primary flex items-center justify-center'}>
+    <section className={'flex items-center justify-center bg-blue-100 pt-2'}>
       <div
         className={
-          'mb-24 flex h-fit w-fit flex-col items-center justify-center gap-2 rounded-md bg-white p-6 sm:w-1/2'
+          'desktop:w-fit-50! desktop:max-w-144! mb-24 flex h-fit w-full max-w-full flex-col items-center justify-center gap-2 rounded-md p-6'
         }
       >
-        <Link url={'signin'}>login</Link>
-        <Button
-          size={'small'}
-          variant={'white'}
-          onClick={() => authClient.revokeSessions().then(console.log)}
-        >
-          logout
-        </Button>
+        <div>
+          <h1 className={clsx('text-primary text-4xl font-bold')}>
+            Willkommen auf Mumble
+          </h1>
+          <span className={clsx('text-secondary text-lg font-semibold')}>
+            Voluptatem qui cumque voluptatem quia tempora dolores distinctio vel
+            repellat dicta.
+          </span>
+        </div>
+
         {data?.data.map((post) => (
           <Post key={post.id} post={post} />
         ))}

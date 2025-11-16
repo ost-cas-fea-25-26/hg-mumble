@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Button, Cross, Eye, Field, Input, Label, Mumble } from 'hg-storybook'
+import { Button, Mumble } from 'hg-storybook'
 import { signIn } from '@/lib/auth-client'
 
 export default function Login() {
@@ -8,7 +8,7 @@ export default function Login() {
     <section className={'bg-primary flex items-center justify-center'}>
       <div
         className={
-          'mb-24 flex h-fit w-fit flex-col items-center justify-center gap-2 rounded-md bg-white p-6'
+          'mb-24 flex h-fit w-fit flex-col items-center justify-start gap-2 rounded-md bg-white p-6'
         }
       >
         <Mumble className={'text-primary'} />
