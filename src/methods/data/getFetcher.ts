@@ -1,16 +1,19 @@
 'use client'
 
 import { joinURL } from 'ufo'
+import { authClient } from '@/lib/auth-client'
 
 export default function getFetcher() {
-  const baseUrl = 'https://mumble-test.ch/api'
+  const baseUrl = process.env.API_URL as string
 
   return async <JSON = any>(
     path: string,
-    init?: RequestInit,
+    init: RequestInit = {},
   ): Promise<JSON> => {
-    const response = await fetch(joinURL(baseUrl, path), init)
+    const sess = await authClient.getSession()
+    console.log(sess)
 
+    const response = await fetch(joinURL(baseUrl, path), init)
     if (!response.ok) {
       throw new Error('An error occurred while fetching the data.')
     }
