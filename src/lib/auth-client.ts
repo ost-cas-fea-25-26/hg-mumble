@@ -6,6 +6,8 @@ export const authClient = createAuthClient({
   plugins: [genericOAuthClient()],
 })
 
+export const { useSession } = authClient
+
 export const signIn = async () => {
   return await authClient.signIn.oauth2({
     providerId: 'zitadel',

@@ -68,7 +68,6 @@ export class HttpClient<SecurityDataType = unknown> {
   private securityWorker?: ApiConfig<SecurityDataType>['securityWorker']
   private abortControllers = new Map<CancelToken, AbortController>()
   private customFetch = (...fetchParams: Parameters<typeof fetch>) => {
-    console.log(fetchParams[1])
     return fetch(...fetchParams)
   }
 

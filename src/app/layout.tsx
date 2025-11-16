@@ -7,6 +7,7 @@ import { Toaster } from 'sonner'
 import { NextIntlClientProvider } from 'next-intl'
 import { ReactNode } from 'react'
 import getFetcher from '../methods/data/getFetcher'
+import { Header } from '@/components'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -47,6 +48,7 @@ export default function RootLayout({
                 closeButton: true,
               }}
             />
+            <Header />
             {children}
           </body>
         </SWRConfig>

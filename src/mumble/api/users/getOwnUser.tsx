@@ -13,7 +13,7 @@ function authHeader(accessToken?: string): HeadersInit {
   return accessToken ? { Authorization: `Bearer ${accessToken}` } : {}
 }
 
-export async function getUser(userId: string): Promise<MumbleUser> {
+export async function getOwnUser(): Promise<MumbleUser> {
   const accessToken = await getAccessToken()
   const res = await fetch(`${process.env.API_URL}/users/me`, {
     headers: {
@@ -21,6 +21,5 @@ export async function getUser(userId: string): Promise<MumbleUser> {
     },
   })
   const u = await res.json()
-  console.log(u)
   return u
 }
