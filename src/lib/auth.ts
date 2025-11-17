@@ -73,3 +73,8 @@ export const getAccessToken = cache(async () => {
 
   return token
 })
+
+export async function authHeader(): Promise<HeadersInit> {
+  const { accessToken } = (await getAccessToken()) || {}
+  return accessToken ? { Authorization: `Bearer ${accessToken}` } : {}
+}
