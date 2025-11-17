@@ -1,6 +1,6 @@
 import { MumblePost } from '@/mumble/api/posts/createPost'
 import useSWR from 'swr'
-import { getUser } from '@/mumble/api/users/getUser'
+import { getOwnUser } from '@/mumble/api/users/getOwnUser'
 import {
   Avatar,
   Heart,
@@ -18,7 +18,7 @@ import clsx from 'clsx'
 import { useTranslations } from 'use-intl'
 
 export default function Post({ post }: { post: MumblePost }) {
-  const { data } = useSWR('user', () => getUser(post.creator))
+  const { data } = useSWR('self', () => getOwnUser())
   const translate = useTranslations('mumble-post')
   return (
     <div className="relative m-2 flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white pt-26 pr-4 pb-4 pl-4">
@@ -67,6 +67,12 @@ export default function Post({ post }: { post: MumblePost }) {
         />
         <Toggle
           color={'contrast'}
+          onChange={() => {
+            fetch(`/api/posts/${post.id}/like`, {
+              method: 'PUT',
+              body: JSON.stringify({}),
+            }).then(() => {})
+          }}
           checkedProps={{
             icon: <Heart color={'currentColor'} size={'xs'} />,
             label: translate('liked'),

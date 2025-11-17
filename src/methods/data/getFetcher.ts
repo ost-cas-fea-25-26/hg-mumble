@@ -10,9 +10,6 @@ export default function getFetcher() {
     path: string,
     init: RequestInit = {},
   ): Promise<JSON> => {
-    const sess = await authClient.getSession()
-    console.log(sess)
-
     const response = await fetch(joinURL(baseUrl, path), init)
     if (!response.ok) {
       throw new Error('An error occurred while fetching the data.')
