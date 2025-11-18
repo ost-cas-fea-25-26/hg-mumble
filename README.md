@@ -42,4 +42,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 CLIENT_ID=<secret>
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 BETTER_AUTH_SECRET=irgendöppis
+API_URL=https://qwacker-api-http-prod-927407260649.europe-west6.run.app/
 ```
