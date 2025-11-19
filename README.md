@@ -42,8 +42,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 CLIENT_ID=<secret>
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 BETTER_AUTH_SECRET=irgendöppis
+E2E_HOST=https://hg-mumble-taupe.vercel.app/
 API_URL=https://qwacker-api-http-prod-927407260649.europe-west6.run.app/
+
 ```
+
+## e2e tests
+
+after pnpm i, run:
+```
+npx playwright install
+```
+to setup local browser binaries, only needs to be once per playwright version
 
 ## Mock Server
 
