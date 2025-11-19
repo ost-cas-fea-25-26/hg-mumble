@@ -1,8 +1,8 @@
 'use client'
-import React from 'react'
 import { Button, Mumble } from 'hg-storybook'
-import { signIn } from '@/lib/auth-client'
+import React from 'react'
 import { useTranslations } from 'use-intl'
+import { signIn } from '@/lib/auth-client'
 
 export default function Login() {
   const translate = useTranslations('general')
@@ -14,9 +14,7 @@ export default function Login() {
         }
       >
         <Mumble className={'text-primary'} />
-        <h1 className={'text-primary text-2xl font-bold'}>
-          {translate('login-title')}
-        </h1>
+        <h1 className={'text-primary text-2xl font-bold'}>{translate('login-title')}</h1>
         <Button variant={'primary'} onClick={() => signIn()}>
           {translate('login')}
         </Button>

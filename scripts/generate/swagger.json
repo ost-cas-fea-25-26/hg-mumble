@@ -95,6 +95,47 @@
             "description": "The paginated list of posts.",
             "content": {
               "application/json": {
+                "example": {
+                  "count":100,
+                  "data": [
+                    {"id": "1", "creator": "a", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "2", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "3", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "4", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "5", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "12", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "13", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "14", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "15", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "21", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "22", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "23", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "24", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "25", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "26", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "27", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "28", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "29", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "210", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "211", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "212", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "213", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "214", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "112", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "13121", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "411", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "124122", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "512351v", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "asdfgasdf", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "safas", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "etrrtv", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "qbrtnw", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "wrunwze", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "wnrtzwrt", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "wrtznwr", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12},
+                    {"id": "wrtznwrt", "creator": "b", "text": "Hello World! @user #newpost", "likeCount": 45, "likedByUser": false, "replyCount":  12}
+                  ]
+                },
                 "schema": {
                   "type": "object",
                   "title": "PaginatedResult",
@@ -1451,7 +1492,12 @@
       "description": "User related calls. Fetch information about users in the system."
     }
   ],
-  "servers": [],
+  "servers": [
+    {
+      "url": "http://localhost:4010",
+      "name": "mock"
+    }
+  ],
   "components": {
     "securitySchemes": {
       "ZITADEL": {
