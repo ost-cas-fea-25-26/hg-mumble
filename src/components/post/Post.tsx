@@ -17,9 +17,10 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { useTranslations } from 'use-intl'
-import { PostComments } from '@/common/components'
-import { MumblePost } from '@/common/types'
-import { addLike, fetchUser } from '@/mumble/api'
+import PostComments from '@/components/post/PostComments'
+import { addLike } from '@/methods/data/posts/addLike'
+import { fetchUser } from '@/methods/data/users/fetchUser'
+import { MumblePost } from '@/types/MumbleApi.types'
 
 export default function Post({ post }: { post: MumblePost }) {
   const { data: userDetails } = useSWR(`api/users/${post.creator}`, fetchUser)

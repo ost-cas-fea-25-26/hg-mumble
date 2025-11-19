@@ -14,5 +14,5 @@
   "printWidth": 120,
   "endOfLine": "auto",
   "arrowParens": "always",
-  "importOrder": ["^@/common/(.*)$", "^@/lib/", "^@/mumble/(.*)$", "^[./]"]
+  "importOrder": ["^@/(.*)$", "^@/lib/", "^@/mumble/(.*)$", "^[./]"]
 }

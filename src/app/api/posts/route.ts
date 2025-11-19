@@ -1,5 +1,5 @@
-import { MumblePostCreateRequest } from '@/common/types'
-import { getMumbleApi } from '@/mumble/api/getMumbleApi'
+import { getMumbleApi } from '@/methods/data/getMumbleApi'
+import { MumblePostCreateRequest } from '@/types/MumbleApi.types'
 
 export async function GET() {
   const api = await getMumbleApi()

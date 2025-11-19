@@ -1,5 +1,5 @@
-import { MumbleCommentCreateRequest } from '@/common/types'
-import { getMumbleApi } from '@/mumble/api/getMumbleApi'
+import { getMumbleApi } from '@/methods/data/getMumbleApi'
+import { MumbleCommentCreateRequest } from '@/types/MumbleApi.types'
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const data = (await req.json()) as MumbleCommentCreateRequest

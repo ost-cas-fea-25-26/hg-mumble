@@ -1,4 +1,4 @@
-import { getMumbleApi } from '@/mumble/api/getMumbleApi'
+import { getMumbleApi } from '@/methods/data/getMumbleApi'
 
 export async function GET(_: Request) {
   const api = await getMumbleApi()

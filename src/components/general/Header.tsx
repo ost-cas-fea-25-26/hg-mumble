@@ -4,7 +4,7 @@ import React from 'react'
 import useSWR from 'swr'
 import { useTranslations } from 'use-intl'
 import { useSession } from '@/lib/auth-client'
-import { fetchOwnUser } from '@/mumble/api'
+import { fetchOwnUser } from '@/methods/data/users/fetchOwnUser'
 
 type Props = {}
 

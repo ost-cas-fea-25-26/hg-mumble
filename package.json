@@ -2,6 +2,7 @@
   "name": "hg-mumble",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "cross-env PGSSLMODE=require NODE_TLS_REJECT_UNAUTHORIZED=0 next dev --turbopack",
     "dev:mock": "cross-env PGSSLMODE=require NODE_TLS_REJECT_UNAUTHORIZED=0 API_URL=http://localhost:4010 next dev --turbopack",

@@ -5,8 +5,8 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { ReactNode } from 'react'
 import { Toaster } from 'sonner'
 import { SWRConfig } from 'swr'
-import { Header } from '@/common/components'
-import { getFetcher } from '@/common/utils'
+import Header from '@/components/general/Header'
+import getFetcher from '@/utils/getFetcher'
 import './globals.css'
 
 const geistSans = Geist({
