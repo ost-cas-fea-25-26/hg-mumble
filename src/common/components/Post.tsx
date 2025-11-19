@@ -41,7 +41,10 @@ export default function Post({ post }: { post: MumblePost }) {
         <div>
           <h3 className={clsx('text-lg font-bold')}>{`${userDetails?.firstName} ${userDetails?.lastName}`}</h3>
           <div className={clsx('flex items-center gap-4')}>
-            <Link url={'feed'} className={'text-primary flex items-center justify-start gap-1 font-bold'}>
+            <Link
+              url={`user-profile/${post.creator}`}
+              className={'text-primary flex items-center justify-start gap-1 font-bold'}
+            >
               <Profile color={'currentColor'} size={'xs'} />
               <span>{userDetails?.userName}</span>
             </Link>

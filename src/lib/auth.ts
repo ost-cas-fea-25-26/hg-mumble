@@ -31,14 +31,8 @@ export const auth = betterAuth({
           providerId: 'zitadel',
           clientId: process.env.CLIENT_ID as string,
           clientSecret: '',
-          discoveryUrl:
-            'https://cas-fee-adv-ed1ide.zitadel.cloud/.well-known/openid-configuration',
-          scopes: [
-            'openid',
-            'profile',
-            'email',
-            'urn:zitadel:iam:org:project:id:342477345380127384:aud',
-          ],
+          discoveryUrl: 'https://cas-fee-adv-ed1ide.zitadel.cloud/.well-known/openid-configuration',
+          scopes: ['openid', 'profile', 'email', 'urn:zitadel:iam:org:project:id:342477345380127384:aud'],
           pkce: true,
         },
       ],
@@ -76,7 +70,5 @@ export const getAccessToken = cache(async () => {
 
 export async function authHeader(): Promise<HeadersInit> {
   const token = await getAccessToken()
-  return token?.accessToken
-    ? { Authorization: `Bearer ${token?.accessToken}` }
-    : {}
+  return token?.accessToken ? { Authorization: `Bearer ${token?.accessToken}` } : {}
 }

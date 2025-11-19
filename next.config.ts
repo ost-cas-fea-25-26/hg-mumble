@@ -8,9 +8,6 @@ const nextConfig: NextConfig = {
     fetches: {
       fullUrl: true,
     },
-    incomingRequests: {
-      ignore: [/feed/],
-    },
   },
 }
 
