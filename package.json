@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "cross-env PGSSLMODE=require NODE_TLS_REJECT_UNAUTHORIZED=0 next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start",
+    "start": "cross-env PGSSLMODE=require NODE_TLS_REJECT_UNAUTHORIZED=0 next start",
     "lint": "eslint",
     "generate": "ts-node scripts/generate/generateApi.ts"
   },
