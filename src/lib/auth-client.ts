@@ -9,6 +9,6 @@ export const authClient = createAuthClient({
 export const signIn = async () => {
   return await authClient.signIn.oauth2({
     providerId: 'zitadel',
-    callbackURL: '/',
+    callbackURL: '/feed',
   })
 }

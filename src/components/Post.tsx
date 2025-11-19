@@ -35,7 +35,7 @@ export default function Post({ post }: { post: MumblePost }) {
           >{`${data?.firstName} ${data?.lastName}`}</h3>
           <div className={clsx('flex items-center gap-4')}>
             <Link
-              url={'feed'}
+              url={`user-profile/${post.creator}`}
               className={
                 'text-primary flex items-center justify-start gap-1 font-bold'
               }

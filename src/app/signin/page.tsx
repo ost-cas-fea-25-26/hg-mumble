@@ -7,7 +7,7 @@ import { useTranslations } from 'use-intl'
 export default function Login() {
   const translate = useTranslations('general')
   return (
-    <section className={'bg-primary flex items-center justify-center'}>
+    <section className={'bg-primary flex h-screen items-center justify-center'}>
       <div
         className={
           'mb-24 flex h-fit w-fit flex-col items-center justify-start gap-2 rounded-md bg-white p-6'
