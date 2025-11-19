@@ -1,6 +1,18 @@
 {
-  "plugins": ["prettier-plugin-tailwindcss"],
-  "singleQuote": true,
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
+  "importOrderSortSpecifiers": true,
+  "tailwindFunctions": [
+    "clsx"
+  ],
+  "trailingComma": "es5",
+  "tabWidth": 2,
   "semi": false,
-  "tabWidth": 2
+  "singleQuote": true,
+  "printWidth": 120,
+  "endOfLine": "auto",
+  "arrowParens": "always",
+  "importOrder": ["^@/common/(.*)$", "^@/lib/", "^@/mumble/(.*)$", "^[./]"]
 }

@@ -1,7 +1,6 @@
 'use client'
 
 import { joinURL } from 'ufo'
-import { authClient } from '@/lib/auth-client'
 
 export default function getFetcher() {
   const baseUrl = process.env.API_URL as string
