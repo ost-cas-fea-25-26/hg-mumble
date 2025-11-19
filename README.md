@@ -43,6 +43,7 @@ CLIENT_ID=<secret>
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 BETTER_AUTH_SECRET=irgendöppis
 E2E_HOST=https://hg-mumble-taupe.vercel.app/
+API_URL=https://qwacker-api-http-prod-927407260649.europe-west6.run.app/
 
 ```
 
