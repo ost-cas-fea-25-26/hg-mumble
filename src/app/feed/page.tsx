@@ -3,10 +3,10 @@ import clsx from 'clsx'
 import { Loader } from 'hg-storybook'
 import React from 'react'
 import { useTranslations } from 'use-intl'
-import { Post } from '@/common/components'
-import useApi from '@/common/hooks/data/useApi'
-import { MumblePostsList } from '@/common/types'
-import { fetchPosts } from '@/mumble/api'
+import Post from '@/components/post/Post'
+import useApi from '@/hooks/useApi'
+import { fetchPosts } from '@/methods/data/posts/fetchPosts'
+import { MumblePostsList } from '@/types/MumbleApi.types'
 
 export default function FeedPage() {
   const [postsQueryParams, _setPostsQueryParams] = React.useState<Record<string, string>>({})

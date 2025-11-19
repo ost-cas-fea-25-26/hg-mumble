@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { useTranslations } from 'use-intl'
-import { createComment, fetchReplies } from '@/mumble/api'
+import { createComment } from '@/methods/data/posts/createComment'
+import { fetchReplies } from '@/methods/data/posts/fetchReplies'
 
 type Props = {
   postId: string
