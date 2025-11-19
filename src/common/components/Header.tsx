@@ -24,11 +24,6 @@ export default function Header({}: Props) {
           {translate('login')}
         </Link>
       )}
-      {sessionData && (
-        <Link className={'text-white'} url={'/feed'}>
-          {translate('feed')}
-        </Link>
-      )}
       <div className={'flex items-center justify-between gap-2'}>
         {userData && <Avatar size={'s'} src={userData.avatarUrl} />}
         <Button aria-label={'settings'} variant={'primary'}>

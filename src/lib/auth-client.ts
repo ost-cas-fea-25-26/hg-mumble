@@ -10,6 +10,6 @@ export const { useSession } = authClient
 export const signIn = async () => {
   return await authClient.signIn.oauth2({
     providerId: 'zitadel',
-    callbackURL: '/feed',
+    callbackURL: '/',
   })
 }
