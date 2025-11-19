@@ -1,0 +1,5 @@
+- prefix REST-Api functions the following way:
+  - GET -> fetch; e.g; `fetchDetails`
+  - POST -> save | add; e.g; `saveSettings`
+  - PUT/PATCH -> update | add; e.g; `addLike`
+  - DELETE -> delete; e.g; `deletePost`

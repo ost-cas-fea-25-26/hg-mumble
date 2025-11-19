@@ -54,3 +54,41 @@ after pnpm i, run:
 npx playwright install
 ```
 to setup local browser binaries, only needs to be once per playwright version
+
+## Mock Server
+
+before you can use the mock server, you need to install prism:
+```
+npm i -g @stoplight/prism-cli
+```
+
+after installing the thing, you can run the mockserver:
+```
+pnpm mock
+OR: prism mock scripts/generate/swagger.json
+```
+note that this only mocks the quacker api, the auth will still be necessary (i think)
+
+
+change the API_URL in your .env to:
+```
+API_URL=http://localhost:4010
+OR: just run:
+pnpm dev:mock
+```
+
+### i need other mock data than the server returns
+
+you can change the data from the server by changin the "examples" in the swagger.json file:
+```json
+{
+  "properties": {
+    "id": {
+      ...
+      "example": "if i change this, the new value will be returned for every api call"
+    }
+  }
+}
+```
+
+if you need dynamic data: you're on your own

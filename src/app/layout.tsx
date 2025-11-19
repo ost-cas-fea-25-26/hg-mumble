@@ -1,12 +1,13 @@
-import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import './globals.css'
 import 'hg-storybook/style'
-import { SWRConfig } from 'swr'
-import { Toaster } from 'sonner'
+import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
+import { Geist, Geist_Mono } from 'next/font/google'
 import { ReactNode } from 'react'
-import getFetcher from '../methods/data/getFetcher'
+import { Toaster } from 'sonner'
+import { SWRConfig } from 'swr'
+import { Header } from '@/common/components'
+import { getFetcher } from '@/common/utils'
+import './globals.css'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -47,6 +48,7 @@ export default function RootLayout({
                 closeButton: true,
               }}
             />
+            <Header />
             {children}
           </body>
         </SWRConfig>

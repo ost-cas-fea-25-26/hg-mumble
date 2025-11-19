@@ -5,6 +5,7 @@ export const authClient = createAuthClient({
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
   plugins: [genericOAuthClient()],
 })
+export const { useSession } = authClient
 
 export const signIn = async () => {
   return await authClient.signIn.oauth2({

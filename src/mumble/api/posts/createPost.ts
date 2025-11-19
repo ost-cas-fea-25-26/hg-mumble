@@ -1,19 +1,8 @@
-import { Api } from '@/mumble/api/generated/Api'
+import { MumblePostCreateRequest } from '@/common/types/MumbleApi.types'
 
-export type MumblePost = {
-  text: string
-  image: File | null
-  creator: string
-  id: string
-  likeCount: number
-  likedByUser: boolean
-  mediaType: string | null
-  mediaUrl: string | null
-  replyCount: number
-  type: string | null
-}
-
-export async function createPost(post: MumblePost) {
-  const api = new Api()
-  return api.posts.postsControllerCreate(post, {})
+export async function createPost(url: string, { arg }: { arg: MumblePostCreateRequest }) {
+  return await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(arg),
+  })
 }

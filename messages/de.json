@@ -5,13 +5,19 @@
     "login": "Einloggen",
     "welcome-to-mumble": "Willkommen auf Mumble!",
     "welcome-subtitle": "Voluptatem qui cumque voluptatem quia tempora dolores distinctio vel repellat dicta.",
-    "not-logged-in": "Du bist noch nicht eingeloggt!"
+    "not-logged-in": "Du bist noch nicht eingeloggt!",
+    "feed": "neue Mumbles entdecken"
   },
   "mumble-post": {
-    "likes": "{count, plural, =0 {Likes} =1 {Like} other {# Likes}}",
+    "likes": "{count, plural, =0 {# Likes} =1 {# Like} other {# Likes}}",
     "liked": "Me Gusta",
-    "comments": "{count, plural, =0 {Kommentare} =1 {Kommentar} other {# Kommentare}}",
+    "comments": "{count, plural, =0 {# Kommentare} =1 {# Kommentar} other {# Kommentare}}",
     "link-copy":"Link kopieren",
-    "link-copied":"Link kopiert!"
+    "link-copied":"Link kopiert!",
+    "add-image": "Bild hinzufügen",
+    "save-reply": "Kommentieren",
+    "comment-success": "Kommentar erfolgreich erfasst",
+    "comment-error": "beim Kommentieren ist ein Fehler aufgetreten"
+
   }
 }

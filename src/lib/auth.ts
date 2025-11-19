@@ -1,8 +1,8 @@
 import { betterAuth } from 'better-auth'
-import { Pool } from 'pg'
 import { nextCookies } from 'better-auth/next-js'
 import { genericOAuth } from 'better-auth/plugins'
 import { headers } from 'next/headers'
+import { Pool } from 'pg'
 import { cache } from 'react'
 
 export const auth = betterAuth({
@@ -73,3 +73,10 @@ export const getAccessToken = cache(async () => {
 
   return token
 })
+
+export async function authHeader(): Promise<HeadersInit> {
+  const token = await getAccessToken()
+  return token?.accessToken
+    ? { Authorization: `Bearer ${token?.accessToken}` }
+    : {}
+}
