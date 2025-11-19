@@ -3,5 +3,6 @@ export type {
   MumbleUser,
   MumblePostsList,
   MumbleCommentCreateRequest,
+  MumblePostCreateRequest,
   MumblePostGetRequestParams,
 } from './MumbleApi.types'

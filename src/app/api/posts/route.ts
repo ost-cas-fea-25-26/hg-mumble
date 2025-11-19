@@ -1,11 +1,14 @@
-import { MumblePostCreateRequest } from '@/common/types/MumbleApi.types'
-import { Api } from '@/mumble/api'
+import { MumblePostCreateRequest } from '@/common/types'
+import { getApi } from '@/mumble/api/getApi'
 
 export async function GET() {
-  return await new Api().posts.postsControllerList({}, { baseUrl: process.env.API_URL })
+  const api = await getApi()
+  return await api.posts.postsControllerList({}, {})
 }
 
 export async function POST() {
+  //todo
   const data: MumblePostCreateRequest = {}
-  return await new Api().posts.postsControllerCreate(data)
+  const api = await getApi()
+  return await api.posts.postsControllerCreate(data)
 }

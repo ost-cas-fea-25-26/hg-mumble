@@ -1,21 +1,15 @@
-import { MumbleCommentCreateRequest } from '@/common/types/MumbleApi.types'
-import { authHeader } from '@/lib/auth'
-import { Api } from '@/mumble/api'
+import { MumbleCommentCreateRequest } from '@/common/types'
+import { getApi } from '@/mumble/api/getApi'
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const data = (await req.json()) as MumbleCommentCreateRequest
   const id = await params.then(({ id }) => id)
-  return await new Api().posts.postsControllerReply(id, data, {
-    baseUrl: process.env.API_URL,
-    headers: {
-      ...(await authHeader()),
-    },
-  })
+  const api = await getApi()
+  return await api.posts.postsControllerReply(id, data, {})
 }
 
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
   const id = await params.then(({ id }) => id)
-  return await new Api().posts.postsControllerReplies(id, {
-    baseUrl: process.env.API_URL,
-  })
+  const api = await getApi()
+  return await api.posts.postsControllerReplies(id, {})
 }
