@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "cross-env PGSSLMODE=require NODE_TLS_REJECT_UNAUTHORIZED=0 next dev --turbopack",
+    "dev:mock": "cross-env PGSSLMODE=require NODE_TLS_REJECT_UNAUTHORIZED=0 API_URL=http://localhost:4010 next dev --turbopack",
+    "mock": "prism mock scripts/generate/swagger.json",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
