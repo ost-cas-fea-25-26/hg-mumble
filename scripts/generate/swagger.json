@@ -1305,6 +1305,7 @@
                             "example": "Doe"
                           },
                           "avatarUrl": {
+                            "example": "avatar.png",
                             "type": "string",
                             "description": "URL to the avatar of the user. This field may be empty (empty string)."
                           }
@@ -1380,6 +1381,7 @@
                       "example": "Doe"
                     },
                     "avatarUrl": {
+                      "example": "avatar.png",
                       "type": "string",
                       "description": "URL to the avatar of the user. This field may be empty (empty string)."
                     }
@@ -1444,6 +1446,7 @@
                       "example": "Doe"
                     },
                     "avatarUrl": {
+                      "example": "avatar.png",
                       "type": "string",
                       "description": "URL to the avatar of the user. This field may be empty (empty string)."
                     }
