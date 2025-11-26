@@ -1,4 +1,4 @@
-import { MumbleCommentCreateRequest } from '@/common/types'
+import { MumbleCommentCreateRequest } from '@/types'
 
 export async function createComment(url: string, { arg }: { arg: MumbleCommentCreateRequest }) {
   return await fetch(url, {

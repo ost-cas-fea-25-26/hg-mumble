@@ -1,3 +1,5 @@
+import Header from '@/components/Header'
+import getFetcher from '@/utils/getFetcher'
 import 'hg-storybook/style'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
@@ -5,8 +7,6 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { ReactNode } from 'react'
 import { Toaster } from 'sonner'
 import { SWRConfig } from 'swr'
-import { Header } from '@/common/components'
-import { getFetcher } from '@/common/utils'
 import './globals.css'
 
 const geistSans = Geist({

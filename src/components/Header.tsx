@@ -1,10 +1,10 @@
 'use client'
+import { fetchOwnUser } from '@/methods/data/users/fetchOwnUser'
 import { Avatar, Button, Link, Logout, Mumble, Settings } from 'hg-storybook'
 import React from 'react'
 import useSWR from 'swr'
 import { useTranslations } from 'use-intl'
 import { useSession } from '@/lib/auth-client'
-import { fetchOwnUser } from '@/mumble/api'
 
 type Props = {}
 

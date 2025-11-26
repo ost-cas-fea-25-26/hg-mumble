@@ -1,4 +1,4 @@
-import { MumblePostCreateRequest } from '@/common/types/MumbleApi.types'
+import { MumblePostCreateRequest } from '@/types'
 
 export async function createPost(url: string, { arg }: { arg: MumblePostCreateRequest }) {
   return await fetch(url, {
