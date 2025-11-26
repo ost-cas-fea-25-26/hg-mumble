@@ -1,26 +1,28 @@
 'use client'
+
 import Post from '@/components/Post'
-import useApi from '@/hooks/data/useApi'
-import { fetchPosts } from '@/methods/data/posts/fetchPosts'
-import { MumblePostsList } from '@/types'
+import { Schema } from '@/interfaces/Schema'
+import fetcher from '@/methods/data/fetcher'
 import clsx from 'clsx'
 import { Loader } from 'hg-storybook'
-import React from 'react'
+import React, { useEffect } from 'react'
+import useSWR from 'swr'
 import { useTranslations } from 'use-intl'
 
 export default function Home() {
-  const [postsQueryParams, _setPostsQueryParams] = React.useState<Record<string, string>>({})
-  const { data, isLoading } = useApi<MumblePostsList>('api/posts', new URLSearchParams(postsQueryParams), fetchPosts)
   const translate = useTranslations('general')
+  const { data: posts, isLoading } = useSWR<Schema<'Posts'>>('api/posts', fetcher)
 
-  if (isLoading || !data)
+  useEffect(() => {
+    console.log(posts)
+  }, [posts])
+
+  if (isLoading || !posts)
     return (
       <div className={'flex h-full flex-col items-center justify-center'}>
         <Loader size={'large'} color={'primary'} />
       </div>
     )
-
-  const { data: posts } = data!
 
   return (
     <section className={'flex items-center justify-center bg-blue-100 pt-2'}>
@@ -34,7 +36,7 @@ export default function Home() {
           <span className={clsx('text-secondary text-lg font-semibold')}>{translate('welcome-subtitle')}</span>
         </div>
 
-        {posts.map((post) => (
+        {posts.data.map((post) => (
           <Post key={post.id} post={post} />
         ))}
       </div>

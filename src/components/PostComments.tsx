@@ -1,6 +1,5 @@
 'use client'
-import { createComment } from '@/methods/data/posts/createComment'
-import { fetchReplies } from '@/methods/data/posts/fetchReplies'
+import { fetcherMutation } from '@/methods/data/fetcher'
 import { Button, Loader, Textarea, Upload } from 'hg-storybook'
 import React, { useState } from 'react'
 import useSWR from 'swr'
