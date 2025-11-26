@@ -1,4 +1,8 @@
 'use client'
+import PostComments from '@/components/PostComments'
+import { addLike } from '@/methods/data/posts/addLike'
+import { fetchUser } from '@/methods/data/users/fetchUser'
+import { MumblePost } from '@/types'
 import clsx from 'clsx'
 import {
   Avatar,
@@ -17,9 +21,6 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { useTranslations } from 'use-intl'
-import { PostComments } from '@/common/components'
-import { MumblePost } from '@/common/types'
-import { addLike, fetchUser } from '@/mumble/api'
 
 export default function Post({ post }: { post: MumblePost }) {
   const { data: userDetails } = useSWR(`api/users/${post.creator}`, fetchUser)

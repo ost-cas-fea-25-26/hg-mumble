@@ -1,4 +1,4 @@
-import { getMumbleApi } from '@/mumble/api/getMumbleApi'
+import { getMumbleApi } from '@/methods/data/getMumbleApi'
 
 export async function PUT(_: Request, { params }: { params: Promise<{ id: string }> }) {
   const id = await params.then(({ id }) => id)

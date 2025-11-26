@@ -1,12 +1,12 @@
 'use client'
+import Post from '@/components/Post'
+import useApi from '@/hooks/data/useApi'
+import { fetchPosts } from '@/methods/data/posts/fetchPosts'
+import { MumblePostsList } from '@/types'
 import clsx from 'clsx'
 import { Loader } from 'hg-storybook'
 import React from 'react'
 import { useTranslations } from 'use-intl'
-import { Post } from '@/common/components'
-import { MumblePostsList } from '@/common/types'
-import { fetchPosts } from '@/mumble/api'
-import useApi from '../common/hooks/data/useApi'
 
 export default function Home() {
   const [postsQueryParams, _setPostsQueryParams] = React.useState<Record<string, string>>({})

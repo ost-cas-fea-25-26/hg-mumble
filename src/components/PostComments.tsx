@@ -1,10 +1,11 @@
 'use client'
+import { createComment } from '@/methods/data/posts/createComment'
+import { fetchReplies } from '@/methods/data/posts/fetchReplies'
 import { Button, Loader, Textarea, Upload } from 'hg-storybook'
 import React, { useState } from 'react'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { useTranslations } from 'use-intl'
-import { createComment, fetchReplies } from '@/mumble/api'
 
 type Props = {
   postId: string
