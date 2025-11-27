@@ -7,7 +7,6 @@ import { useTranslations } from 'use-intl'
 import { useSession } from '@/lib/auth-client'
 
 type Props = {}
-
 export default function Header({}: Props) {
   const { data: userData } = useSWR('api/users/me', fetchOwnUser)
 
@@ -15,17 +14,21 @@ export default function Header({}: Props) {
   const translate = useTranslations('general')
   return (
     <header className={'bg-primary flex h-20 items-center justify-around text-white'}>
-      <div className={'flex items-center justify-between gap-2'}>
+      <Link className={'flex items-center justify-between gap-2'} url={'/'}>
         <Mumble size={'s'} color={'white'} />
         <h1 className={'text-l desktop:text-xl font-bold'}>Mumble</h1>
-      </div>
+      </Link>
       {!sessionData && (
         <Link className={'text-white'} url={'/signin'}>
           {translate('login')}
         </Link>
       )}
       <div className={'flex items-center justify-between gap-2'}>
-        {userData && <Avatar size={'s'} src={userData.avatarUrl} />}
+        {userData && (
+          <Link url={`/profile`}>
+            <Avatar size={'s'} src={userData.avatarUrl} />
+          </Link>
+        )}
         <Button aria-label={'settings'} variant={'primary'}>
           <Settings size="xs" color={'white'} />
         </Button>
