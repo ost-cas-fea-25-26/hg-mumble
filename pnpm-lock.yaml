@@ -28,7 +28,7 @@ importers:
         version: 10.1.0
       hg-storybook:
         specifier: ^1.21.1
-        version: 1.21.1(@headlessui/react@2.2.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(clsx@2.1.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.17)
+        version: 1.22.0(@headlessui/react@2.2.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(clsx@2.1.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.17)
       next:
         specifier: 16.0.4
         version: 16.0.4(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -2268,8 +2268,8 @@ packages:
   hermes-parser@0.25.1:
     resolution: {integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==}
 
-  hg-storybook@1.21.1:
-    resolution: {integrity: sha512-TcrRFHI0SDJBB2UacBFfvKY16fYtJuWkzTd604JTbdSS7cNPYEauNSTZFaQ8k3Bc3Kpes3ZdmbRIqqIhHKXGwg==}
+  hg-storybook@1.22.0:
+    resolution: {integrity: sha512-cR4wIhRHv0LjlOhWP5BpF25zaNXVuM20SzGuN/AHMGunJLbY1Tym/+2jh2GsfY0LPiVK5Rtf9fK7DJgndz5SQA==}
     peerDependencies:
       '@headlessui/react': ^2.2.9
       clsx: ^2.1.1
@@ -6003,7 +6003,7 @@ snapshots:
     dependencies:
       hermes-estree: 0.25.1
 
-  hg-storybook@1.21.1(@headlessui/react@2.2.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(clsx@2.1.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.17):
+  hg-storybook@1.22.0(@headlessui/react@2.2.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(clsx@2.1.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.17):
     dependencies:
       '@headlessui/react': 2.2.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       clsx: 2.1.1
