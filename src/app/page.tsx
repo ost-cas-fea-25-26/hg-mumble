@@ -1,4 +1,5 @@
 'use client'
+import CreatePost from '@/components/CreatePost'
 import Post from '@/components/Post'
 import useApi from '@/hooks/data/useApi'
 import { fetchPosts } from '@/methods/data/posts/fetchPosts'
@@ -7,10 +8,12 @@ import clsx from 'clsx'
 import { Loader } from 'hg-storybook'
 import React from 'react'
 import { useTranslations } from 'use-intl'
+import { useSession } from '@/lib/auth-client'
 
 export default function Home() {
   const [postsQueryParams, _setPostsQueryParams] = React.useState<Record<string, string>>({})
   const { data, isLoading } = useApi<MumblePostsList>('api/posts', new URLSearchParams(postsQueryParams), fetchPosts)
+  const { data: sessionData } = useSession()
   const translate = useTranslations('general')
 
   if (isLoading || !data)
@@ -34,6 +37,7 @@ export default function Home() {
           <span className={clsx('text-secondary text-lg font-semibold')}>{translate('welcome-subtitle')}</span>
         </div>
 
+        {sessionData && <CreatePost />}
         {posts.map((post) => (
           <Post key={post.id} post={post} />
         ))}
