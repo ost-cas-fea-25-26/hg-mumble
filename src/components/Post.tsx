@@ -17,16 +17,27 @@ import {
   TimedButton,
   Toggle,
 } from 'hg-storybook'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { useTranslations } from 'use-intl'
 
-export default function Post({ post }: { post: MumblePost }) {
+interface Props {
+  post: MumblePost
+}
+
+export default function Post({ post }: Props) {
+  const router = useRouter()
   const { data: userDetails } = useSWR(`api/users/${post.creator}`, fetchUser)
   const { trigger: likePost } = useSWRMutation(`api/posts/${post.id}/like`, addLike)
   const translate = useTranslations('mumble-post')
   const [showCommentInput, setShowCommentInput] = useState<boolean>(false)
+
+  const handleCopyLink = () => {
+    const postLink = `${window.location.origin}/post/${post.id}`
+    navigator.clipboard.writeText(postLink)
+  }
 
   return (
     <div className="relative m-2 flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white pt-26 pr-4 pb-4 pl-4">
@@ -60,7 +71,8 @@ export default function Post({ post }: { post: MumblePost }) {
         <Toggle
           color={'primary'}
           onChange={() => {
-            setShowCommentInput((prev) => !prev)
+            //setShowCommentInput((prev) => !prev)
+            router.push(`/post/${post.id}`)
           }}
           uncheckedProps={{
             icon: <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />,
@@ -84,7 +96,7 @@ export default function Post({ post }: { post: MumblePost }) {
           }}
         />
         <TimedButton
-          onClick={() => {}}
+          onClick={handleCopyLink}
           childrenOnClick={
             <div className={'text-secondary flex items-center gap-2'}>
               <Share color={'currentColor'} size={'xs'} />

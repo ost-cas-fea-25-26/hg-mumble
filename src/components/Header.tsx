@@ -9,7 +9,7 @@ import { useSession } from '@/lib/auth-client'
 type Props = {}
 
 export default function Header({}: Props) {
-  const { data: userData } = useSWR('api/users/me', fetchOwnUser)
+  const { data: userData } = useSWR('/api/users/me', fetchOwnUser)
 
   const { data: sessionData } = useSession() || {}
   const translate = useTranslations('general')
