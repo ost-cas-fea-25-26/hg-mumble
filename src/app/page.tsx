@@ -24,7 +24,7 @@ export default async function Home() {
         {sessionData && <CreatePost />}
         {posts.data!.map((post) => {
           return <Post key={post.id} post={post} />
-        })}{' '}
+        })}
       </div>
     </section>
   )
