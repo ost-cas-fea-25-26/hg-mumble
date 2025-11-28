@@ -37,7 +37,7 @@ export default function RootLayout({
             fetcher: getFetcher,
           }}
         >
-          <body className={`h-full antialiased`}>
+          <body className={`h-full bg-blue-100 antialiased`}>
             <Toaster
               toastOptions={{
                 duration: 100000,
@@ -49,7 +49,15 @@ export default function RootLayout({
               }}
             />
             <Header />
-            {children}
+            <section className={'flex items-center justify-center pt-2'}>
+              <div
+                className={
+                  'desktop:max-w-[680px]! mb-24 flex h-fit w-full max-w-full flex-col items-center justify-center gap-2 rounded-md p-6'
+                }
+              >
+                {children}
+              </div>
+            </section>
           </body>
         </SWRConfig>
       </NextIntlClientProvider>
