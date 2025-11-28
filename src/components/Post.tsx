@@ -17,16 +17,14 @@ import {
   TimedButton,
   Toggle,
 } from 'hg-storybook'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { useTranslations } from 'use-intl'
 
 export default function Post({ post }: { post: MumblePost }) {
   const { data: userDetails } = useSWR(`api/users/${post.creator}`, fetchUser)
-
   const { trigger: likePost } = useSWRMutation(`api/posts/${post.id}/like`, addLike)
-
   const translate = useTranslations('mumble-post')
   const [showCommentInput, setShowCommentInput] = useState<boolean>(false)
 
