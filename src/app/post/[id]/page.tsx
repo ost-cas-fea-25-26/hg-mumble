@@ -1,4 +1,4 @@
-import { getPost } from '@/actions/posts/getPost'
+import { fetchPost } from '@/actions/posts/fetchPost'
 import Post from '@/components/Post'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   const postId = (await params).id
-  const post = await getPost(postId)
+  const post = await fetchPost(postId)
 
   return <div>{post && <Post post={post} />}</div>
 }
