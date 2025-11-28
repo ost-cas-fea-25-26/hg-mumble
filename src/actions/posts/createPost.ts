@@ -1,11 +1,11 @@
 'use server'
 
-import { getMumbleApi } from '@/methods/data/getMumbleApi'
+import { getMumbleApi } from '@/actions/getMumbleApi'
 
 export async function createPost(text: string, image?: File) {
   const api = await getMumbleApi()
-  return await api.posts.postsControllerCreate({
-    image,
+  return await api.posts.postsCreate({
+    media: image,
     text,
   })
 }
