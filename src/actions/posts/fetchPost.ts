@@ -1,9 +1,9 @@
 'use server'
 
-import { getMumbleApi } from '@/methods/data/getMumbleApi'
-import { MumblePost } from '@/types'
+import { getMumbleApi } from '@/actions/getMumbleApi'
+import { Post } from '@/mumble/api/generated/MumbleApi'
 
 export async function fetchPost(id: string) {
   const api = await getMumbleApi()
-  return (await api.posts.postsControllerSingle(id)).data as MumblePost
+  return (await api.posts.postsDetail(id)).data as Post
 }

@@ -1,0 +1,2112 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Mumble API",
+    "description": "API for 'mumble'. A simple messaging/twitter like API for the CAS Frontend Engineering Advanced.",
+    "contact": {
+      "name": "smartive AG",
+      "url": "https://smartive.ch",
+      "email": "hello@smartive.ch"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/posts": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Fetch/Search a paginated list of posts.",
+        "description": "Fetch or search a paginated list of posts, ordered by the time of their creation.",
+        "parameters": [
+          {
+            "name": "newerThan",
+            "in": "query",
+            "description": "ID of a post. If set, only return posts that are newer than the given post ID.\nIf omitted, no newer than filter is applied. The ID is a ULID (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G).",
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          },
+          {
+            "name": "olderThan",
+            "in": "query",
+            "description": "ID of a post. If set, only return posts that are older than the given post ID.\nIf omitted, no older than filter is applied.",
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "If set, search for posts that contain a specific text.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Search for posts that contain this tag (#TEXT).",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "creators",
+            "in": "query",
+            "description": "Search for posts that were created by one of the given users (ID).\nAll IDs must be valid user IDs and are \"OR\"ed.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "likedBy",
+            "in": "query",
+            "description": "Search for posts that were liked by specific user(s).\nMultiple user IDs are \"OR\"ed (if a post is liked by user A OR B).",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset for pagination of further calls. Defaults to 0 if omitted.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit of items to return. Minimum is 1, maximum is 1000.\nDefaults to 100.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 100
+            },
+            "example": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostPaginatedResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Create a new post.",
+        "description": "Create a new post with the logged in user. A post can contain text and/or an image. Either text or the image must be provided, otherwise a BadRequest is returned. Upload Limit: 2 MB.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text for the new post. If not set, a media file must be set.\nIf both are omitted, the API will return a 400 Bad Request.",
+                    "writeOnly": true
+                  },
+                  "media": {
+                    "type": "string",
+                    "description": "Media file for the post. If not set, a text must be set.\nIf both are omitted, the API will return a 400 Bad Request.",
+                    "format": "binary",
+                    "writeOnly": true
+                  }
+                }
+              },
+              "encoding": {
+                "text": {
+                  "style": "form"
+                },
+                "media": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success - Created a new Post",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Fetch a specific post with the given ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "required": true,
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Update a post with the given ID.",
+        "description": "Update (replace) a post. This replaces the entire post. If the post does not exist, a NotFound is returned. If the post is not valid (has no text and no media), a BadRequest is returned. There is no partial update on this method.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "required": true,
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text for the new post. If not set, a media file must be set.\nIf both are omitted, the API will return a 400 Bad Request.",
+                    "writeOnly": true
+                  },
+                  "media": {
+                    "type": "string",
+                    "description": "Media file for the post. If not set, a text must be set.\nIf both are omitted, the API will return a 400 Bad Request.",
+                    "format": "binary",
+                    "writeOnly": true
+                  }
+                }
+              },
+              "encoding": {
+                "text": {
+                  "style": "form"
+                },
+                "media": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success - Replaced the Post",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Partial update of a post.",
+        "description": "This partially updates (patches) a post with the given ID. All fields that are \"null\" are ignored and not updated. If the post text is set to an empty string, it will be removed (null). The post must always have either text or media. If this patch results in a post with no text and no media, a BadRequest is returned.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "required": true,
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePostData"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePostData"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePostData"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Success - No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Delete a given post.",
+        "description": "This can be a post or a reply. The post is marked as deleted and will not be returned in any search.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "required": true,
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success - No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    },
+    "/posts/{id}/media": {
+      "put": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Update the media of a post.",
+        "description": "This replaces the entire media of the post and returns the new media URL.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "required": true,
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "media": {
+                    "required": [
+                      "media"
+                    ],
+                    "type": "string",
+                    "description": "Media file for the upload.",
+                    "format": "binary",
+                    "writeOnly": true
+                  }
+                }
+              },
+              "encoding": {
+                "media": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Remove the media of a post.",
+        "description": "Remove the media of a post with the given ID. The post must always have either text or media. If this delete results in a post with no text and no media, a BadRequest is returned.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "required": true,
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success - No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    },
+    "/posts/{id}/replies": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Fetch a list of replies.",
+        "description": "Fetch a list of (paginated) replies for a given post. There is only one level for replies. Replies cannot have replies. Trying to fetch replies for a reply will result in a BadRequest.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "required": true,
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset for pagination of further calls. Defaults to 0 if omitted.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit of items to return. Minimum is 1, maximum is 1000.\nDefaults to 100.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 100
+            },
+            "example": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReplyPaginatedResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Create a reply to a post.",
+        "description": "Create a new reply to a post. It is not possible to create a reply to a reply. This results in a BadRequest.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "required": true,
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text for the new post. If not set, a media file must be set.\nIf both are omitted, the API will return a 400 Bad Request.",
+                    "writeOnly": true
+                  },
+                  "media": {
+                    "type": "string",
+                    "description": "Media file for the post. If not set, a text must be set.\nIf both are omitted, the API will return a 400 Bad Request.",
+                    "format": "binary",
+                    "writeOnly": true
+                  }
+                }
+              },
+              "encoding": {
+                "text": {
+                  "style": "form"
+                },
+                "media": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reply"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    },
+    "/posts/{id}/likes": {
+      "put": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Like a post.",
+        "description": " A user can only like a post once. This is an idempotent operation. If the user already likes the post, nothing is updated.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "required": true,
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success - No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Post"
+        ],
+        "summary": "Unlike a post.",
+        "description": "Unlike the given post for the current user. If the user does not like the post, nothing is updated.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "required": true,
+            "schema": {
+              "title": "ULID",
+              "type": "string",
+              "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+              "format": "ULID",
+              "externalDocs": {
+                "description": "ULID Specification",
+                "url": "https://github.com/ulid/spec"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success - No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Fetch a paginated list of users.",
+        "description": "Fetch a paginated list of users. If the caller is authenticated, the user list will contain more data.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset for pagination of further calls. Defaults to 0 if omitted.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit of items to return. Minimum is 1, maximum is 1000.\nDefaults to 100.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 100
+            },
+            "example": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPaginatedResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update the authenticated user profile.",
+        "description": "Update the current authenticated user profile. Returns a bad request if fields are set to an empty string. Omitting a field does not update them. Uploading an avatar is done via the /users/avatar endpoint. The username is unique, duplicating it results in an error.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserData"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserData"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Success - The user profile was updated"
+          },
+          "400": {
+            "description": "Bad Request - Some fields were set to empty string"
+          },
+          "404": {
+            "description": "Not Found - The user was not found in the database"
+          },
+          "409": {
+            "description": "Conflict - The username is already taken"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get a specific user by their ID.",
+        "description": "Fetch a specific user profile from the API. If the caller is authenticated, more information than the public profile is provided.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    },
+    "/users/avatar": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Upload an avatar.",
+        "description": "Upload an avatar picture for the actual authenticated user. Returns the new media url to the uploaded user avatar. Upload limit: 0.5 MB.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "media": {
+                    "required": [
+                      "media"
+                    ],
+                    "type": "string",
+                    "description": "Media file for the upload.",
+                    "format": "binary",
+                    "writeOnly": true
+                  }
+                }
+              },
+              "encoding": {
+                "media": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success - New Avatar URL"
+          },
+          "400": {
+            "description": "Bad Request - The uploaded file was too large, missing, or not an image"
+          },
+          "404": {
+            "description": "Not Found - User with the given ID was not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Remove an avatar.",
+        "description": "Remove the current avatar picture (if any) for the actual authenticated user.",
+        "responses": {
+          "204": {
+            "description": "Success - Avatar deleted"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    },
+    "/users/{id}/followers": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Fetch a list of followers.",
+        "description": " Fetch a (paginated) list of followers for a given user (All users that follow the given user). Returns only public information (public profile).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset for pagination of further calls. Defaults to 0 if omitted.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit of items to return. Minimum is 1, maximum is 1000.\nDefaults to 100.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 100
+            },
+            "example": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPaginatedResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Follow a user.",
+        "description": "Add the currently authenticated user as a follower to the given user (id). User A (authenticated) calls this endpoint to follow user B (id).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success - No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Unfollow a user.",
+        "description": "Remove the currently authenticated user from the follower list of the given user (id). User A (authenticated) calls this endpoint to unfollow user B (id).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success - No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    },
+    "/users/{id}/followees": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Fetch a list of followees.",
+        "description": "Fetch a (paginated) list of followees for a given user(All users that are being followed by the given user). Returns only public information (public profile).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset for pagination of further calls. Defaults to 0 if omitted.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit of items to return. Minimum is 1, maximum is 1000.\nDefaults to 100.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 100
+            },
+            "example": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPaginatedResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    },
+    "/posts/_sse": {
+      "get": {
+        "tags": [
+          "Real Time Data"
+        ],
+        "summary": "Get a stream of new or updated posts via Server Sent Event push.",
+        "description": "The server sent events contain newly created posts as well as updated posts. \r\nDepending on the authentication state, the post contain more or less information.\r\n\r\nCurrently, the following events are supported:\r\n- postCreated (for creating a new post or a reply)\r\n- postUpdated\r\n- postDeleted\r\n- postLiked\r\n- postUnliked\r\n\r\nAs an example, using the posts server sent events in javascript is done as follows:\r\n```js\r\nconst evtSource = new EventSource(\"/posts/_sse\");\r\nevtSource.addEventListener('postCreated', (e) => console.log(e.data));\r\n```\r\n\r\nYou may read more about server sent events in the\r\n[documentation about Using Server Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)",
+        "responses": {
+          "200": {
+            "description": "Event stream that contains new or updated posts.",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "title": "Post Created Event",
+                        "required": [
+                          "id",
+                          "event",
+                          "data"
+                        ],
+                        "properties": {
+                          "id": {
+                            "title": "ID of the event.",
+                            "format": "uuid",
+                            "readOnly": true
+                          },
+                          "event": {
+                            "title": "Event type.",
+                            "enum": [
+                              "postCreated"
+                            ],
+                            "format": "string",
+                            "readOnly": true
+                          },
+                          "data": {
+                            "$ref": "#/components/schemas/Post"
+                          }
+                        },
+                        "description": "Server Sent Event that contains a newly created post as the payload."
+                      },
+                      {
+                        "title": "Reply Created Event",
+                        "required": [
+                          "id",
+                          "event",
+                          "data"
+                        ],
+                        "properties": {
+                          "id": {
+                            "title": "ID of the event.",
+                            "format": "uuid",
+                            "readOnly": true
+                          },
+                          "event": {
+                            "title": "Event type.",
+                            "enum": [
+                              "postCreated"
+                            ],
+                            "format": "string",
+                            "readOnly": true
+                          },
+                          "data": {
+                            "$ref": "#/components/schemas/Reply"
+                          }
+                        },
+                        "description": "Server Sent Event that contains a newly created reply to a post as the payload."
+                      },
+                      {
+                        "title": "Post/Reply Updated Event",
+                        "required": [
+                          "id",
+                          "event",
+                          "data"
+                        ],
+                        "properties": {
+                          "id": {
+                            "title": "ID of the event.",
+                            "format": "uuid",
+                            "readOnly": true
+                          },
+                          "event": {
+                            "title": "Event type.",
+                            "enum": [
+                              "postUpdated"
+                            ],
+                            "format": "string",
+                            "readOnly": true
+                          },
+                          "data": {
+                            "$ref": "#/components/schemas/PostBase"
+                          }
+                        },
+                        "description": "Server Sent Event that contains an updated post as the payload."
+                      },
+                      {
+                        "title": "Reply Created Event",
+                        "required": [
+                          "id",
+                          "event",
+                          "data"
+                        ],
+                        "properties": {
+                          "id": {
+                            "title": "ID of the event.",
+                            "format": "uuid",
+                            "readOnly": true
+                          },
+                          "event": {
+                            "title": "Event type.",
+                            "enum": [
+                              "postDeleted"
+                            ],
+                            "format": "string",
+                            "readOnly": true
+                          },
+                          "data": {
+                            "$ref": "#/components/schemas/DeletedPost"
+                          }
+                        },
+                        "description": "Server Sent Event that contains the id of a deleted post as the payload."
+                      },
+                      {
+                        "title": "Reply Created Event",
+                        "required": [
+                          "id",
+                          "event",
+                          "data"
+                        ],
+                        "properties": {
+                          "id": {
+                            "title": "ID of the event.",
+                            "format": "uuid",
+                            "readOnly": true
+                          },
+                          "event": {
+                            "title": "Event type.",
+                            "enum": [
+                              "postLiked"
+                            ],
+                            "format": "string",
+                            "readOnly": true
+                          },
+                          "data": {
+                            "$ref": "#/components/schemas/LikeInfo"
+                          }
+                        },
+                        "description": "Server Sent Event that contains the userid and postid of the liked post as the payload."
+                      },
+                      {
+                        "title": "Reply Created Event",
+                        "required": [
+                          "id",
+                          "event",
+                          "data"
+                        ],
+                        "properties": {
+                          "id": {
+                            "title": "ID of the event.",
+                            "format": "uuid",
+                            "readOnly": true
+                          },
+                          "event": {
+                            "title": "Event type.",
+                            "enum": [
+                              "postUnliked"
+                            ],
+                            "format": "string",
+                            "readOnly": true
+                          },
+                          "data": {
+                            "$ref": "#/components/schemas/LikeInfo"
+                          }
+                        },
+                        "description": "Server Sent Event that contains the userid and postid of the unliked post as the payload."
+                      }
+                    ]
+                  },
+                  "format": "event-stream"
+                }
+              }
+            }
+          },
+          "Event - postCreated": {
+            "description": "Definition of the postCreated event.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Post Created Event",
+                  "required": [
+                    "id",
+                    "event",
+                    "data"
+                  ],
+                  "properties": {
+                    "id": {
+                      "title": "ID of the event.",
+                      "format": "uuid",
+                      "readOnly": true
+                    },
+                    "event": {
+                      "title": "Event type.",
+                      "enum": [
+                        "postCreated"
+                      ],
+                      "format": "string",
+                      "readOnly": true
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Post"
+                    }
+                  },
+                  "description": "Server Sent Event that contains a newly created post as the payload."
+                }
+              }
+            }
+          },
+          "Event - replyCreated": {
+            "description": "Definition of the replyCreated event.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Reply Created Event",
+                  "required": [
+                    "id",
+                    "event",
+                    "data"
+                  ],
+                  "properties": {
+                    "id": {
+                      "title": "ID of the event.",
+                      "format": "uuid",
+                      "readOnly": true
+                    },
+                    "event": {
+                      "title": "Event type.",
+                      "enum": [
+                        "postCreated"
+                      ],
+                      "format": "string",
+                      "readOnly": true
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Reply"
+                    }
+                  },
+                  "description": "Server Sent Event that contains a newly created reply to a post as the payload."
+                }
+              }
+            }
+          },
+          "Event - postUpdated": {
+            "description": "Definition of the postUpdated event.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Post/Reply Updated Event",
+                  "required": [
+                    "id",
+                    "event",
+                    "data"
+                  ],
+                  "properties": {
+                    "id": {
+                      "title": "ID of the event.",
+                      "format": "uuid",
+                      "readOnly": true
+                    },
+                    "event": {
+                      "title": "Event type.",
+                      "enum": [
+                        "postUpdated"
+                      ],
+                      "format": "string",
+                      "readOnly": true
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/PostBase"
+                    }
+                  },
+                  "description": "Server Sent Event that contains an updated post as the payload."
+                }
+              }
+            }
+          },
+          "Event - postDeleted": {
+            "description": "Definition of the postDeleted event.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Reply Created Event",
+                  "required": [
+                    "id",
+                    "event",
+                    "data"
+                  ],
+                  "properties": {
+                    "id": {
+                      "title": "ID of the event.",
+                      "format": "uuid",
+                      "readOnly": true
+                    },
+                    "event": {
+                      "title": "Event type.",
+                      "enum": [
+                        "postDeleted"
+                      ],
+                      "format": "string",
+                      "readOnly": true
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DeletedPost"
+                    }
+                  },
+                  "description": "Server Sent Event that contains the id of a deleted post as the payload."
+                }
+              }
+            }
+          },
+          "Event - postLiked": {
+            "description": "Definition of the postLiked event.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Reply Created Event",
+                  "required": [
+                    "id",
+                    "event",
+                    "data"
+                  ],
+                  "properties": {
+                    "id": {
+                      "title": "ID of the event.",
+                      "format": "uuid",
+                      "readOnly": true
+                    },
+                    "event": {
+                      "title": "Event type.",
+                      "enum": [
+                        "postLiked"
+                      ],
+                      "format": "string",
+                      "readOnly": true
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LikeInfo"
+                    }
+                  },
+                  "description": "Server Sent Event that contains the userid and postid of the liked post as the payload."
+                }
+              }
+            }
+          },
+          "Event - postUnliked": {
+            "description": "Definition of the postUnliked event.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Reply Created Event",
+                  "required": [
+                    "id",
+                    "event",
+                    "data"
+                  ],
+                  "properties": {
+                    "id": {
+                      "title": "ID of the event.",
+                      "format": "uuid",
+                      "readOnly": true
+                    },
+                    "event": {
+                      "title": "Event type.",
+                      "enum": [
+                        "postUnliked"
+                      ],
+                      "format": "string",
+                      "readOnly": true
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LikeInfo"
+                    }
+                  },
+                  "description": "Server Sent Event that contains the userid and postid of the unliked post as the payload."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "None": [ ]
+          },
+          {
+            "ZITADEL": [ ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DeletedPost": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "ULID",
+            "type": "string",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "format": "ULID",
+            "externalDocs": {
+              "description": "ULID Specification",
+              "url": "https://github.com/ulid/spec"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "LikeInfo": {
+        "type": "object",
+        "properties": {
+          "postId": {
+            "title": "ULID",
+            "type": "string",
+            "description": "Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)",
+            "format": "ULID",
+            "externalDocs": {
+              "description": "ULID Specification",
+              "url": "https://github.com/ulid/spec"
+            }
+          },
+          "userId": {
+            "type": "string",
+            "description": "The userid of the user that liked the post.",
+            "nullable": true,
+            "example": "179944860378202369"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "ULID",
+            "type": "string",
+            "description": "ID of the post, defined in the ULID format.",
+            "format": "ulid",
+            "readOnly": true,
+            "externalDocs": {
+              "description": "ULID Specification",
+              "url": "https://github.com/ulid/spec"
+            },
+            "example": "01GDMMR85BEHP8AKV8ZGGM259K"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/PublicUser"
+          },
+          "text": {
+            "type": "string",
+            "description": "Text for the post. Can be null if the post is only a media post.\nCan contain hashtags and mentions.",
+            "nullable": true,
+            "example": "Hello World! #newpost."
+          },
+          "mediaUrl": {
+            "type": "string",
+            "description": "URL - if any - to the media object attached to this post.",
+            "nullable": true,
+            "example": "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
+          },
+          "mediaType": {
+            "type": "string",
+            "description": "If mediaUrl is set, this field contains the mime type of the media object.",
+            "nullable": true,
+            "example": "image/png"
+          },
+          "likes": {
+            "type": "integer",
+            "description": "Number of total likes on this post.",
+            "format": "int32",
+            "readOnly": true,
+            "example": 42
+          },
+          "likedBySelf": {
+            "type": "boolean",
+            "description": "Indicates if the current user liked this post. If the call was made unauthorized,\nthis field is \"null\" or absent. Otherwise `true` indicates that the authorized user\nliked this post.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "replies": {
+            "type": "integer",
+            "description": "Number of total replies for this post.",
+            "format": "int32",
+            "readOnly": true,
+            "example": 42
+          }
+        },
+        "additionalProperties": false,
+        "description": "Post in Mumble. This is user generated content.\nPosts can be deleted by the user who created them."
+      },
+      "PostBase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "ULID",
+            "type": "string",
+            "description": "ID of the post, defined in the ULID format.",
+            "format": "ulid",
+            "readOnly": true,
+            "externalDocs": {
+              "description": "ULID Specification",
+              "url": "https://github.com/ulid/spec"
+            },
+            "example": "01GDMMR85BEHP8AKV8ZGGM259K"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/PublicUser"
+          },
+          "text": {
+            "type": "string",
+            "description": "Text for the post. Can be null if the post is only a media post.\nCan contain hashtags and mentions.",
+            "nullable": true,
+            "example": "Hello World! #newpost."
+          },
+          "mediaUrl": {
+            "type": "string",
+            "description": "URL - if any - to the media object attached to this post.",
+            "nullable": true,
+            "example": "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
+          },
+          "mediaType": {
+            "type": "string",
+            "description": "If mediaUrl is set, this field contains the mime type of the media object.",
+            "nullable": true,
+            "example": "image/png"
+          },
+          "likes": {
+            "type": "integer",
+            "description": "Number of total likes on this post.",
+            "format": "int32",
+            "readOnly": true,
+            "example": 42
+          },
+          "likedBySelf": {
+            "type": "boolean",
+            "description": "Indicates if the current user liked this post. If the call was made unauthorized,\nthis field is \"null\" or absent. Otherwise `true` indicates that the authorized user\nliked this post.",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PostPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "The total count of results.",
+            "format": "int32",
+            "readOnly": true,
+            "example": 1337
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Post"
+            },
+            "description": "The data for this given page.",
+            "readOnly": true
+          },
+          "next": {
+            "type": "string",
+            "description": "Link to next page. If this is null, there is no next page.\nThe link will contain pagination information (offset, limit).\nIf returned by a search, the link will not contain the search parameters.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "previous": {
+            "type": "string",
+            "description": "Link to previous page. If this is null, there is no next page.\nThe link will contain pagination information (offset, limit).\nIf returned by a search, the link will not contain the search parameters.",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Paginated API result that contains arbitrary\ndata and an optional link for the next / previous page."
+      },
+      "PublicUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the user who created the post.",
+            "nullable": true,
+            "readOnly": true,
+            "example": "179944860378202369"
+          },
+          "username": {
+            "type": "string",
+            "description": "The username of the creator.",
+            "nullable": true,
+            "example": "max_muster"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "If set, points to the avatar of the user.",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Public user information. This information is publicly available to everyone.\nIt contains basic information such as the ID."
+      },
+      "Reply": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "ULID",
+            "type": "string",
+            "description": "ID of the post, defined in the ULID format.",
+            "format": "ulid",
+            "readOnly": true,
+            "externalDocs": {
+              "description": "ULID Specification",
+              "url": "https://github.com/ulid/spec"
+            },
+            "example": "01GDMMR85BEHP8AKV8ZGGM259K"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/PublicUser"
+          },
+          "text": {
+            "type": "string",
+            "description": "Text for the post. Can be null if the post is only a media post.\nCan contain hashtags and mentions.",
+            "nullable": true,
+            "example": "Hello World! #newpost."
+          },
+          "mediaUrl": {
+            "type": "string",
+            "description": "URL - if any - to the media object attached to this post.",
+            "nullable": true,
+            "example": "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
+          },
+          "mediaType": {
+            "type": "string",
+            "description": "If mediaUrl is set, this field contains the mime type of the media object.",
+            "nullable": true,
+            "example": "image/png"
+          },
+          "likes": {
+            "type": "integer",
+            "description": "Number of total likes on this post.",
+            "format": "int32",
+            "readOnly": true,
+            "example": 42
+          },
+          "likedBySelf": {
+            "type": "boolean",
+            "description": "Indicates if the current user liked this post. If the call was made unauthorized,\nthis field is \"null\" or absent. Otherwise `true` indicates that the authorized user\nliked this post.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "parentId": {
+            "title": "ULID",
+            "type": "string",
+            "description": "The ID of the parent post.",
+            "format": "ULID",
+            "readOnly": true,
+            "externalDocs": {
+              "description": "ULID Specification",
+              "url": "https://github.com/ulid/spec"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "A reply to a post."
+      },
+      "ReplyPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "The total count of results.",
+            "format": "int32",
+            "readOnly": true,
+            "example": 1337
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Reply"
+            },
+            "description": "The data for this given page.",
+            "readOnly": true
+          },
+          "next": {
+            "type": "string",
+            "description": "Link to next page. If this is null, there is no next page.\nThe link will contain pagination information (offset, limit).\nIf returned by a search, the link will not contain the search parameters.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "previous": {
+            "type": "string",
+            "description": "Link to previous page. If this is null, there is no next page.\nThe link will contain pagination information (offset, limit).\nIf returned by a search, the link will not contain the search parameters.",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Paginated API result that contains arbitrary\ndata and an optional link for the next / previous page."
+      },
+      "UpdatePostData": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Text for the post. If omitted, the text will not be updated.\nIf set to empty string, the text will be removed.",
+            "nullable": true,
+            "writeOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Data that is used to patch a given post."
+      },
+      "UpdateUserData": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string",
+            "description": "If set, updates the firstname of the profile.",
+            "nullable": true,
+            "writeOnly": true
+          },
+          "lastname": {
+            "type": "string",
+            "description": "If set, updates the lastname of the profile.",
+            "nullable": true,
+            "writeOnly": true
+          },
+          "username": {
+            "type": "string",
+            "description": "If set, updates the username of the profile.",
+            "nullable": true,
+            "writeOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Model to update user data."
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the user who created the post.",
+            "nullable": true,
+            "readOnly": true,
+            "example": "179944860378202369"
+          },
+          "username": {
+            "type": "string",
+            "description": "The username of the creator.",
+            "nullable": true,
+            "example": "max_muster"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "If set, points to the avatar of the user.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "firstname": {
+            "type": "string",
+            "description": "Firstname of the user.",
+            "nullable": true
+          },
+          "lastname": {
+            "type": "string",
+            "description": "Lastname of the user.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "User information inside Mumble. This information can only be fetched\nwhen requested by an authenticated user."
+      },
+      "UserPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "The total count of results.",
+            "format": "int32",
+            "readOnly": true,
+            "example": 1337
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            },
+            "description": "The data for this given page.",
+            "readOnly": true
+          },
+          "next": {
+            "type": "string",
+            "description": "Link to next page. If this is null, there is no next page.\nThe link will contain pagination information (offset, limit).\nIf returned by a search, the link will not contain the search parameters.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "previous": {
+            "type": "string",
+            "description": "Link to previous page. If this is null, there is no next page.\nThe link will contain pagination information (offset, limit).\nIf returned by a search, the link will not contain the search parameters.",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Paginated API result that contains arbitrary\ndata and an optional link for the next / previous page."
+      }
+    },
+    "securitySchemes": {
+      "ZITADEL": {
+        "type": "openIdConnect",
+        "description": "ZITADEL OpenID Connect Login (OAuth Introspection)",
+        "openIdConnectUrl": "https://cas-fee-adv-ed1ide.zitadel.cloud/.well-known/openid-configuration"
+      },
+      "None": {
+        "type": "http",
+        "description": "No Authentication",
+        "scheme": ""
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Post",
+      "description": "Manage posts in the Mumble system."
+    },
+    {
+      "name": "User",
+      "description": "Users in the Mumble System."
+    }
+  ]
+}
