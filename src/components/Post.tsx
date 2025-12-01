@@ -3,7 +3,7 @@ import PostButtons from '@/components/PostButtons'
 import clsx from 'clsx'
 import React from 'react'
 import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
-import { Post as MumblePost } from '@/mumble/api/generated/Api2'
+import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 
 export default async function Post({ post }: { post: MumblePost }) {
   const userData = await fetchUser(post.creator!.id!)

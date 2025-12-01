@@ -1,10 +1,10 @@
 'use server'
 import { authHeader } from '@/lib/auth'
-import { Api as Api_old } from '@/mumble/api/generated/Api'
-import { Api } from '@/mumble/api/generated/Api2'
+import { Api as MumbleApi } from '@/mumble/api/generated/MumbleApi'
+import { Api as MumbleApiOld } from '@/mumble/api/generated/MumbleApiOld'
 
-export async function getMumbleApiOld(): Promise<Api_old<unknown>> {
-  return new Api_old({
+export async function getMumbleApiOld(): Promise<MumbleApiOld<unknown>> {
+  return new MumbleApiOld({
     baseUrl: process.env.API_URL_OLD,
     baseApiParams: {
       headers: {
@@ -13,8 +13,8 @@ export async function getMumbleApiOld(): Promise<Api_old<unknown>> {
     },
   })
 }
-export async function getMumbleApi(): Promise<Api<unknown>> {
-  return new Api({
+export async function getMumbleApi(): Promise<MumbleApi<unknown>> {
+  return new MumbleApi({
     baseUrl: process.env.API_URL,
     baseApiParams: {
       headers: {

@@ -10,131 +10,152 @@
  * ---------------------------------------------------------------
  */
 
-export type QueryParamsType = Record<string | number, any>
-export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
+export type QueryParamsType = Record<string | number, any>;
+export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 
-export interface FullRequestParams extends Omit<RequestInit, 'body'> {
+export interface FullRequestParams extends Omit<RequestInit, "body"> {
   /** set parameter to `true` for call `securityWorker` for this request */
-  secure?: boolean
+  secure?: boolean;
   /** request path */
-  path: string
+  path: string;
   /** content type of request body */
-  type?: ContentType
+  type?: ContentType;
   /** query params */
-  query?: QueryParamsType
+  query?: QueryParamsType;
   /** format of response (i.e. response.json() -> format: "json") */
-  format?: ResponseFormat
+  format?: ResponseFormat;
   /** request body */
-  body?: unknown
+  body?: unknown;
   /** base url */
-  baseUrl?: string
+  baseUrl?: string;
   /** request cancellation token */
-  cancelToken?: CancelToken
+  cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>
+export type RequestParams = Omit<
+  FullRequestParams,
+  "body" | "method" | "query" | "path"
+>;
 
 export interface ApiConfig<SecurityDataType = unknown> {
-  baseUrl?: string
-  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>
-  securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void
-  customFetch?: typeof fetch
+  baseUrl?: string;
+  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
+  securityWorker?: (
+    securityData: SecurityDataType | null,
+  ) => Promise<RequestParams | void> | RequestParams | void;
+  customFetch?: typeof fetch;
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
-  data: D
-  error: E
+export interface HttpResponse<D extends unknown, E extends unknown = unknown>
+  extends Response {
+  data: D;
+  error: E;
 }
 
-type CancelToken = Symbol | string | number
+type CancelToken = Symbol | string | number;
 
 export enum ContentType {
-  Json = 'application/json',
-  JsonApi = 'application/vnd.api+json',
-  FormData = 'multipart/form-data',
-  UrlEncoded = 'application/x-www-form-urlencoded',
-  Text = 'text/plain',
+  Json = "application/json",
+  JsonApi = "application/vnd.api+json",
+  FormData = "multipart/form-data",
+  UrlEncoded = "application/x-www-form-urlencoded",
+  Text = "text/plain",
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = ''
-  private securityData: SecurityDataType | null = null
-  private securityWorker?: ApiConfig<SecurityDataType>['securityWorker']
-  private abortControllers = new Map<CancelToken, AbortController>()
-  private customFetch = (...fetchParams: Parameters<typeof fetch>) => {
-    return fetch(...fetchParams)
-  }
+  public baseUrl: string = "http://localhost:4010";
+  private securityData: SecurityDataType | null = null;
+  private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
+  private abortControllers = new Map<CancelToken, AbortController>();
+  private customFetch = (...fetchParams: Parameters<typeof fetch>) =>
+    fetch(...fetchParams);
 
   private baseApiParams: RequestParams = {
-    credentials: 'same-origin',
+    credentials: "same-origin",
     headers: {},
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-  }
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  };
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
-    Object.assign(this, apiConfig)
+    Object.assign(this, apiConfig);
   }
 
   public setSecurityData = (data: SecurityDataType | null) => {
-    this.securityData = data
-  }
+    this.securityData = data;
+  };
 
   protected encodeQueryParam(key: string, value: any) {
-    const encodedKey = encodeURIComponent(key)
-    return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : `${value}`)}`
+    const encodedKey = encodeURIComponent(key);
+    return `${encodedKey}=${encodeURIComponent(typeof value === "number" ? value : `${value}`)}`;
   }
 
   protected addQueryParam(query: QueryParamsType, key: string) {
-    return this.encodeQueryParam(key, query[key])
+    return this.encodeQueryParam(key, query[key]);
   }
 
   protected addArrayQueryParam(query: QueryParamsType, key: string) {
-    const value = query[key]
-    return value.map((v: any) => this.encodeQueryParam(key, v)).join('&')
+    const value = query[key];
+    return value.map((v: any) => this.encodeQueryParam(key, v)).join("&");
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
-    const query = rawQuery || {}
-    const keys = Object.keys(query).filter((key) => 'undefined' !== typeof query[key])
+    const query = rawQuery || {};
+    const keys = Object.keys(query).filter(
+      (key) => "undefined" !== typeof query[key],
+    );
     return keys
-      .map((key) => (Array.isArray(query[key]) ? this.addArrayQueryParam(query, key) : this.addQueryParam(query, key)))
-      .join('&')
+      .map((key) =>
+        Array.isArray(query[key])
+          ? this.addArrayQueryParam(query, key)
+          : this.addQueryParam(query, key),
+      )
+      .join("&");
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
-    const queryString = this.toQueryString(rawQuery)
-    return queryString ? `?${queryString}` : ''
+    const queryString = this.toQueryString(rawQuery);
+    return queryString ? `?${queryString}` : "";
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === 'object' || typeof input === 'string') ? JSON.stringify(input) : input,
+      input !== null && (typeof input === "object" || typeof input === "string")
+        ? JSON.stringify(input)
+        : input,
     [ContentType.JsonApi]: (input: any) =>
-      input !== null && (typeof input === 'object' || typeof input === 'string') ? JSON.stringify(input) : input,
-    [ContentType.Text]: (input: any) => (input !== null && typeof input !== 'string' ? JSON.stringify(input) : input),
+      input !== null && (typeof input === "object" || typeof input === "string")
+        ? JSON.stringify(input)
+        : input,
+    [ContentType.Text]: (input: any) =>
+      input !== null && typeof input !== "string"
+        ? JSON.stringify(input)
+        : input,
     [ContentType.FormData]: (input: any) => {
       if (input instanceof FormData) {
-        return input
+        return input;
       }
 
       return Object.keys(input || {}).reduce((formData, key) => {
-        const property = input[key]
+        const property = input[key];
         formData.append(
           key,
           property instanceof Blob
             ? property
-            : typeof property === 'object' && property !== null
+            : typeof property === "object" && property !== null
               ? JSON.stringify(property)
-              : `${property}`
-        )
-        return formData
-      }, new FormData())
+              : `${property}`,
+        );
+        return formData;
+      }, new FormData());
     },
     [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
-  }
+  };
 
-  protected mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
+  protected mergeRequestParams(
+    params1: RequestParams,
+    params2?: RequestParams,
+  ): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -144,31 +165,33 @@ export class HttpClient<SecurityDataType = unknown> {
         ...(params1.headers || {}),
         ...((params2 && params2.headers) || {}),
       },
-    }
+    };
   }
 
-  protected createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
+  protected createAbortSignal = (
+    cancelToken: CancelToken,
+  ): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
-      const abortController = this.abortControllers.get(cancelToken)
+      const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
-        return abortController.signal
+        return abortController.signal;
       }
-      return void 0
+      return void 0;
     }
 
-    const abortController = new AbortController()
-    this.abortControllers.set(cancelToken, abortController)
-    return abortController.signal
-  }
+    const abortController = new AbortController();
+    this.abortControllers.set(cancelToken, abortController);
+    return abortController.signal;
+  };
 
   public abortRequest = (cancelToken: CancelToken) => {
-    const abortController = this.abortControllers.get(cancelToken)
+    const abortController = this.abortControllers.get(cancelToken);
 
     if (abortController) {
-      abortController.abort()
-      this.abortControllers.delete(cancelToken)
+      abortController.abort();
+      this.abortControllers.delete(cancelToken);
     }
-  }
+  };
 
   public request = async <T = any, E = any>({
     body,
@@ -182,64 +205,78 @@ export class HttpClient<SecurityDataType = unknown> {
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
     const secureParams =
-      ((typeof secure === 'boolean' ? secure : this.baseApiParams.secure) &&
+      ((typeof secure === "boolean" ? secure : this.baseApiParams.secure) &&
         this.securityWorker &&
         (await this.securityWorker(this.securityData))) ||
-      {}
-    const requestParams = this.mergeRequestParams(params, secureParams)
-    const queryString = query && this.toQueryString(query)
-    const payloadFormatter = this.contentFormatters[type || ContentType.Json]
-    const responseFormat = format || requestParams.format
+      {};
+    const requestParams = this.mergeRequestParams(params, secureParams);
+    const queryString = query && this.toQueryString(query);
+    const payloadFormatter = this.contentFormatters[type || ContentType.Json];
+    const responseFormat = format || requestParams.format;
 
-    return this.customFetch(`${baseUrl || this.baseUrl || ''}${path}${queryString ? `?${queryString}` : ''}`, {
-      ...requestParams,
-      headers: {
-        ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
+    return this.customFetch(
+      `${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`,
+      {
+        ...requestParams,
+        headers: {
+          ...(requestParams.headers || {}),
+          ...(type && type !== ContentType.FormData
+            ? { "Content-Type": type }
+            : {}),
+        },
+        signal:
+          (cancelToken
+            ? this.createAbortSignal(cancelToken)
+            : requestParams.signal) || null,
+        body:
+          typeof body === "undefined" || body === null
+            ? null
+            : payloadFormatter(body),
       },
-      signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) || null,
-      body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body),
-    }).then(async (response) => {
-      const r = response as HttpResponse<T, E>
-      r.data = null as unknown as T
-      r.error = null as unknown as E
+    ).then(async (response) => {
+      const r = response as HttpResponse<T, E>;
+      r.data = null as unknown as T;
+      r.error = null as unknown as E;
 
-      const responseToParse = responseFormat ? response.clone() : response
+      const responseToParse = responseFormat ? response.clone() : response;
       const data = !responseFormat
         ? r
         : await responseToParse[responseFormat]()
             .then((data) => {
               if (r.ok) {
-                r.data = data
+                r.data = data;
               } else {
-                r.error = data
+                r.error = data;
               }
-              return r
+              return r;
             })
             .catch((e) => {
-              r.error = e
-              return r
-            })
+              r.error = e;
+              return r;
+            });
 
       if (cancelToken) {
-        this.abortControllers.delete(cancelToken)
+        this.abortControllers.delete(cancelToken);
       }
 
-      if (!response.ok) throw data
-      return data
-    })
-  }
+      if (!response.ok) throw data;
+      return data;
+    });
+  };
 }
 
 /**
  * @title qwacker API
  * @version 1.15.12
  * @license Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
+ * @baseUrl http://localhost:4010
  * @contact smartive AG <education@smartive.ch> (https://smartive.ch)
  *
  * API for 'mumble'. A simple messaging/twitter like api for the CAS Frontend Engineering Advanced.
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+export class Api<
+  SecurityDataType extends unknown,
+> extends HttpClient<SecurityDataType> {
   posts = {
     /**
      * @description Fetch a paginated list of posts, ordered by the time of their creation. May contain deleted posts.
@@ -252,17 +289,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     postsControllerList: (
       query?: {
         /** The offset for pagination of further calls. Defaults to 0 if omitted. */
-        offset?: number
+        offset?: number;
         /** The amount of posts that is returned in one call. Minimum is 1, maximum is 1000. Defaults to 100. */
-        limit?: number
+        limit?: number;
         /** The ID of a post, to only return posts that are newer than the given post. If omitted, all posts are returned. */
-        newerThan?: string
+        newerThan?: string;
         /** The ID of a post, to only return posts that are older than the given post. If omitted, all posts are returned. */
-        olderThan?: string
+        olderThan?: string;
         /** The ID of a creator. Only posts of the given creator should be returned. If omitted, all posts are returned. */
-        creator?: string
+        creator?: string;
       },
-      params: RequestParams = {}
+      params: RequestParams = {},
     ) =>
       this.request<
         {
@@ -272,71 +309,71 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
              * @format ulid
              * @example "01GDMMR85BEHP8AKV8ZGGM259K"
              */
-            id?: string
+            id?: string;
             /**
              * ID of the user who created the post.
              * @example "179944860378202369"
              */
-            creator?: string
+            creator?: string;
             /**
              * Text in the post.
              * @example "Hello World! @user #newpost"
              */
-            text?: string
+            text?: string;
             /**
              * URL - if any - to the media object attached to this post.
              * @example "https://storage.googleapis.com/cas-fee-adv-qwacker-api-local-dev/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
              */
-            mediaUrl?: string | null
+            mediaUrl?: string | null;
             /**
              * If mediaUrl is set, this field contains the mime type of the media object.
              * @example "image/png"
              */
-            mediaType?: string | null
+            mediaType?: string | null;
             /**
              * Number of total likes on this post.
              * @example 42
              */
-            likeCount?: number
+            likeCount?: number;
             /**
              * Indicates if the current user liked this post. If the call was made unauthorized, all posts are returned with this field set to false.
              * @example true
              */
-            likedByUser?: boolean
+            likedByUser?: boolean;
             /**
              * Indicates, that this result is a post.
              * @example "post"
              */
-            type?: post
+            type?: post;
             /**
              * Number of total replies to this post.
              * @example 42
              */
-            replyCount?: number
-          }[]
+            replyCount?: number;
+          }[];
           /**
            * The total count of posts in the system.
            * @example 1000
            */
-          count?: number
+          count?: number;
           /**
            * If filled, hints the next api call to make to fetch the next page.
            * @example "/posts?offset=100&limit=100"
            */
-          next?: string | null
+          next?: string | null;
           /**
            * If filled, hints the next api call to make to fetch the previous page.
            * @example "/posts?offset=0&limit=100"
            */
-          previous?: string | null
+          previous?: string | null;
         },
         any
       >({
         path: `/posts`,
-        method: 'GET',
+        method: "GET",
         query: query,
         secure: true,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -354,11 +391,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          * The text of the post.
          * @example "Hello World!"
          */
-        text?: string
+        text?: string;
         /** The image of the post. */
-        image?: File | null
+        image?: File | null;
       },
-      params: RequestParams = {}
+      params: RequestParams = {},
     ) =>
       this.request<
         {
@@ -367,56 +404,56 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
            * @format ulid
            * @example "01GDMMR85BEHP8AKV8ZGGM259K"
            */
-          id?: string
+          id?: string;
           /**
            * ID of the user who created the post.
            * @example "179944860378202369"
            */
-          creator?: string
+          creator?: string;
           /**
            * Text in the post.
            * @example "Hello World! @user #newpost"
            */
-          text?: string
+          text?: string;
           /**
            * URL - if any - to the media object attached to this post.
            * @example "https://storage.googleapis.com/cas-fee-adv-qwacker-api-local-dev/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
            */
-          mediaUrl?: string | null
+          mediaUrl?: string | null;
           /**
            * If mediaUrl is set, this field contains the mime type of the media object.
            * @example "image/png"
            */
-          mediaType?: string | null
+          mediaType?: string | null;
           /**
            * Number of total likes on this post.
            * @example 42
            */
-          likeCount?: number
+          likeCount?: number;
           /**
            * Indicates if the current user liked this post. If the call was made unauthorized, all posts are returned with this field set to false.
            * @example true
            */
-          likedByUser?: boolean
+          likedByUser?: boolean;
           /**
            * Indicates, that this result is a post.
            * @example "post"
            */
-          type?: post
+          type?: post;
           /**
            * Number of total replies to this post.
            * @example 42
            */
-          replyCount?: number
+          replyCount?: number;
         },
         void
       >({
         path: `/posts`,
-        method: 'POST',
+        method: "POST",
         body: data,
         secure: true,
         type: ContentType.FormData,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -436,47 +473,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
              * @format ulid
              * @example "01GDMMR85BEHP8AKV8ZGGM259K"
              */
-            id?: string
+            id?: string;
             /**
              * ID of the user who created the post.
              * @example "179944860378202369"
              */
-            creator?: string
+            creator?: string;
             /**
              * Text in the post.
              * @example "Hello World! @user #newpost"
              */
-            text?: string
+            text?: string;
             /**
              * URL - if any - to the media object attached to this post.
              * @example "https://storage.googleapis.com/cas-fee-adv-qwacker-api-local-dev/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
              */
-            mediaUrl?: string | null
+            mediaUrl?: string | null;
             /**
              * If mediaUrl is set, this field contains the mime type of the media object.
              * @example "image/png"
              */
-            mediaType?: string | null
+            mediaType?: string | null;
             /**
              * Number of total likes on this post.
              * @example 42
              */
-            likeCount?: number
+            likeCount?: number;
             /**
              * Indicates if the current user liked this post. If the call was made unauthorized, all posts are returned with this field set to false.
              * @example true
              */
-            likedByUser?: boolean
+            likedByUser?: boolean;
             /**
              * Indicates, that this result is a post.
              * @example "post"
              */
-            type?: post
+            type?: post;
             /**
              * Number of total replies to this post.
              * @example 42
              */
-            replyCount?: number
+            replyCount?: number;
           }
         | {
             /**
@@ -484,78 +521,78 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
              * @format ulid
              * @example "01GDMMR85BEHP8AKV8ZGGM259K"
              */
-            id?: string
+            id?: string;
             /**
              * ID of the user who created the post.
              * @example "179944860378202369"
              */
-            creator?: string
+            creator?: string;
             /**
              * Text in the post.
              * @example "Hello World! @user #newpost"
              */
-            text?: string
+            text?: string;
             /**
              * URL - if any - to the media object attached to this post.
              * @example "https://storage.googleapis.com/cas-fee-adv-qwacker-api-local-dev/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
              */
-            mediaUrl?: string | null
+            mediaUrl?: string | null;
             /**
              * If mediaUrl is set, this field contains the mime type of the media object.
              * @example "image/png"
              */
-            mediaType?: string | null
+            mediaType?: string | null;
             /**
              * Number of total likes on this post.
              * @example 42
              */
-            likeCount?: number
+            likeCount?: number;
             /**
              * Indicates if the current user liked this post. If the call was made unauthorized, all posts are returned with this field set to false.
              * @example true
              */
-            likedByUser?: boolean
+            likedByUser?: boolean;
             /**
              * Indicates, that this result is a reply to a post.
              * @example "reply"
              */
-            type?: reply
+            type?: reply;
             /**
              * Reference ID to the parent post.
              * @format ulid
              * @example "01GDMMR85BEHP8AKV8ZGGM259K"
              */
-            parentId?: string
+            parentId?: string;
           }
         | {
             /**
              * Indicates, that this result is a deleted post.
              * @example "deleted"
              */
-            type?: deleted
+            type?: deleted;
             /**
              * ID of the post, defined in the ULID format.
              * @format ulid
              * @example "01GDMMR85BEHP8AKV8ZGGM259K"
              */
-            id?: string
+            id?: string;
             /**
              * ID of the user who created the post.
              * @example "179944860378202369"
              */
-            creator?: string
+            creator?: string;
             /**
              * ID of the parent.
              * @example "01GDMMR85BEHP8AKV8ZGGM259K"
              */
-            parentId?: string | null
+            parentId?: string | null;
           },
         any
       >({
         path: `/posts/${id}`,
-        method: 'GET',
+        method: "GET",
         secure: true,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -574,11 +611,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          * The text of the reply.
          * @example "Hello World!"
          */
-        text?: string
+        text?: string;
         /** The image of the reply. */
-        image?: File | null
+        image?: File | null;
       },
-      params: RequestParams = {}
+      params: RequestParams = {},
     ) =>
       this.request<
         {
@@ -587,56 +624,56 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
            * @format ulid
            * @example "01GDMMR85BEHP8AKV8ZGGM259K"
            */
-          id?: string
+          id?: string;
           /**
            * ID of the user who created the post.
            * @example "179944860378202369"
            */
-          creator?: string
+          creator?: string;
           /**
            * Text in the post.
            * @example "Hello World! @user #newpost"
            */
-          text?: string
+          text?: string;
           /**
            * URL - if any - to the media object attached to this post.
            * @example "https://storage.googleapis.com/cas-fee-adv-qwacker-api-local-dev/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
            */
-          mediaUrl?: string | null
+          mediaUrl?: string | null;
           /**
            * If mediaUrl is set, this field contains the mime type of the media object.
            * @example "image/png"
            */
-          mediaType?: string | null
+          mediaType?: string | null;
           /**
            * Number of total likes on this post.
            * @example 42
            */
-          likeCount?: number
+          likeCount?: number;
           /**
            * Indicates if the current user liked this post. If the call was made unauthorized, all posts are returned with this field set to false.
            * @example true
            */
-          likedByUser?: boolean
+          likedByUser?: boolean;
           /**
            * Indicates, that this result is a post.
            * @example "post"
            */
-          type?: post
+          type?: post;
           /**
            * Number of total replies to this post.
            * @example 42
            */
-          replyCount?: number
+          replyCount?: number;
         },
         void
       >({
         path: `/posts/${id}`,
-        method: 'POST',
+        method: "POST",
         body: data,
         secure: true,
         type: ContentType.FormData,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -651,7 +688,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     postsControllerDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/posts/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
         secure: true,
         ...params,
       }),
@@ -672,55 +709,55 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
            * @format ulid
            * @example "01GDMMR85BEHP8AKV8ZGGM259K"
            */
-          id?: string
+          id?: string;
           /**
            * ID of the user who created the post.
            * @example "179944860378202369"
            */
-          creator?: string
+          creator?: string;
           /**
            * Text in the post.
            * @example "Hello World! @user #newpost"
            */
-          text?: string
+          text?: string;
           /**
            * URL - if any - to the media object attached to this post.
            * @example "https://storage.googleapis.com/cas-fee-adv-qwacker-api-local-dev/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
            */
-          mediaUrl?: string | null
+          mediaUrl?: string | null;
           /**
            * If mediaUrl is set, this field contains the mime type of the media object.
            * @example "image/png"
            */
-          mediaType?: string | null
+          mediaType?: string | null;
           /**
            * Number of total likes on this post.
            * @example 42
            */
-          likeCount?: number
+          likeCount?: number;
           /**
            * Indicates if the current user liked this post. If the call was made unauthorized, all posts are returned with this field set to false.
            * @example true
            */
-          likedByUser?: boolean
+          likedByUser?: boolean;
           /**
            * Indicates, that this result is a reply to a post.
            * @example "reply"
            */
-          type?: reply
+          type?: reply;
           /**
            * Reference ID to the parent post.
            * @format ulid
            * @example "01GDMMR85BEHP8AKV8ZGGM259K"
            */
-          parentId?: string
+          parentId?: string;
         }[],
         any
       >({
         path: `/posts/${id}/replies`,
-        method: 'GET',
+        method: "GET",
         secure: true,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -738,29 +775,29 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          * Search for posts that contain this text.
          * @example "Hello World"
          */
-        text?: string | null
-        tags?: string[]
-        likedBy?: string[]
-        mentions?: string[]
+        text?: string | null;
+        tags?: string[];
+        likedBy?: string[];
+        mentions?: string[];
         /**
          * Search for posts that are replies to other posts. If omitted, all posts are searched.
          * @example false
          */
-        isReply?: boolean | null
+        isReply?: boolean | null;
         /**
          * The offset for pagination of further calls.
          * @default 0
          * @example 0
          */
-        offset?: number | null
+        offset?: number | null;
         /**
          * The amount of posts that is returned in one call. Minimum is 1, maximum is 1000.
          * @default 100
          * @example 500
          */
-        limit?: number | null
+        limit?: number | null;
       },
-      params: RequestParams = {}
+      params: RequestParams = {},
     ) =>
       this.request<
         {
@@ -771,47 +808,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
                  * @format ulid
                  * @example "01GDMMR85BEHP8AKV8ZGGM259K"
                  */
-                id?: string
+                id?: string;
                 /**
                  * ID of the user who created the post.
                  * @example "179944860378202369"
                  */
-                creator?: string
+                creator?: string;
                 /**
                  * Text in the post.
                  * @example "Hello World! @user #newpost"
                  */
-                text?: string
+                text?: string;
                 /**
                  * URL - if any - to the media object attached to this post.
                  * @example "https://storage.googleapis.com/cas-fee-adv-qwacker-api-local-dev/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
                  */
-                mediaUrl?: string | null
+                mediaUrl?: string | null;
                 /**
                  * If mediaUrl is set, this field contains the mime type of the media object.
                  * @example "image/png"
                  */
-                mediaType?: string | null
+                mediaType?: string | null;
                 /**
                  * Number of total likes on this post.
                  * @example 42
                  */
-                likeCount?: number
+                likeCount?: number;
                 /**
                  * Indicates if the current user liked this post. If the call was made unauthorized, all posts are returned with this field set to false.
                  * @example true
                  */
-                likedByUser?: boolean
+                likedByUser?: boolean;
                 /**
                  * Indicates, that this result is a post.
                  * @example "post"
                  */
-                type?: post
+                type?: post;
                 /**
                  * Number of total replies to this post.
                  * @example 42
                  */
-                replyCount?: number
+                replyCount?: number;
               }
             | {
                 /**
@@ -819,120 +856,120 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
                  * @format ulid
                  * @example "01GDMMR85BEHP8AKV8ZGGM259K"
                  */
-                id?: string
+                id?: string;
                 /**
                  * ID of the user who created the post.
                  * @example "179944860378202369"
                  */
-                creator?: string
+                creator?: string;
                 /**
                  * Text in the post.
                  * @example "Hello World! @user #newpost"
                  */
-                text?: string
+                text?: string;
                 /**
                  * URL - if any - to the media object attached to this post.
                  * @example "https://storage.googleapis.com/cas-fee-adv-qwacker-api-local-dev/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
                  */
-                mediaUrl?: string | null
+                mediaUrl?: string | null;
                 /**
                  * If mediaUrl is set, this field contains the mime type of the media object.
                  * @example "image/png"
                  */
-                mediaType?: string | null
+                mediaType?: string | null;
                 /**
                  * Number of total likes on this post.
                  * @example 42
                  */
-                likeCount?: number
+                likeCount?: number;
                 /**
                  * Indicates if the current user liked this post. If the call was made unauthorized, all posts are returned with this field set to false.
                  * @example true
                  */
-                likedByUser?: boolean
+                likedByUser?: boolean;
                 /**
                  * Indicates, that this result is a reply to a post.
                  * @example "reply"
                  */
-                type?: reply
+                type?: reply;
                 /**
                  * Reference ID to the parent post.
                  * @format ulid
                  * @example "01GDMMR85BEHP8AKV8ZGGM259K"
                  */
-                parentId?: string
+                parentId?: string;
               }
-          )[]
+          )[];
           /**
            * The total count of posts in the executed search.
            * @example 1000
            */
-          count?: number
+          count?: number;
           /** If filled, hints the search parameters for the next page. */
           next?: {
             /**
              * Search for posts that contain this text.
              * @example "Hello World"
              */
-            text?: string | null
-            tags?: string[]
-            likedBy?: string[]
-            mentions?: string[]
+            text?: string | null;
+            tags?: string[];
+            likedBy?: string[];
+            mentions?: string[];
             /**
              * Search for posts that are replies to other posts. If omitted, all posts are searched.
              * @example false
              */
-            isReply?: boolean | null
+            isReply?: boolean | null;
             /**
              * The offset for pagination of further calls.
              * @default 0
              * @example 0
              */
-            offset?: number | null
+            offset?: number | null;
             /**
              * The amount of posts that is returned in one call. Minimum is 1, maximum is 1000.
              * @default 100
              * @example 500
              */
-            limit?: number | null
-          }
+            limit?: number | null;
+          };
           /** If filled, hints the search parameters for the previous page. */
           previous?: {
             /**
              * Search for posts that contain this text.
              * @example "Hello World"
              */
-            text?: string | null
-            tags?: string[]
-            likedBy?: string[]
-            mentions?: string[]
+            text?: string | null;
+            tags?: string[];
+            likedBy?: string[];
+            mentions?: string[];
             /**
              * Search for posts that are replies to other posts. If omitted, all posts are searched.
              * @example false
              */
-            isReply?: boolean | null
+            isReply?: boolean | null;
             /**
              * The offset for pagination of further calls.
              * @default 0
              * @example 0
              */
-            offset?: number | null
+            offset?: number | null;
             /**
              * The amount of posts that is returned in one call. Minimum is 1, maximum is 1000.
              * @default 100
              * @example 500
              */
-            limit?: number | null
-          }
+            limit?: number | null;
+          };
         },
         any
       >({
         path: `/posts/search`,
-        method: 'POST',
+        method: "POST",
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -947,7 +984,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     likesControllerLike: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/posts/${id}/likes`,
-        method: 'PUT',
+        method: "PUT",
         secure: true,
         ...params,
       }),
@@ -963,11 +1000,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     likesControllerUnlike: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/posts/${id}/likes`,
-        method: 'DELETE',
+        method: "DELETE",
         secure: true,
         ...params,
       }),
-  }
+  };
   users = {
     /**
      * @description Fetch a paginated list of users, ordered by their username.
@@ -980,11 +1017,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     usersControllerList: (
       query?: {
         /** The offset for pagination of further calls. Defaults to 0 if omitted. */
-        offset?: number
+        offset?: number;
         /** The amount of users that is returned in one call. Minimum is 1, maximum is 1000. Defaults to 100. */
-        limit?: number
+        limit?: number;
       },
-      params: RequestParams = {}
+      params: RequestParams = {},
     ) =>
       this.request<
         {
@@ -993,48 +1030,51 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
              * The (long) ID of the user.
              * @example "179828644301046017"
              */
-            id?: string
+            id?: string;
             /**
              * The username of the user. May be used to mention someone in the posts.
              * @example "johnDoe"
              */
-            userName?: string
+            userName?: string;
             /**
              * The first name of the user.
              * @example "John"
              */
-            firstName?: string
+            firstName?: string;
             /**
              * The last name of the user.
              * @example "Doe"
              */
-            lastName?: string
-            /** URL to the avatar of the user. This field may be empty (empty string). */
-            avatarUrl?: string
-          }[]
+            lastName?: string;
+            /**
+             * URL to the avatar of the user. This field may be empty (empty string).
+             * @example "avatar.png"
+             */
+            avatarUrl?: string;
+          }[];
           /**
            * The total count of users in the system.
            * @example 1000
            */
-          count?: number
+          count?: number;
           /**
            * If filled, hints the next api call to make to fetch the next page.
            * @example "/users?offset=100&limit=100"
            */
-          next?: string | null
+          next?: string | null;
           /**
            * If filled, hints the next api call to make to fetch the previous page.
            * @example "/users?offset=0&limit=100"
            */
-          previous?: string | null
+          previous?: string | null;
         },
         any
       >({
         path: `/users`,
-        method: 'GET',
+        method: "GET",
         query: query,
         secure: true,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -1053,31 +1093,34 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
            * The (long) ID of the user.
            * @example "179828644301046017"
            */
-          id?: string
+          id?: string;
           /**
            * The username of the user. May be used to mention someone in the posts.
            * @example "johnDoe"
            */
-          userName?: string
+          userName?: string;
           /**
            * The first name of the user.
            * @example "John"
            */
-          firstName?: string
+          firstName?: string;
           /**
            * The last name of the user.
            * @example "Doe"
            */
-          lastName?: string
-          /** URL to the avatar of the user. This field may be empty (empty string). */
-          avatarUrl?: string
+          lastName?: string;
+          /**
+           * URL to the avatar of the user. This field may be empty (empty string).
+           * @example "avatar.png"
+           */
+          avatarUrl?: string;
         },
         any
       >({
         path: `/users/me`,
-        method: 'GET',
+        method: "GET",
         secure: true,
-        format: 'json',
+        format: "json",
         ...params,
       }),
 
@@ -1096,32 +1139,35 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
            * The (long) ID of the user.
            * @example "179828644301046017"
            */
-          id?: string
+          id?: string;
           /**
            * The username of the user. May be used to mention someone in the posts.
            * @example "johnDoe"
            */
-          userName?: string
+          userName?: string;
           /**
            * The first name of the user.
            * @example "John"
            */
-          firstName?: string
+          firstName?: string;
           /**
            * The last name of the user.
            * @example "Doe"
            */
-          lastName?: string
-          /** URL to the avatar of the user. This field may be empty (empty string). */
-          avatarUrl?: string
+          lastName?: string;
+          /**
+           * URL to the avatar of the user. This field may be empty (empty string).
+           * @example "avatar.png"
+           */
+          avatarUrl?: string;
         },
         any
       >({
         path: `/users/${id}`,
-        method: 'GET',
+        method: "GET",
         secure: true,
-        format: 'json',
+        format: "json",
         ...params,
       }),
-  }
+  };
 }

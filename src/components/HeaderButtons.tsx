@@ -4,9 +4,7 @@ import { Button, Logout, Settings } from 'hg-storybook'
 import React from 'react'
 import { authClient, useSession } from '@/lib/auth-client'
 
-type Props = {}
-
-export default function HeaderButtons({}: Props) {
+export default function HeaderButtons() {
   const { data: sessionData } = useSession()
   return (
     <>

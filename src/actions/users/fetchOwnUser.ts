@@ -1,5 +1,5 @@
 import { getMumbleApiOld } from '@/actions/getMumbleApi'
-import { User } from '@/mumble/api/generated/Api2'
+import { User } from '@/mumble/api/generated/MumbleApi'
 
 export async function fetchOwnUser(): Promise<User> {
   const api = await getMumbleApiOld()
