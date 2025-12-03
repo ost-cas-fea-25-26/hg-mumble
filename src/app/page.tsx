@@ -10,6 +10,7 @@ export default async function Home() {
   const sessionData = await getSession()
   const translate = await getTranslations('general')
   const posts = await fetchPosts()
+
   return (
     <section className={'flex items-center justify-center bg-blue-100 pt-2'}>
       <div

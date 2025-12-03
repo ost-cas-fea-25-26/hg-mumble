@@ -28,9 +28,13 @@ export default function PostButtons({ post }: Props) {
       />
       <Toggle
         color={'contrast'}
+        initialChecked={Boolean(post.likedBySelf)}
         onChange={() => {
-          if (!post.likedBySelf) return addLike(post.id!)
-          return removeLike(post.id!)
+          if (!post.likedBySelf) {
+            return addLike(post.id!)
+          } else {
+            return removeLike(post.id!)
+          }
         }}
         checkedProps={{
           icon: <Heart color={'currentColor'} size={'xs'} />,
