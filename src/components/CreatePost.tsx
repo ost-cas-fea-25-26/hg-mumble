@@ -1,25 +1,23 @@
 'use client'
 import { createPost } from '@/actions/posts/createPost'
 import clsx from 'clsx'
-import { Avatar, Button, Cross, FileInput, Modal, Textarea } from 'hg-storybook'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
 import { useSession } from '@/lib/auth-client'
+import { Avatar, Button, Cross, FileInput, Modal, Textarea } from '@/lib/hg-storybook'
 
-type Props = {}
-
-type Inputs = {
+type FormValues = {
   text: string
 }
 
-export default function CreatePost({}: Props) {
+export default function CreatePost() {
   const sessionData = useSession()
   const [showModal, setShowModal] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const translate = useTranslations('mumble-post')
 
-  const { register, handleSubmit } = useForm<Inputs>()
+  const { register, handleSubmit } = useForm<FormValues>()
   const userDetails = sessionData.data?.user || { image: null }
   return (
     <div className="relative m-2 flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white pt-22 pr-4 pb-4 pl-4">
@@ -27,7 +25,12 @@ export default function CreatePost({}: Props) {
         {userDetails?.image ? <Avatar src={userDetails?.image} size={'m'} /> : <div className={'w-16'} />}
         <h3 className={clsx('text-lg font-bold')}>{translate('create-post-title')}</h3>
       </div>
-      <form onSubmit={handleSubmit(({ text }) => createPost(text, file!))} className={clsx('h-full')}>
+      <form
+        onSubmit={handleSubmit(({ text }) => {
+          createPost(text, file!).then(console.log)
+        })}
+        className={clsx('h-full')}
+      >
         <div className={clsx('mb-4 flex items-center gap-4')}>
           {file && (
             <span className={'relative'}>

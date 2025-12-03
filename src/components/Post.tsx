@@ -34,7 +34,7 @@ export default async function Post({ post }: { post: MumblePost }) {
       </div>
       {/*content*/}
       <div className={clsx('ml-6')}>
-        <div className={'flex items-center gap-4'}>
+        <div className={'flex max-h-50 gap-4'}>
           {post.mediaUrl && (
             <img
               className={'h-40 min-h-40 w-40 min-w-40 object-cover'}
@@ -42,7 +42,7 @@ export default async function Post({ post }: { post: MumblePost }) {
               alt={'user uploaded file'}
             />
           )}
-          {post.text && <p>{post.text}</p>}
+          {post.text && <p className={'max-h-full overflow-auto'}>{post.text}</p>}
         </div>
       </div>
       <PostButtons post={post} />

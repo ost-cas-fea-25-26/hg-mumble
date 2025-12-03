@@ -1,3 +1,5 @@
+'use server'
+
 import { getMumbleApi } from '@/actions/getMumbleApi'
 import { PostPaginatedResult } from '@/mumble/api/generated/MumbleApi'
 

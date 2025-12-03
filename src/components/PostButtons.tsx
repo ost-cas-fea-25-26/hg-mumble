@@ -17,6 +17,7 @@ export default function PostButtons({ post }: Props) {
     <div className="flex">
       <Toggle
         color={'primary'}
+        initialChecked={Boolean(post.likedBySelf)}
         uncheckedProps={{
           icon: <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />,
           label: translate('comments', { count: post.replies as number }),
@@ -29,8 +30,11 @@ export default function PostButtons({ post }: Props) {
       <Toggle
         color={'contrast'}
         onChange={() => {
-          if (!post.likedBySelf) return addLike(post.id!)
-          return removeLike(post.id!)
+          if (!post.likedBySelf) {
+            return addLike(post.id!)
+          } else {
+            return removeLike(post.id!)
+          }
         }}
         checkedProps={{
           icon: <Heart color={'currentColor'} size={'xs'} />,
