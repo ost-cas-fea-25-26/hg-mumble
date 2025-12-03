@@ -1,5 +1,6 @@
 {
   "general": {
+    "mumble": "Mumble",
     "welcome": "Willkommen {name}",
     "login-title": "Zeit zu Mumblen!",
     "login": "Einloggen",

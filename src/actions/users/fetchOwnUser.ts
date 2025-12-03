@@ -1,3 +1,5 @@
+'use server'
+
 import { getMumbleApiOld } from '@/actions/getMumbleApi'
 import { User } from '@/mumble/api/generated/MumbleApi'
 

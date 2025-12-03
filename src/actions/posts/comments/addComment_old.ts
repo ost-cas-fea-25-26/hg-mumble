@@ -1,5 +1,5 @@
 'use server'
-import { getMumbleApi, getMumbleApiOld } from '@/actions/getMumbleApi'
+import { getMumbleApiOld } from '@/actions/getMumbleApi'
 
 export async function addComment(id: string, text: string, image?: File) {
   const api = await getMumbleApiOld()
