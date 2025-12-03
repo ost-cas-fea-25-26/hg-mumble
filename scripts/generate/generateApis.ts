@@ -6,8 +6,3 @@ await generateApi({
   output: path.resolve('src/mumble/api/generated'),
   fileName: 'MumbleApi.ts',
 })
-await generateApi({
-  input: path.resolve('scripts/generate/swagger_mumble_api_old.json'),
-  output: path.resolve('src/mumble/api/generated'),
-  fileName: 'MumbleApiOld.ts',
-})
