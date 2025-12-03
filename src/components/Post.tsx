@@ -1,12 +1,19 @@
+'use client'
 import { fetchUser } from '@/actions/users/fetchUser'
 import PostButtons from '@/components/PostButtons'
 import clsx from 'clsx'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
-import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
+import { Post as MumblePost, User } from '@/mumble/api/generated/MumbleApi'
 
-export default async function Post({ post }: { post: MumblePost }) {
-  const userData = await fetchUser(post.creator!.id!)
+export default function Post({ post }: { post: MumblePost }) {
+  const [userData, setUserData] = useState<User>({})
+
+  //todo: ggf. wird api noch um die nötigen daten erweitert dass wir die user nicht noch separat laden müssen
+  useEffect(() => {
+    fetchUser(post.creator!.id!).then(setUserData)
+  }, [])
+
   return (
     <div className="relative m-2 flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white pt-26 pr-4 pb-4 pl-4">
       <div

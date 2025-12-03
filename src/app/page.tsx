@@ -1,6 +1,6 @@
 import { fetchPosts } from '@/actions/posts/fetchPosts'
 import CreatePost from '@/components/CreatePost'
-import Post from '@/components/Post'
+import PostsList from '@/components/PostsList'
 import clsx from 'clsx'
 import { getTranslations } from 'next-intl/server'
 import React from 'react'
@@ -9,7 +9,7 @@ import { getSession } from '@/lib/auth'
 export default async function Home() {
   const sessionData = await getSession()
   const translate = await getTranslations('general')
-  const posts = await fetchPosts()
+  const posts = await fetchPosts({ limit: 10 })
 
   return (
     <section className={'flex items-center justify-center bg-blue-100 pt-2'}>
@@ -23,9 +23,7 @@ export default async function Home() {
           <span className={clsx('text-secondary text-lg font-semibold')}>{translate('welcome-subtitle')}</span>
         </div>
         {sessionData && <CreatePost />}
-        {posts.data!.map((post) => {
-          return <Post key={post.id} post={post} />
-        })}
+        {posts.data && <PostsList initialPosts={posts.data} />}
       </div>
     </section>
   )
