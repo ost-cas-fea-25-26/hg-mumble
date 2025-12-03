@@ -9,6 +9,15 @@ export const auth = betterAuth({
   database: new Pool({
     connectionString: process.env.POSTGRES_URL,
   }),
+  user: {
+    additionalFields: {
+      sub: {
+        type: 'string',
+        required: true,
+        defaultValue: 'NO_NAME',
+      },
+    },
+  },
   secret: process.env.BETTER_AUTH_SECRET,
   trustedOrigins: [process.env.NEXT_PUBLIC_BASE_URL as string],
   session: {
@@ -32,6 +41,7 @@ export const auth = betterAuth({
           clientId: process.env.CLIENT_ID as string,
           clientSecret: '',
           discoveryUrl: 'https://cas-fee-adv-ed1ide.zitadel.cloud/.well-known/openid-configuration',
+          userInfoUrl: 'https://cas-fee-adv-ed1ide.zitadel.cloud/oidc/v1/userinfo',
           scopes: [
             'openid',
             'profile',
@@ -40,6 +50,7 @@ export const auth = betterAuth({
             'urn:zitadel:iam:org:project:id:348701753820117818:aud',
           ],
           pkce: true,
+          overrideUserInfo: true,
         },
       ],
     }),
