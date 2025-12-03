@@ -14,7 +14,7 @@ export default function Login() {
         <Button
           variant={'primary'}
           onClick={() => {
-            signIn().then(console.log)
+            signIn()
           }}
         >
           {translate('login')}

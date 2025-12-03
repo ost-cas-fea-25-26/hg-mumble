@@ -27,7 +27,7 @@ export default function CreatePost() {
       </div>
       <form
         onSubmit={handleSubmit(({ text }) => {
-          createPost(text, file!).then(console.log)
+          createPost(text, file!)
         })}
         className={clsx('h-full')}
       >
