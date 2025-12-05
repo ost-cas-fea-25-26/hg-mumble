@@ -14,7 +14,7 @@ type Props = {
 export default function PostButtons({ post }: Props) {
   const translate = useTranslations('mumble-post')
   return (
-    <div className="flex">
+    <div className="flex flex-wrap">
       <Toggle
         color={'primary'}
         uncheckedProps={{

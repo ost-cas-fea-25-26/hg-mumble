@@ -44,7 +44,7 @@ export default function Post({ post }: { post: MumblePost }) {
         <div className={'flex max-h-50 gap-4'}>
           {post.mediaUrl && (
             <img
-              className={'h-40 min-h-40 w-40 min-w-40 object-cover'}
+              className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}
               src={post.mediaUrl}
               alt={'user uploaded file'}
             />

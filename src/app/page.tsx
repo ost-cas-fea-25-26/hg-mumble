@@ -12,19 +12,13 @@ export default async function Home() {
   const posts = await fetchPosts({ limit: 10 })
 
   return (
-    <section className={'flex items-center justify-center bg-blue-100 pt-2'}>
-      <div
-        className={
-          'desktop:w-fit-50! desktop:max-w-144! mb-24 flex h-fit w-full max-w-full flex-col items-center justify-center gap-2 rounded-md p-6'
-        }
-      >
-        <div>
-          <h1 className={clsx('text-primary text-4xl font-bold')}>{translate('welcome-to-mumble')}</h1>
-          <span className={clsx('text-secondary text-lg font-semibold')}>{translate('welcome-subtitle')}</span>
-        </div>
-        {sessionData && <CreatePost />}
-        {posts.data && <PostsList initialPosts={posts.data} />}
+    <>
+      <div>
+        <h1 className={clsx('text-primary text-4xl font-bold')}>{translate('welcome-to-mumble')}</h1>
+        <span className={clsx('text-secondary text-lg font-semibold')}>{translate('welcome-subtitle')}</span>
       </div>
-    </section>
+      {sessionData && <CreatePost />}
+      {posts.data && <PostsList initialPosts={posts.data} />}
+    </>
   )
 }

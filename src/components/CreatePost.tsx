@@ -47,7 +47,7 @@ export default function CreatePost() {
                 </Button>
               </div>
               <img
-                className={'h-40 min-h-40 w-40 min-w-40 object-cover'}
+                className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}
                 src={URL.createObjectURL(file)}
                 alt={'user uploaded file'}
               />
