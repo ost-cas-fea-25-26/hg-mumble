@@ -1,4 +1,3 @@
-import { fetchOwnUser } from '@/actions/users/fetchOwnUser'
 import HeaderButtons from '@/components/HeaderButtons'
 import { getTranslations } from 'next-intl/server'
 import React from 'react'
@@ -8,7 +7,6 @@ import { Avatar, Link } from '@/lib/hg-storybook'
 export default async function HeaderUserDetails() {
   const sessionData = await getSession()
   const translate = await getTranslations('general')
-  const ownUserOld = await fetchOwnUser()
   return (
     <>
       {!sessionData && (
@@ -17,7 +15,7 @@ export default async function HeaderUserDetails() {
         </Link>
       )}
       <div className={'flex items-center justify-between gap-2'}>
-        {ownUserOld?.avatarUrl && <Avatar size={'s'} src={ownUserOld.avatarUrl} />}
+        {sessionData!.user.image && <Avatar size={'s'} src={sessionData!.user.image} />}
         <HeaderButtons />
       </div>
     </>
