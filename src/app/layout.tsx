@@ -31,10 +31,10 @@ export default function RootLayout({
             }}
           />
           <Header />
-          <section className={'flex items-center justify-center pt-2'}>
+          <section className={'flex items-center justify-center'}>
             <div
               className={
-                'desktop:max-w-[680px]! mb-24 flex h-fit w-full max-w-full flex-col items-center justify-center gap-2 rounded-md p-6'
+                'desktop:max-w-[680px]! mb-24 flex h-fit w-full max-w-full flex-col items-center justify-center gap-2 rounded-md bg-blue-50 p-6'
               }
             >
               {children}
