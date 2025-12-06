@@ -1,6 +1,6 @@
 import { fetchComments } from '@/actions/posts/comments/fetchComments'
 import { fetchPost } from '@/actions/posts/fetchPost'
-import CreatePost from '@/components/post/CreatePost'
+import CreateReply from '@/components/post/CreateReply'
 import Post from '@/components/post/Post'
 import Reply from '@/components/post/reply/Reply'
 import React from 'react'
@@ -23,7 +23,7 @@ export default async function Page({ params }: Props) {
     <div className="w-full rounded-md bg-white">
       {post && <Post post={post} />}
       <div className="p-6">
-        <CreatePost postId={postId} />
+        <CreateReply postId={postId} />
         {replies &&
           replies.data?.map((reply) => {
             return <Reply reply={reply} key={reply.id} />

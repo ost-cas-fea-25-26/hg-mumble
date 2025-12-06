@@ -3,6 +3,7 @@
 import { addLike } from '@/actions/posts/like/addLike'
 import { removeLike } from '@/actions/posts/like/removeLike'
 import { Heart, HeartEmpty, Share, SpeechBubble, SpeechBubbleEmpty, TimedButton, Toggle } from 'hg-storybook'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useTranslations } from 'use-intl'
@@ -27,20 +28,15 @@ export default function PostButtons({ post }: Props) {
 
   return (
     <div className="flex flex-wrap">
-      <Toggle
-        color={'primary'}
-        uncheckedProps={{
-          icon: <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />,
-          label: translate('comments', { count: post.replies as number }),
-        }}
-        checkedProps={{
-          icon: <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />,
-          label: translate('comments', { count: post.replies as number }),
-        }}
-        onChange={() => {
-          router.push('/post/' + post.id)
-        }}
-      />
+      <Link
+        href={'/post/' + post.id}
+        className="text-secondary hover:not-data-disabled:bg-primary-50 hover:not-data-disabled:text-primary-700 flex items-center gap-1 rounded-full p-1 pr-2 pl-2 font-bold hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed"
+      >
+        <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />
+        <p className="hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed">
+          {translate('comments', { count: post.replies as number })}
+        </p>
+      </Link>
       <Toggle
         color={'contrast'}
         initialChecked={Boolean(post.likedBySelf)}
