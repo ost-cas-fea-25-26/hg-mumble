@@ -17,7 +17,7 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <html lang="de">
+    <html lang="de" className="min-h-screen bg-blue-50">
       <NextIntlClientProvider>
         <body className={`h-full antialiased`}>
           <Toaster

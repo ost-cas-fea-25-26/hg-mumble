@@ -1,6 +1,6 @@
 import { fetchPosts } from '@/actions/posts/fetchPosts'
-import CreatePost from '@/components/CreatePost'
-import PostsList from '@/components/PostsList'
+import CreatePost from '@/components/post/CreatePost'
+import PostsList from '@/components/post/PostsList'
 import clsx from 'clsx'
 import { getTranslations } from 'next-intl/server'
 import React from 'react'

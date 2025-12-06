@@ -2,8 +2,9 @@
 
 import { getMumbleApi } from '@/actions/getMumbleApi'
 
-export async function fetchPost(id: string) {
+export async function fetchComments(id: string) {
   const api = await getMumbleApi()
-  const response = await api.posts.postsDetail(id)
+  const response = await api.posts.repliesList(id)
+
   return response.json()
 }
