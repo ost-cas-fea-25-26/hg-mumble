@@ -1,7 +1,7 @@
 'use client'
 
 import { fetchPosts } from '@/actions/posts/fetchPosts'
-import Post from '@/components/Post'
+import Post from '@/components/post/Post'
 import { Loader } from 'hg-storybook'
 import React, { RefObject, useEffect, useMemo, useRef, useState } from 'react'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'

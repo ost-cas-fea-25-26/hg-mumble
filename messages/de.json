@@ -10,10 +10,9 @@
   },
   "mumble-post": {
     "likes": "{count, plural, =0 {# Likes} =1 {# Like} other {# Likes}}",
-    "liked": "Me Gusta",
     "comments": "{count, plural, =0 {# Kommentare} =1 {# Kommentar} other {# Kommentare}}",
-    "link-copy":"Link kopieren",
-    "link-copied":"Link kopiert!",
+    "link-copy": "Link kopieren",
+    "link-copied": "Link kopiert!",
     "add-image": "Bild hinzufügen",
     "save-reply": "Kommentieren",
     "comment-success": "Antwort gespeichert",
