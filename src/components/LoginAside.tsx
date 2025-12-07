@@ -2,9 +2,7 @@ import { Mumble } from 'hg-storybook'
 import { getTranslations } from 'next-intl/server'
 import React from 'react'
 
-type Props = {}
-
-export default async function LoginAside({}: Props) {
+export default async function LoginAside() {
   const translate = await getTranslations('general')
   return (
     <aside className={'flex h-full flex-col items-center justify-center gap-2 text-white'}>

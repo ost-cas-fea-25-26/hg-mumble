@@ -17,7 +17,6 @@ export default function PostsList({ initialPosts }: Props) {
 
   useEffect(() => {
     const onScroll = () => {
-      console.log(isLoaderInViewport)
       if (isInViewport(loaderDiv as RefObject<HTMLDivElement>)) {
         setIsInViewport(true)
       } else {
