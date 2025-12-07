@@ -1,43 +1,24 @@
-'use client'
-import Post from '@/components/Post'
-import useApi from '@/hooks/data/useApi'
-import { fetchPosts } from '@/methods/data/posts/fetchPosts'
-import { MumblePostsList } from '@/types'
+import { fetchPosts } from '@/actions/posts/fetchPosts'
+import CreatePost from '@/components/post/CreatePost'
+import PostsList from '@/components/post/PostsList'
 import clsx from 'clsx'
-import { Loader } from 'hg-storybook'
+import { getTranslations } from 'next-intl/server'
 import React from 'react'
-import { useTranslations } from 'use-intl'
+import { getSession } from '@/lib/auth'
 
-export default function Home() {
-  const [postsQueryParams, _setPostsQueryParams] = React.useState<Record<string, string>>({})
-  const { data, isLoading } = useApi<MumblePostsList>('/api/posts', new URLSearchParams(postsQueryParams), fetchPosts)
-  const translate = useTranslations('general')
-
-  if (isLoading || !data)
-    return (
-      <div className={'flex h-full flex-col items-center justify-center'}>
-        <Loader size={'large'} color={'primary'} />
-      </div>
-    )
-
-  const { data: posts } = data!
+export default async function Home() {
+  const sessionData = await getSession()
+  const translate = await getTranslations('general')
+  const posts = await fetchPosts({ limit: 10 })
 
   return (
-    <section className={'flex items-center justify-center bg-blue-100 pt-2'}>
-      <div
-        className={
-          'desktop:w-fit-50! desktop:max-w-xl! mb-24 flex h-fit w-full max-w-full flex-col items-center justify-center gap-2 rounded-md p-6'
-        }
-      >
-        <div>
-          <h1 className={clsx('text-primary text-4xl font-bold')}>{translate('welcome-to-mumble')}</h1>
-          <span className={clsx('text-secondary text-lg font-semibold')}>{translate('welcome-subtitle')}</span>
-        </div>
-
-        {posts.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
+    <>
+      <div>
+        <h1 className={clsx('text-primary text-4xl font-bold')}>{translate('welcome-to-mumble')}</h1>
+        <span className={clsx('text-secondary text-lg font-semibold')}>{translate('welcome-subtitle')}</span>
       </div>
-    </section>
+      {sessionData && <CreatePost />}
+      {posts.data && <PostsList initialPosts={posts.data} />}
+    </>
   )
 }

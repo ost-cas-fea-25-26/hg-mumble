@@ -1,23 +1,10 @@
 import Header from '@/components/Header'
-import getFetcher from '@/utils/getFetcher'
 import 'hg-storybook/style'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
-import { Geist, Geist_Mono } from 'next/font/google'
 import { ReactNode } from 'react'
 import { Toaster } from 'sonner'
-import { SWRConfig } from 'swr'
 import './globals.css'
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
 
 export const metadata: Metadata = {
   title: 'Mumble - A social media platform for sharing thoughts and ideas.',
@@ -30,28 +17,30 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <html lang="de">
+    <html lang="de" className="min-h-screen bg-blue-50">
       <NextIntlClientProvider>
-        <SWRConfig
-          value={{
-            fetcher: getFetcher,
-          }}
-        >
-          <body className={`h-full antialiased`}>
-            <Toaster
-              toastOptions={{
-                duration: 100000,
-                style: {
-                  backgroundColor: 'var(--color-primary-200)',
-                  borderColor: 'var(--color-primary-400)',
-                },
-                closeButton: true,
-              }}
-            />
-            <Header />
-            {children}
-          </body>
-        </SWRConfig>
+        <body className={`h-full antialiased`}>
+          <Toaster
+            toastOptions={{
+              duration: 100000,
+              style: {
+                backgroundColor: 'var(--color-primary-200)',
+                borderColor: 'var(--color-primary-400)',
+              },
+              closeButton: true,
+            }}
+          />
+          <Header />
+          <section className={'flex items-center justify-center'}>
+            <div
+              className={
+                'desktop:max-w-[680px]! mb-24 flex h-fit w-full max-w-full flex-col items-center justify-center gap-2 rounded-md bg-blue-50 p-6'
+              }
+            >
+              {children}
+            </div>
+          </section>
+        </body>
       </NextIntlClientProvider>
     </html>
   )

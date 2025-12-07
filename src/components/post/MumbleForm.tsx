@@ -1,0 +1,82 @@
+import { FormValues } from '@/interfaces/MumbleFormValues'
+import clsx from 'clsx'
+import React from 'react'
+import { useFormContext } from 'react-hook-form'
+import { useTranslations } from 'use-intl'
+import { useSession } from '@/lib/auth-client'
+import { Button, Cross, FileInput, Modal, Textarea } from '@/lib/hg-storybook'
+
+interface Props {
+  file: File | null
+  setFile: (file: File | null) => void
+  showModal: boolean
+  setShowModal: (show: boolean) => void
+}
+
+export default function MumbleForm({ file, setFile, showModal, setShowModal }: Props) {
+  const { register } = useFormContext<FormValues>()
+  const translate = useTranslations('mumble-post')
+  const sessionData = useSession()
+
+  return (
+    <div>
+      <div className={clsx('mb-4 flex items-center gap-4')}>
+        {file && (
+          <span className={'relative'}>
+            <div className={'absolute top-2 right-2 w-fit'}>
+              <Button
+                size={'small'}
+                rounded
+                variant={'secondary'}
+                onClick={() => {
+                  setFile(null)
+                }}
+              >
+                <Cross color={'white'} size={'xs'} />
+              </Button>
+            </div>
+            <img
+              className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}
+              src={URL.createObjectURL(file)}
+              alt={'user uploaded file'}
+            />
+          </span>
+        )}
+        <Textarea {...register('text')} className={'h-40 w-fit'} />
+      </div>
+      {showModal && (
+        <Modal title={translate('add-image')} onClose={() => setShowModal(false)}>
+          <FileInput
+            label={translate('file-input-title')}
+            description={translate('file-input-accepted-images')}
+            size={'large'}
+            onDrop={([file]) => {
+              setShowModal(false)
+              setFile(file)
+            }}
+            files={[file].filter(Boolean) as File[]}
+            setFiles={([file]) => {
+              setFile(file)
+            }}
+            buttonContent={translate('file-upload-button')}
+          />
+        </Modal>
+      )}
+      <div className={'flex w-full items-center justify-center gap-4'}>
+        <Button
+          width={'w-full'}
+          variant={'secondary'}
+          size={'medium'}
+          onClick={() => {
+            setShowModal(true)
+          }}
+        >
+          {translate('add-image')}
+        </Button>
+        <Button type="submit" width={'w-full'} disabled={!sessionData}>
+          {translate('save')}
+        </Button>
+      </div>
+    </div>
+  )
+}

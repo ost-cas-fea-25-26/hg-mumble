@@ -1,5 +1,6 @@
 {
   "general": {
+    "mumble": "Mumble",
     "welcome": "Willkommen {name}",
     "login-title": "Zeit zu Mumblen!",
     "login": "Einloggen",
@@ -9,14 +10,18 @@
   },
   "mumble-post": {
     "likes": "{count, plural, =0 {# Likes} =1 {# Like} other {# Likes}}",
-    "liked": "Me Gusta",
     "comments": "{count, plural, =0 {# Kommentare} =1 {# Kommentar} other {# Kommentare}}",
-    "link-copy":"Link kopieren",
-    "link-copied":"Link kopiert!",
+    "link-copy": "Link kopieren",
+    "link-copied": "Link kopiert!",
     "add-image": "Bild hinzufügen",
     "save-reply": "Kommentieren",
-    "comment-success": "Kommentar erfolgreich erfasst",
-    "comment-error": "beim Kommentieren ist ein Fehler aufgetreten"
-
+    "comment-success": "Antwort gespeichert",
+    "comment-error": "Antwort konnte nicht gespeichert werden.",
+    "save": "Speichern",
+    "create-post-title": "Hey, was gibt's Neues?",
+    "create-post-error": "Dein Mumble konnte nicht erstellt werden, bitte versuche es erneut.",
+    "file-input-title": "Einfach Datei hierhin ziehen!",
+    "file-input-accepted-images": "Erlaubt sind Bilder (PNG, JPG, SVG, WEBP...)",
+    "file-upload-button": "Oder klicke hier..."
   }
 }
