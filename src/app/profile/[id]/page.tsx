@@ -1,6 +1,7 @@
+import { fetchPosts } from '@/actions/posts/fetchPosts'
 import { fetchUser } from '@/actions/users/fetchUser'
+import PostsList from '@/components/post/PostsList'
 import ProfileHeader from '@/components/profile/ProfileHeader'
-import { Tab, TabGroup, TabList, TabPanel } from 'hg-storybook'
 import { redirect } from 'next/navigation'
 import { getSession } from '@/lib/auth'
 
@@ -13,6 +14,8 @@ export default async function PublicProfilePage({ params }: Props) {
   const user = await fetchUser(id)
   const session = await getSession()
 
+  const [mumbles] = await Promise.all([fetchPosts({ creators: [user.id], limit: 10 })])
+
   if (session?.user.sub === id) {
     redirect('/profile')
   }
@@ -24,6 +27,9 @@ export default async function PublicProfilePage({ params }: Props) {
   return (
     <section className="mt-4 w-full">
       <ProfileHeader user={user} />
+      <div className="flex flex-col gap-4">
+        <PostsList initialPosts={mumbles.data || []} creatorId={user.id} />
+      </div>
     </section>
   )
 }
