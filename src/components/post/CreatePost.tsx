@@ -16,7 +16,7 @@ export default function CreatePost() {
   const [file, setFile] = useState<File | null>(null)
   const translate = useTranslations('mumble-post')
 
-  const methods = useForm<FormValues>()
+  const formProps = useForm<FormValues>()
   const userDetails = sessionData.data?.user || { image: null }
   return (
     <div
@@ -28,10 +28,13 @@ export default function CreatePost() {
         <Avatar src={userDetails?.image || undefined} size={'m'} />
         <h3 className={clsx('text-lg font-bold')}>{translate('create-post-title')}</h3>
       </div>
-      <FormProvider {...methods}>
+      <FormProvider {...formProps}>
         <form
-          onSubmit={methods.handleSubmit(({ text }) => {
-            createPost(text, file!)
+          onSubmit={formProps.handleSubmit(({ text }) => {
+            createPost(text, file!).then((res) => {
+              formProps.reset({ text: '' })
+              setFile(null)
+            })
           })}
           className={clsx('h-full')}
         >
