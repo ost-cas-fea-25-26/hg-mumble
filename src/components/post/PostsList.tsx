@@ -3,7 +3,7 @@
 import { fetchPosts } from '@/actions/posts/fetchPosts'
 import Post from '@/components/post/Post'
 import { Loader } from 'hg-storybook'
-import React, { RefObject, useEffect, useMemo, useRef, useState } from 'react'
+import React, { RefObject, useEffect, useRef, useState } from 'react'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 
 type Props = { initialPosts: MumblePost[] }
@@ -17,6 +17,7 @@ export default function PostsList({ initialPosts }: Props) {
 
   useEffect(() => {
     const onScroll = () => {
+      console.log(isLoaderInViewport)
       if (isInViewport(loaderDiv as RefObject<HTMLDivElement>)) {
         setIsInViewport(true)
       } else {
@@ -50,7 +51,7 @@ export default function PostsList({ initialPosts }: Props) {
       bounding.top >= 0 &&
       bounding.left >= 0 &&
       bounding.right <= (window.innerWidth || document.documentElement.clientWidth) &&
-      bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+      bounding.top <= (window.innerHeight || document.documentElement.clientHeight)
     )
   }
 
