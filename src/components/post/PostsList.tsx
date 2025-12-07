@@ -3,7 +3,7 @@
 import { fetchPosts } from '@/actions/posts/fetchPosts'
 import Post from '@/components/post/Post'
 import { Loader } from 'hg-storybook'
-import React, { RefObject, useEffect, useRef, useState } from 'react'
+import React, { RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 export default function PostsList({ initialPosts, creatorId, likedByUserId }: Props) {
   const loaderDiv = useRef<HTMLDivElement>(null)
   const [posts, setPosts] = useState<MumblePost[]>(initialPosts)
-  const [canFetchMore, setCanFetchMore] = useState<boolean>(initialPosts.length > 0) // Initialize based on data
+  const [canFetchMore, setCanFetchMore] = useState<boolean>(initialPosts.length > 0)
   const [isLoaderInViewport, setIsInViewport] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
 
@@ -44,31 +44,37 @@ export default function PostsList({ initialPosts, creatorId, likedByUserId }: Pr
     )
   }
 
-  useEffect(() => {
-    if (isLoaderInViewport && !loading && canFetchMore) {
-      setLoading(true)
+  const loadMorePosts = useCallback(async () => {
+    if (loading || !canFetchMore) return
 
-      const lastPostId = posts[posts.length - 1]?.id
+    setLoading(true)
+    const lastPostId = posts[posts.length - 1]?.id
 
-      fetchPosts({
+    try {
+      const { data } = await fetchPosts({
         olderThan: lastPostId,
         limit: 5,
         creators: creatorId ? [creatorId] : undefined,
         likedBy: likedByUserId ? [likedByUserId] : undefined,
       })
-        .then(({ data }) => {
-          if (data && data.length > 0) {
-            setPosts((prev) => [...prev, ...data])
-          } else {
-            setCanFetchMore(false)
-          }
-        })
-        .catch((e) => console.error('Error fetching posts:', e))
-        .finally(() => {
-          setLoading(false)
-        })
+
+      if (data && data.length > 0) {
+        setPosts((prev) => [...prev, ...data])
+      } else {
+        setCanFetchMore(false)
+      }
+    } catch (e) {
+      console.error('Error fetching posts:', e)
+    } finally {
+      setLoading(false)
     }
-  }, [isLoaderInViewport, loading, canFetchMore, posts, creatorId, likedByUserId])
+  }, [posts, loading, canFetchMore, creatorId, likedByUserId])
+
+  useEffect(() => {
+    if (isLoaderInViewport) {
+      loadMorePosts()
+    }
+  }, [isLoaderInViewport, loadMorePosts])
 
   return (
     <>
