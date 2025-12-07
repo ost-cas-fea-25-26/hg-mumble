@@ -21,6 +21,7 @@ export default function PostsList({ initialPosts }: Props) {
   const [isLoaderInViewport, setIsInViewport] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
   const translate = useTranslations('mumble-post')
+
   useEffect(() => {
     const onScroll = () => {
       if (isInViewport(loaderDiv as RefObject<HTMLDivElement>)) {
