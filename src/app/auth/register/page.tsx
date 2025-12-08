@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 
 export default async function Page() {
   return <div className={''}>{}</div>

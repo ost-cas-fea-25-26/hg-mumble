@@ -21,7 +21,7 @@ export default function PostButtons({ post }: Props) {
 
   const copyToClipboard = () => {
     if (navigator.clipboard && window.isSecureContext) {
-      const url = window.location.origin + '/post/' + post.id
+      const url = window.location.origin + '/mumble/post/' + post.id
       return navigator.clipboard.writeText(url)
     }
   }
@@ -29,7 +29,7 @@ export default function PostButtons({ post }: Props) {
   return (
     <div className="flex flex-wrap">
       <Link
-        href={'/post/' + post.id}
+        href={'/mumble/post/' + post.id}
         className="text-secondary hover:not-data-disabled:bg-primary-50 hover:not-data-disabled:text-primary-700 flex items-center gap-1 rounded-full p-1 pr-2 pl-2 font-bold hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed"
       >
         <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />

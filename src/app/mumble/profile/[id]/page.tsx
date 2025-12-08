@@ -1,10 +1,7 @@
-import { getTranslations } from 'next-intl/server'
 import React from 'react'
 import { getAccessToken } from '@/lib/auth'
 
 export default async function UserProfile({ params }: { params?: Promise<{ id: string }> }) {
-  const translate = await getTranslations('general')
-
   const userId = await params?.then(({ id }) => id)
   const { accessToken } = (await getAccessToken()) || {}
   const user = await fetch(`${process.env.API_URL}/users/me`, {
