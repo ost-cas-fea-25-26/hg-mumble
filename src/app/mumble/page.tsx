@@ -4,7 +4,7 @@ import PostsList from '@/components/post/PostsList'
 import clsx from 'clsx'
 import { getTranslations } from 'next-intl/server'
 import { redirect } from 'next/navigation'
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { getSession } from '@/lib/auth'
 
 export default async function Home() {
