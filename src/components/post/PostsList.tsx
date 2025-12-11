@@ -22,27 +22,29 @@ export default function PostsList({ initialPosts }: Props) {
   const [loading, setLoading] = useState(false)
   const translate = useTranslations('mumble-post')
 
-  useEffect(() => {
-    const onScroll = () => {
-      if (isInViewport(loaderDiv as RefObject<HTMLDivElement>)) {
-        setIsInViewport(true)
-      } else {
-        setIsInViewport(false)
-      }
-    }
-    window.addEventListener('scroll', onScroll)
-
-    const events = getPostEventSource()
-    events.addEventListener('postCreated', (event: MessageEvent<string>) => {
-      const post = JSON.parse(event.data) as MumblePost
-      setPosts((prev) => [post, ...prev])
-      toast(translate('new-posts'), {
-        action: {
-          label: translate('see-now'),
-          onClick: () => window.scrollTo(0, 0),
-        },
-      })
+  const onPostCreated = (event: MessageEvent<string>) => {
+    const post = JSON.parse(event.data) as MumblePost
+    setPosts((prev) => [post, ...prev])
+    toast(translate('new-posts'), {
+      action: {
+        label: translate('see-now'),
+        onClick: () => window.scrollTo(0, 0),
+      },
     })
+  }
+
+  const onScroll = () => {
+    if (isInViewport(loaderDiv as RefObject<HTMLDivElement>)) {
+      setIsInViewport(true)
+    } else {
+      setIsInViewport(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', onScroll)
+    const events = getPostEventSource()
+    events.addEventListener('postCreated', onPostCreated)
     return () => {
       window.removeEventListener('scroll', onScroll)
       events.close()
