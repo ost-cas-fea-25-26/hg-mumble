@@ -8,11 +8,13 @@ import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 
 type Props = {
   initialPosts: MumblePost[]
-  creatorId?: string
-  likedByUserId?: string
+  filters?: {
+    creatorIds?: string[]
+    likedByUserId?: string
+  }
 }
 
-export default function PostsList({ initialPosts, creatorId, likedByUserId }: Props) {
+export default function PostsList({ initialPosts, filters }: Props) {
   const loaderDiv = useRef<HTMLDivElement>(null)
   const [posts, setPosts] = useState<MumblePost[]>(initialPosts)
   const [canFetchMore, setCanFetchMore] = useState<boolean>(initialPosts.length > 0)
@@ -54,8 +56,8 @@ export default function PostsList({ initialPosts, creatorId, likedByUserId }: Pr
       const { data } = await fetchPosts({
         olderThan: lastPostId,
         limit: 5,
-        creators: creatorId ? [creatorId] : undefined,
-        likedBy: likedByUserId ? [likedByUserId] : undefined,
+        creators: filters?.creatorIds ?? undefined,
+        likedBy: filters?.likedByUserId ? [filters.likedByUserId] : undefined,
       })
 
       if (data && data.length > 0) {
@@ -68,7 +70,7 @@ export default function PostsList({ initialPosts, creatorId, likedByUserId }: Pr
     } finally {
       setLoading(false)
     }
-  }, [posts, loading, canFetchMore, creatorId, likedByUserId])
+  }, [posts, loading, canFetchMore, filters?.creatorIds, filters?.likedByUserId])
 
   useEffect(() => {
     if (isLoaderInViewport) {
