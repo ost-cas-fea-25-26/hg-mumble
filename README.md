@@ -44,6 +44,7 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000
 BETTER_AUTH_SECRET=irgendöppis
 E2E_HOST=https://hg-mumble-taupe.vercel.app/
 API_URL=https://qwacker-api-http-prod-927407260649.europe-west6.run.app/
+NEXT_PUBLIC_API_URL=https://mumble-api-prod-714602723919.europe-west6.run.app #used for SSE endpoint - directly from client
 
 ```
 

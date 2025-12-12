@@ -2,7 +2,7 @@
 
 import { addLike } from '@/actions/posts/like/addLike'
 import { removeLike } from '@/actions/posts/like/removeLike'
-import { Heart, HeartEmpty, Share, SpeechBubble, SpeechBubbleEmpty, TimedButton, Toggle } from 'hg-storybook'
+import { Heart, HeartEmpty, Share, SpeechBubbleEmpty, TimedButton, Toggle } from 'hg-storybook'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -34,7 +34,7 @@ export default function PostButtons({ post }: Props) {
       >
         <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />
         <p className="hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed">
-          {translate('comments', { count: post.replies as number })}
+          {translate('comments', { count: post.replies || 0 })}
         </p>
       </Link>
       <Toggle

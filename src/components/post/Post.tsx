@@ -1,14 +1,15 @@
 'use client'
 import { fetchUser } from '@/actions/users/fetchUser'
 import PostButtons from '@/components/post/PostButtons'
+import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
+import { decodeTime } from 'ulidx'
 import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
 import { Post as MumblePost, User } from '@/mumble/api/generated/MumbleApi'
 
 export default function Post({ post }: { post: MumblePost }) {
   const [userData, setUserData] = useState<User>({})
-
   //todo: ggf. wird api noch um die nötigen daten erweitert dass wir die user nicht noch separat laden müssen
   useEffect(() => {
     fetchUser(post.creator!.id!).then(setUserData)
@@ -27,14 +28,15 @@ export default function Post({ post }: { post: MumblePost }) {
           <h3 className={clsx('text-lg font-bold')}>{`${userData?.firstname} ${userData?.lastname}`}</h3>
           <div className={clsx('flex items-center gap-4')}>
             <Link
-              url={`user-profile/${post.creator?.id}`}
+              url={`/profile/${post.creator?.id}`}
               className={'text-primary flex items-center justify-start gap-1 font-bold'}
             >
               <Profile color={'currentColor'} size={'xs'} />
               <span>{userData?.username}</span>
             </Link>
-            <span className={clsx('text-secondary-400 font-semibold')}>
+            <span className={clsx('text-secondary-400 flex items-center gap-2 font-semibold')}>
               <Time size={'xs'} color={'currentColor'} />
+              <span>{useFormattedDate(new Date(decodeTime(post.id!)))}</span>
             </span>
           </div>
         </div>
