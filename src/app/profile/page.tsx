@@ -36,7 +36,7 @@ export default async function ProfileIndex() {
   }
 
   return (
-    <section className="w-full">
+    <section className="my-6 w-full">
       <ProfileHeader user={user} />
 
       <div className="mt-8">

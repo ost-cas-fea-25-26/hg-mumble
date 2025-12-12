@@ -25,7 +25,7 @@ export default async function PublicProfilePage({ params }: Props) {
   }
 
   return (
-    <section className="mt-4 w-full">
+    <section className="my-6 w-full">
       <ProfileHeader user={user} />
       <div className="flex flex-col gap-4">
         <PostsList initialPosts={mumbles.data || []} filters={{ creatorIds: [user.id] }} />

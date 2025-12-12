@@ -1,11 +1,13 @@
 'use client'
 
 import { Button, Logout, Settings } from 'hg-storybook'
+import { useRouter } from 'next/navigation'
 import React from 'react'
-import { authClient, useSession } from '@/lib/auth-client'
+import { authClient, signOut, useSession } from '@/lib/auth-client'
 
 export default function HeaderButtons() {
   const { data: sessionData } = useSession()
+  const router = useRouter()
   return (
     <>
       <Button aria-label={'settings'} variant={'primary'}>
@@ -17,7 +19,9 @@ export default function HeaderButtons() {
           variant={'primary'}
           onClick={() => {
             authClient.revokeSessions()
-            authClient.signOut()
+            signOut().then(() => {
+              router.push('/')
+            })
           }}
         >
           <Logout size="xs" color={'white'} />
