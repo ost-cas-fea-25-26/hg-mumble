@@ -107,7 +107,7 @@ importers:
         version: 5.5.4(eslint-config-prettier@10.1.8(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(prettier@3.7.4)
       knip:
         specifier: ^5.69.0
-        version: 5.73.0(@types/node@24.10.1)(typescript@5.9.3)
+        version: 5.73.3(@types/node@24.10.1)(typescript@5.9.3)
       prettier:
         specifier: ^3.6.2
         version: 3.7.4
@@ -1180,8 +1180,8 @@ packages:
   '@types/node@24.10.1':
     resolution: {integrity: sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ==}
 
-  '@types/node@24.10.2':
-    resolution: {integrity: sha512-WOhQTZ4G8xZ1tjJTvKOpyEVSGgOTvJAfDK3FNFgELyaTpzhdgHVHeqW8V+UJvzF5BT+/B54T/1S2K6gd9c7bbA==}
+  '@types/node@24.10.3':
+    resolution: {integrity: sha512-gqkrWUsS8hcm0r44yn7/xZeV1ERva/nLgrLxFRUGb7aoNMIJfZJ3AC261zDQuOAKC7MiXai1WCpYc48jAHoShQ==}
 
   '@types/pg@8.15.6':
     resolution: {integrity: sha512-NoaMtzhxOrubeL/7UZuNTrejB4MPAJ0RpxZqXQf2qXuVlTPuG6Y8p4u9dKRaue4yjmC7ZhzVO2/Yyyn25znrPQ==}
@@ -2526,8 +2526,8 @@ packages:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
 
-  knip@5.73.0:
-    resolution: {integrity: sha512-L6zy2R/aAICy+lQWwdjl2TUY/kv2mqjkyKIL5+F4cUcn+3TQHjqzHen+N43S4oi4FyQ2qPJMNIODusr1vicTUA==}
+  knip@5.73.3:
+    resolution: {integrity: sha512-676xuqNQidE9yZeUUX7lJeZ0d1N7QBTbmO1J0p+SyuXlbpdE4pd8Ql3WVMvrvaaaG2z/+3ExeFNm0Q9mVIjuKw==}
     engines: {node: '>=18.18.0'}
     hasBin: true
     peerDependencies:
@@ -4836,7 +4836,7 @@ snapshots:
 
   '@types/better-sqlite3@7.6.13':
     dependencies:
-      '@types/node': 24.10.2
+      '@types/node': 24.10.3
     optional: true
 
   '@types/estree@1.0.8': {}
@@ -4851,7 +4851,7 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
-  '@types/node@24.10.2':
+  '@types/node@24.10.3':
     dependencies:
       undici-types: 7.16.0
 
@@ -4875,7 +4875,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 24.10.2
+      '@types/node': 24.10.3
 
   '@typescript-eslint/eslint-plugin@8.47.0(@typescript-eslint/parser@8.47.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
@@ -6254,7 +6254,7 @@ snapshots:
 
   kleur@3.0.3: {}
 
-  knip@5.73.0(@types/node@24.10.1)(typescript@5.9.3):
+  knip@5.73.3(@types/node@24.10.1)(typescript@5.9.3):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
       '@types/node': 24.10.1
