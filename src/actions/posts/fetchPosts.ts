@@ -7,6 +7,8 @@ type RequestParams = {
   newerThan?: string
   olderThan?: string
   limit?: number
+  creators?: string[]
+  likedBy?: string[]
 }
 
 export async function fetchPosts(params: RequestParams = {}) {

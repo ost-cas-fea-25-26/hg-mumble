@@ -37,7 +37,7 @@ export default async function RootLayout({
             // logged in
             <>
               <Header />
-              <section className={'flex items-center justify-center bg-blue-100'}>
+              <section className={'bg-secondary-100 flex items-center justify-center'}>
                 <div
                   className={
                     'desktop:max-w-[680px]! flex h-fit min-h-screen w-full max-w-full flex-col items-center justify-center gap-2 rounded-md'

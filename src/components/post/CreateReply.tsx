@@ -43,10 +43,7 @@ export default function CreateReply({ postId }: Props) {
         <div>
           <h3 className={clsx('text-lg font-bold')}>{`${userData.firstname} ${userData.lastname}`}</h3>
           <div className={clsx('flex items-center gap-4')}>
-            <Link
-              url={`user-profile/${sessionData.data?.user.id}`}
-              className={'text-primary flex items-center justify-start gap-1 font-bold'}
-            >
+            <Link url={`/profile`} className={'text-primary flex items-center justify-start gap-1 font-bold'}>
               <Profile color={'currentColor'} size={'xs'} />
               <span>{userData.username}</span>
             </Link>
