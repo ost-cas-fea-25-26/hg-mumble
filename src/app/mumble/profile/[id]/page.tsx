@@ -17,7 +17,7 @@ export default async function PublicProfilePage({ params }: Props) {
   const [mumbles] = await Promise.all([fetchPosts({ creators: [user.id], limit: 10 })])
 
   if (session?.user.sub === id) {
-    redirect('/profile')
+    redirect('/mumble/profile')
   }
 
   if (!user) {

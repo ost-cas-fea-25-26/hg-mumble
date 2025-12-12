@@ -9,15 +9,16 @@ export default async function HeaderUserDetails() {
   const translate = await getTranslations('general')
   return (
     <>
-      {!sessionData && (
-        <Link className={'text-white'} url={'/signin'}>
+      {!sessionData ? (
+        <Link className={'text-white'} url={'/auth/signin'}>
           {translate('login')}
         </Link>
+      ) : (
+        <div className={'flex items-center justify-between gap-2'}>
+          {sessionData!.user.image && <Avatar size={'s'} src={sessionData!.user.image} />}
+          <HeaderButtons />
+        </div>
       )}
-      <div className={'flex items-center justify-between gap-2'}>
-        {sessionData!.user.image && <Avatar size={'s'} src={sessionData!.user.image} />}
-        <HeaderButtons />
-      </div>
     </>
   )
 }
