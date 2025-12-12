@@ -1,21 +1,34 @@
-import React from 'react'
-import { getAccessToken } from '@/lib/auth'
+import { fetchPosts } from '@/actions/posts/fetchPosts'
+import { fetchUser } from '@/actions/users/fetchUser'
+import PostsList from '@/components/post/PostsList'
+import ProfileHeader from '@/components/profile/ProfileHeader'
+import { redirect } from 'next/navigation'
+import { getSession } from '@/lib/auth'
 
-export default async function UserProfile({ params }: { params?: Promise<{ id: string }> }) {
-  const userId = await params?.then(({ id }) => id)
-  const { accessToken } = (await getAccessToken()) || {}
-  const user = await fetch(`${process.env.API_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  }).then((res) => res.json())
+type Props = {
+  params: Promise<{ id: string }>
+}
+
+export default async function PublicProfilePage({ params }: Props) {
+  const { id } = await params
+  const user = await fetchUser(id)
+  const session = await getSession()
+
+  const [mumbles] = await Promise.all([fetchPosts({ creators: [user.id], limit: 10 })])
+
+  if (session?.user.sub === id) {
+    redirect('/mumble/profile')
+  }
+
+  if (!user) {
+    return <div className="p-10 font-bold">User not found</div>
+  }
 
   return (
-    <section className={'flex h-screen items-center justify-center bg-white'}>
-      <div className={'mb-24 flex h-fit w-fit flex-col items-center justify-start gap-2 rounded-md bg-white p-6'}>
-        <h1 className={'text-primary text-2xl font-bold'}>Sample User Page</h1>
-        <div>{userId}</div>
+    <section className="my-6 w-full">
+      <ProfileHeader user={user} />
+      <div className="flex flex-col gap-4">
+        <PostsList initialPosts={mumbles.data || []} filters={{ creatorIds: [user.id] }} />
       </div>
     </section>
   )
