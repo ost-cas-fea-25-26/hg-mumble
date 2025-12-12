@@ -4,9 +4,15 @@ import { fetchPosts } from '@/actions/posts/fetchPosts'
 import Post from '@/components/post/Post'
 import { Loader } from 'hg-storybook'
 import React, { RefObject, useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
+import { useTranslations } from 'use-intl'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 
 type Props = { initialPosts: MumblePost[] }
+
+function getPostEventSource() {
+  return new EventSource(`${process.env.NEXT_PUBLIC_API_URL}/posts/_sse`)
+}
 
 export default function PostsList({ initialPosts }: Props) {
   const loaderDiv = useRef<HTMLDivElement>(null)
@@ -14,18 +20,34 @@ export default function PostsList({ initialPosts }: Props) {
   const [canFetchMore, setCanFetchMore] = useState<boolean>(true)
   const [isLoaderInViewport, setIsInViewport] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
+  const translate = useTranslations('mumble-post')
+
+  const onPostCreated = (event: MessageEvent<string>) => {
+    const post = JSON.parse(event.data) as MumblePost
+    setPosts((prev) => [post, ...prev])
+    toast(translate('new-posts'), {
+      action: {
+        label: translate('see-now'),
+        onClick: () => window.scrollTo(0, 0),
+      },
+    })
+  }
+
+  const onScroll = () => {
+    if (isInViewport(loaderDiv as RefObject<HTMLDivElement>)) {
+      setIsInViewport(true)
+    } else {
+      setIsInViewport(false)
+    }
+  }
 
   useEffect(() => {
-    const onScroll = () => {
-      if (isInViewport(loaderDiv as RefObject<HTMLDivElement>)) {
-        setIsInViewport(true)
-      } else {
-        setIsInViewport(false)
-      }
-    }
     window.addEventListener('scroll', onScroll)
+    const events = getPostEventSource()
+    events.addEventListener('postCreated', onPostCreated)
     return () => {
       window.removeEventListener('scroll', onScroll)
+      events.close()
     }
   }, [])
 
