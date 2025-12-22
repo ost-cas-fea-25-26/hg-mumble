@@ -18,6 +18,13 @@ export default function CreatePost() {
 
   const formProps = useForm<FormValues>()
   const userDetails = sessionData.data?.user || { image: null }
+
+  const handleSubmit = ({ text }: FormValues) => {
+    createPost(text, file!).then((res) => {
+      formProps.reset({ text: '' })
+      setFile(null)
+    })
+  }
   return (
     <div
       className={clsx(
@@ -29,16 +36,14 @@ export default function CreatePost() {
         <h3 className={clsx('text-lg font-bold')}>{translate('create-post-title')}</h3>
       </div>
       <FormProvider {...formProps}>
-        <form
-          onSubmit={formProps.handleSubmit(({ text }) => {
-            createPost(text, file!).then((res) => {
-              formProps.reset({ text: '' })
-              setFile(null)
-            })
-          })}
-          className={clsx('h-full')}
-        >
-          <MumbleForm setShowModal={setShowModal} file={file} setFile={setFile} showModal={showModal} />
+        <form onSubmit={formProps.handleSubmit(handleSubmit)} className={clsx('h-full')}>
+          <MumbleForm
+            setShowModal={setShowModal}
+            file={file}
+            setFile={setFile}
+            showModal={showModal}
+            handleSubmit={handleSubmit}
+          />
         </form>
       </FormProvider>
     </div>

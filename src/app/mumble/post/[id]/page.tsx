@@ -3,6 +3,7 @@ import { fetchPost } from '@/actions/posts/fetchPost'
 import CreateReply from '@/components/post/CreateReply'
 import Post from '@/components/post/Post'
 import Reply from '@/components/post/reply/Reply'
+import ReplyList from '@/components/post/reply/ReplyList'
 import React from 'react'
 import { ReplyPaginatedResult } from '@/mumble/api/generated/MumbleApi'
 
@@ -24,10 +25,7 @@ export default async function Page({ params }: Props) {
       {post && <Post post={post} />}
       <div className="p-6">
         <CreateReply postId={postId} />
-        {replies &&
-          replies.data?.map((reply) => {
-            return <Reply reply={reply} key={reply.id} />
-          })}
+        <ReplyList initialReplies={replies.data || []} />
       </div>
     </div>
   )

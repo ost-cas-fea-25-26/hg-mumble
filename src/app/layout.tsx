@@ -15,11 +15,11 @@ export default async function RootLayout({ children }: Props) {
   return (
     <html lang="de">
       <body className={`antialiased`}>
-        <div className={`h-screen min-h-screen w-screen min-w-screen`}>
+        <div className={`h-screen min-h-screen`}>
           <NextIntlClientProvider>
             <Toaster
               toastOptions={{
-                duration: 100000,
+                duration: 10000,
                 style: {
                   backgroundColor: 'var(--color-primary-200)',
                   borderColor: 'var(--color-primary-400)',
