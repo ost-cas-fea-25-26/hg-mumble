@@ -14,7 +14,7 @@ export default async function MumbleLayout({ children }: Props) {
       <section className={'bg-secondary-100 flex items-center justify-center'}>
         <div
           className={
-            'desktop:max-w-[680px]! flex h-fit min-h-screen w-full max-w-full flex-col items-center justify-center gap-2 rounded-md'
+            'desktop:max-w-[680px]! desktop:pr-0 desktop:pl-0 flex h-fit min-h-screen w-full max-w-full flex-col items-center justify-center gap-2 rounded-md pr-4 pl-7'
           }
         >
           {children}

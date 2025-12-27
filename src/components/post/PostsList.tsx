@@ -2,8 +2,10 @@
 
 import { fetchPosts } from '@/actions/posts/fetchPosts'
 import Post from '@/components/post/Post'
+import PostSkeleton from '@/components/post/PostSkeleton'
 import usePostCreated from '@/hooks/usePostCreated'
 import { Loader } from 'hg-storybook'
+import { LoadingIcon } from 'next/dist/next-devtools/dev-overlay/icons/loading-icon'
 import React, { RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 
@@ -88,9 +90,17 @@ export default function PostsList({ initialPosts, filters }: Props) {
         return <Post key={post.id} post={post} />
       })}
       {canFetchMore && (
-        <div ref={loaderDiv} className="flex justify-center py-4">
-          <Loader size={'large'} color={'primary'} />
-        </div>
+        <span ref={loaderDiv} className="flex flex-col gap-4">
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+
+          <div className="p-5">
+            <Loader size={'large'} color={'primary'} />
+          </div>
+        </span>
       )}
     </>
   )

@@ -1,6 +1,5 @@
 'use client'
 import { createReply } from '@/actions/posts/comments/createReply'
-import { createPost } from '@/actions/posts/createPost'
 import { fetchUser } from '@/actions/users/fetchUser'
 import LoadingText from '@/components/loading/LoadingText'
 import MumbleForm from '@/components/post/MumbleForm'
@@ -8,9 +7,8 @@ import { FormValues } from '@/interfaces/MumbleFormValues'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useTranslations } from 'use-intl'
 import { useSession } from '@/lib/auth-client'
-import { Avatar, Button, Cross, FileInput, Link, Modal, Profile, Textarea, Time } from '@/lib/hg-storybook'
+import { Avatar, Link, Profile } from '@/lib/hg-storybook'
 import { User } from '@/mumble/api/generated/MumbleApi'
 
 interface Props {
@@ -22,6 +20,7 @@ export default function CreateReply({ postId }: Props) {
   const [showModal, setShowModal] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
   const [userData, setUserData] = useState<User>({})
 
   useEffect(() => {
@@ -38,9 +37,11 @@ export default function CreateReply({ postId }: Props) {
   const userDetails = sessionData.data?.user || { image: null }
 
   const handleSubmit = ({ text }: FormValues) => {
+    setIsSaving(true)
     createReply(postId, text, file!).then((res) => {
       methods.reset({ text: '' })
       setFile(null)
+      setIsSaving(false)
     })
   }
 
@@ -78,6 +79,7 @@ export default function CreateReply({ postId }: Props) {
             setFile={setFile}
             showModal={showModal}
             handleSubmit={handleSubmit}
+            isSaving={isSaving}
           />
         </form>
       </FormProvider>
