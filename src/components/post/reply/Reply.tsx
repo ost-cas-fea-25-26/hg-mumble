@@ -43,7 +43,7 @@ export default function Reply({ reply }: Props) {
           <h3 className={clsx('text-lg font-bold')}>
             {userData?.firstname} {userData?.lastname}
           </h3>
-          <div className={clsx('flex items-center gap-4')}>
+          <div className={clsx('desktop:flex-row flex flex-col items-center gap-4')}>
             <Link
               url={`/mumble/profile/${reply.creator?.id}`}
               className={'text-primary flex items-center justify-start gap-1 font-bold'}

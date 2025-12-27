@@ -19,7 +19,7 @@ export default function ReplySkeleton() {
           <h3 className={clsx('text-lg font-bold')}>
             <LoadingText width={'w-32'} />
           </h3>
-          <div className={clsx('mt-1 flex items-center gap-4')}>
+          <div className={clsx('desktop:flex-row mt-1 flex flex-col items-center gap-4')}>
             <div className={'text-primary flex items-center justify-start gap-1 font-bold'}>
               <LoadingText width={'w-25'} />
             </div>

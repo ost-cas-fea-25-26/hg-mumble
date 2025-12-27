@@ -22,6 +22,7 @@ export default function CreateReply({ postId }: Props) {
   const [showModal, setShowModal] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
   const [userData, setUserData] = useState<User>({})
 
   useEffect(() => {
@@ -38,9 +39,11 @@ export default function CreateReply({ postId }: Props) {
   const userDetails = sessionData.data?.user || { image: null }
 
   const handleSubmit = ({ text }: FormValues) => {
+    setIsSaving(true)
     createReply(postId, text, file!).then((res) => {
       methods.reset({ text: '' })
       setFile(null)
+      setIsSaving(false)
     })
   }
 
@@ -78,6 +81,7 @@ export default function CreateReply({ postId }: Props) {
             setFile={setFile}
             showModal={showModal}
             handleSubmit={handleSubmit}
+            isSaving={isSaving}
           />
         </form>
       </FormProvider>
