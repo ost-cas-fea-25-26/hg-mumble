@@ -2,10 +2,9 @@
 
 import { fetchPosts } from '@/actions/posts/fetchPosts'
 import Post from '@/components/post/Post'
+import usePostCreated from '@/hooks/usePostCreated'
 import { Loader } from 'hg-storybook'
 import React, { RefObject, useCallback, useEffect, useRef, useState } from 'react'
-import { toast } from 'sonner'
-import { useTranslations } from 'use-intl'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 
 type Props = {
@@ -16,28 +15,14 @@ type Props = {
   }
 }
 
-function getPostEventSource() {
-  return new EventSource(`${process.env.NEXT_PUBLIC_API_URL}/posts/_sse`)
-}
-
 export default function PostsList({ initialPosts, filters }: Props) {
   const loaderDiv = useRef<HTMLDivElement>(null)
   const [posts, setPosts] = useState<MumblePost[]>(initialPosts)
   const [canFetchMore, setCanFetchMore] = useState<boolean>(initialPosts.length > 0)
   const [isLoaderInViewport, setIsInViewport] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
-  const translate = useTranslations('mumble-post')
 
-  const onPostCreated = (event: MessageEvent<string>) => {
-    const post = JSON.parse(event.data) as MumblePost
-    setPosts((prev) => [post, ...prev])
-    toast(translate('new-posts'), {
-      action: {
-        label: translate('see-now'),
-        onClick: () => window.scrollTo(0, 0),
-      },
-    })
-  }
+  usePostCreated(setPosts, posts)
 
   const onScroll = () => {
     if (isInViewport(loaderDiv as RefObject<HTMLDivElement>)) {
@@ -49,11 +34,8 @@ export default function PostsList({ initialPosts, filters }: Props) {
 
   useEffect(() => {
     window.addEventListener('scroll', onScroll)
-    const events = getPostEventSource()
-    events.addEventListener('postCreated', onPostCreated)
     return () => {
       window.removeEventListener('scroll', onScroll)
-      events.close()
     }
   }, [])
 

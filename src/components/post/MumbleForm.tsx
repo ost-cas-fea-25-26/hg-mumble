@@ -1,6 +1,6 @@
 import { FormValues } from '@/interfaces/MumbleFormValues'
 import clsx from 'clsx'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
 import { useSession } from '@/lib/auth-client'
@@ -11,12 +11,20 @@ interface Props {
   setFile: (file: File | null) => void
   showModal: boolean
   setShowModal: (show: boolean) => void
+  handleSubmit: ({ text }: FormValues) => void
 }
 
-export default function MumbleForm({ file, setFile, showModal, setShowModal }: Props) {
-  const { register } = useFormContext<FormValues>()
+export default function MumbleForm({ file, setFile, showModal, setShowModal, handleSubmit }: Props) {
+  const { register, watch } = useFormContext<FormValues>()
   const translate = useTranslations('mumble-post')
   const sessionData = useSession()
+
+  const onEnterPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.code == 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSubmit({ text: watch('text') })
+    }
+  }
 
   return (
     <div>
@@ -42,7 +50,7 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal }: P
             />
           </span>
         )}
-        <Textarea {...register('text')} className={'h-40 w-fit'} />
+        <Textarea {...register('text')} className={'h-40 w-fit'} onKeyPress={onEnterPress} />
       </div>
       {showModal && (
         <Modal title={translate('add-image')} onClose={() => setShowModal(false)}>

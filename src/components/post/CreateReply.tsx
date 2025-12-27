@@ -2,6 +2,7 @@
 import { createReply } from '@/actions/posts/comments/createReply'
 import { createPost } from '@/actions/posts/createPost'
 import { fetchUser } from '@/actions/users/fetchUser'
+import LoadingText from '@/components/loading/LoadingText'
 import MumbleForm from '@/components/post/MumbleForm'
 import { FormValues } from '@/interfaces/MumbleFormValues'
 import clsx from 'clsx'
@@ -20,18 +21,29 @@ export default function CreateReply({ postId }: Props) {
   const sessionData = useSession()
   const [showModal, setShowModal] = useState(false)
   const [file, setFile] = useState<File | null>(null)
-
+  const [isLoading, setIsLoading] = useState(true)
   const [userData, setUserData] = useState<User>({})
 
   useEffect(() => {
     if (sessionData.data) {
       // @ts-ignore error in swagger file
-      fetchUser(sessionData.data.user.sub).then(setUserData)
+      fetchUser(sessionData.data.user.sub).then((response) => {
+        setUserData(response)
+        setIsLoading(false)
+      })
     }
   }, [sessionData])
 
   const methods = useForm<FormValues>()
   const userDetails = sessionData.data?.user || { image: null }
+
+  const handleSubmit = ({ text }: FormValues) => {
+    createReply(postId, text, file!).then((res) => {
+      methods.reset({ text: '' })
+      setFile(null)
+    })
+  }
+
   return (
     <div
       className={clsx(
@@ -39,25 +51,34 @@ export default function CreateReply({ postId }: Props) {
       )}
     >
       <div className="flex h-16 w-full items-center justify-start gap-3">
-        <Avatar src={userDetails?.image || undefined} size={'xs'} />
+        <Avatar src={userDetails?.image || undefined} size={'s'} borderless />
         <div>
-          <h3 className={clsx('text-lg font-bold')}>{`${userData.firstname} ${userData.lastname}`}</h3>
+          <h3 className={clsx('text-lg font-bold')}>
+            {isLoading ? <LoadingText width={'w-32 mb-1'} /> : `${userData?.firstname} ${userData?.lastname}`}
+          </h3>
           <div className={clsx('flex items-center gap-4')}>
             <Link url={`/mumble/profile`} className={'text-primary flex items-center justify-start gap-1 font-bold'}>
-              <Profile color={'currentColor'} size={'xs'} />
-              <span>{userData.username}</span>
+              {isLoading ? (
+                <LoadingText width={'w-25'} />
+              ) : (
+                <>
+                  <Profile color={'currentColor'} size={'xs'} />
+                  <span>{userData?.username}</span>
+                </>
+              )}
             </Link>
           </div>
         </div>
       </div>
       <FormProvider {...methods}>
-        <form
-          onSubmit={methods.handleSubmit(({ text }) => {
-            createReply(postId, text, file!)
-          })}
-          className={clsx('h-full')}
-        >
-          <MumbleForm setShowModal={setShowModal} file={file} setFile={setFile} showModal={showModal} />
+        <form onSubmit={methods.handleSubmit(handleSubmit)} className={clsx('h-full')}>
+          <MumbleForm
+            setShowModal={setShowModal}
+            file={file}
+            setFile={setFile}
+            showModal={showModal}
+            handleSubmit={handleSubmit}
+          />
         </form>
       </FormProvider>
     </div>
