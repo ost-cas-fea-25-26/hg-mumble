@@ -1,5 +1,6 @@
 'use client'
 import { fetchUser } from '@/actions/users/fetchUser'
+import LoadingText from '@/components/loading/LoadingText'
 import PostButtons from '@/components/post/PostButtons'
 import PostSkeleton from '@/components/post/PostSkeleton'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'

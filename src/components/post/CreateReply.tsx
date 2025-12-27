@@ -1,6 +1,5 @@
 'use client'
 import { createReply } from '@/actions/posts/comments/createReply'
-import { createPost } from '@/actions/posts/createPost'
 import { fetchUser } from '@/actions/users/fetchUser'
 import LoadingText from '@/components/loading/LoadingText'
 import MumbleForm from '@/components/post/MumbleForm'
@@ -8,9 +7,8 @@ import { FormValues } from '@/interfaces/MumbleFormValues'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useTranslations } from 'use-intl'
 import { useSession } from '@/lib/auth-client'
-import { Avatar, Button, Cross, FileInput, Link, Modal, Profile, Textarea, Time } from '@/lib/hg-storybook'
+import { Avatar, Link, Profile } from '@/lib/hg-storybook'
 import { User } from '@/mumble/api/generated/MumbleApi'
 
 interface Props {
