@@ -10,4 +10,4 @@ jobs:
         with:
           node-version: ${{vars.NODE_VERSION}}
       - run: npm i
-      - run: npm build
+      - run: npm run build
