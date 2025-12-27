@@ -1,6 +1,6 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('test', async ({ page }) => {
-  await page.goto(`${process.env.E2E_HOST}/signin`)
-  await page.getByRole('button', { name: "Let's gooo!!!" }).click()
+  await page.goto(`http://localhost:3000/`)
+  await expect(page.getByText('Zeit zu Mumblen!')).toBeVisible()
 })
