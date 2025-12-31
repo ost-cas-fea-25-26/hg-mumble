@@ -12,30 +12,27 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          cache: true
+
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ vars.NODE_VERSION }}
 
-      - name: Cache npm
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json', '**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Install Playwright Browsers
-        run: npx playwright install chromium
+        run: pnpm dlx playwright install chromium
 
       - name: Build the Next.js app
-        run: npm run build
+        run: pnpm run build
 
       - name: Run Playwright tests
-        run: npm run test
+        run: pnpm run test
 
       - uses: actions/upload-artifact@v5
         if: ${{ !cancelled() }}
