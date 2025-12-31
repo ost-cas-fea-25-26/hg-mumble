@@ -1,4 +1,4 @@
-# File: .github/workflows/e2e.yml
+# yaml
 name: Playwright Tests
 on:
   push:
@@ -11,11 +11,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ vars.NODE_VERSION }}
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/ms-playwright
+            ~/.local/share/ms-playwright
+          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-browsers-
+
       - name: Install dependencies
-        run: npm i
+        run: npm ci
+
+      - name: Ensure prismjs (fixes "prism not found")
+        run: |
+          if ! node -e "require('prismjs')" 2>/dev/null; then
+            echo "prismjs missing — installing temporarily for CI"
+            npm i prismjs --no-save --silent
+          else
+            echo "prismjs present"
+          fi
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
