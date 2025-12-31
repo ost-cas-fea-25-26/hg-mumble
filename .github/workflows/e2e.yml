@@ -21,20 +21,9 @@ jobs:
         with:
           path: |
             ~/.npm
-          # Fallback auf package.json falls package-lock.json fehlt
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json', '**/package.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/ms-playwright
-            ~/.local/share/ms-playwright
-          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('**/package-lock.json', '**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-browsers-
 
       - name: Install dependencies
         run: |
@@ -46,20 +35,22 @@ jobs:
             npm install
           fi
 
-      - name: Ensure prismjs (fixes "prism not found")
+      - name: Ensure @stoplight/prism-cli available
         run: |
-          if ! node -e "require('prismjs')" 2>/dev/null; then
-            echo "prismjs missing — installing temporarily for CI"
-            npm i prismjs --no-save --silent
+          if command -v prism >/dev/null 2>&1; then
+            echo "prism CLI found in PATH: $(command -v prism)"
+            prism --version || true
           else
-            echo "prismjs present"
+            echo "prism CLI not found — installing locally (no-save)"
+            npm i @stoplight/prism-cli --no-save --silent
+            ./node_modules/.bin/prism --version
           fi
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Start mock server (background)
-        run: npm run mock --silent &
+      - name: Start mock server (background) using npx (ensures prism is available)
+        run: npx prism mock scripts/generate/swagger_mumble_api.json --port 4011 &
 
       - name: Start dev:mock (background)
         run: npm run dev:mock --silent &
