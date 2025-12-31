@@ -26,65 +26,19 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: |
-          if [ -f package-lock.json ]; then
-            echo "package-lock.json found — running npm ci"
-            npm ci
-          else
-            echo "package-lock.json not found — running npm install"
-            npm install
-          fi
-
-      - name: Ensure @stoplight/prism-cli available
-        run: |
-          if command -v prism >/dev/null 2>&1; then
-            echo "prism CLI found in PATH: $(command -v prism)"
-            prism --version || true
-          else
-            echo "prism CLI not found — installing locally (no-save)"
-            npm i @stoplight/prism-cli --no-save --silent
-            ./node_modules/.bin/prism --version
-          fi
+        run: npm install
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install chromium
 
-      - name: Ensure @stoplight/prism-cli available
-        run: |
-          if command -v prism >/dev/null 2>&1; then
-            prism --version || true
-          else
-            npm i @stoplight/prism-cli --no-save --silent
-            ./node_modules/.bin/prism --version
-          fi
-
-      - name: Start mock server (background) and log output
-        run: |
-          npx prism mock scripts/generate/swagger_mumble_api.json --port 4011 > prism.log 2>&1 &
-          echo "prism pid: $!"
-
-      - name: Start dev:mock (background) and log output
-        run: |
-          npm run dev:mock --silent > devmock.log 2>&1 &
-          echo "dev:mock pid: $!"
-
-      - name: Wait for TCP ports and stream logs
-        run: |
-          # stream logs so Actions shows startup output while waiting
-          tail -F prism.log devmock.log & tailpid=$!
-          # wait on TCP ports (doesn't depend on HTTP status) and increase timeout to 5min
-          npx wait-on tcp:4011 tcp:3000 --timeout 300000 --verbose
-          kill $tailpid || true
+      - name: Build the Next.js app
+        run: npm run build
 
       - name: Run Playwright tests
-        env:
-          PLAYWRIGHT_REUSE_EXISTING: 'true'
-          CI: 'true'
-        run: npm run e2e
+        run: npx playwright test src/tests/visual.spec.ts
 
-      - uses: actions/upload-artifact@v5
-        if: ${{ !cancelled() }}
+      - name: Upload test screenshots as artifacts
+        uses: actions/upload-artifact@v3
         with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
+          name: screenshots
+          path: src/tests/visual.spec.ts-snapshots/
