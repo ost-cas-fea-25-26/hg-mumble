@@ -37,8 +37,9 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test src/tests/visual.spec.ts
 
-      - name: Upload test screenshots as artifacts
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v5
+        if: ${{ !cancelled() }}
         with:
-          name: screenshots
-          path: src/tests/visual.spec.ts-snapshots/
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
