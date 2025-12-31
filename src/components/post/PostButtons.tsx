@@ -4,7 +4,6 @@ import { addLike } from '@/actions/posts/like/addLike'
 import { removeLike } from '@/actions/posts/like/removeLike'
 import { Heart, HeartEmpty, Share, SpeechBubbleEmpty, TimedButton, Toggle } from 'hg-storybook'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useTranslations } from 'use-intl'
 import { Post } from '@/mumble/api/generated/MumbleApi'
@@ -17,7 +16,6 @@ export default function PostButtons({ post }: Props) {
   const translate = useTranslations('mumble-post')
   const [likes, setLikes] = React.useState(post.likes || 0)
   const [likedBySelf, setLikedBySelf] = React.useState(Boolean(post.likedBySelf))
-  const router = useRouter()
 
   const copyToClipboard = () => {
     if (navigator.clipboard && window.isSecureContext) {
@@ -31,6 +29,7 @@ export default function PostButtons({ post }: Props) {
       <Link
         href={'/mumble/post/' + post.id}
         className="text-secondary hover:not-data-disabled:bg-primary-50 hover:not-data-disabled:text-primary-700 flex items-center gap-1 rounded-full p-1 pr-2 pl-2 font-bold hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed"
+        data-testid="post-comments-link"
       >
         <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />
         <p className="hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed">
@@ -40,6 +39,7 @@ export default function PostButtons({ post }: Props) {
       <Toggle
         color={'contrast'}
         initialChecked={Boolean(post.likedBySelf)}
+        data-testid="post-like-toggle"
         onChange={() => {
           if (!likedBySelf) {
             setLikes(likes + 1)
@@ -63,7 +63,7 @@ export default function PostButtons({ post }: Props) {
       <TimedButton
         onClick={copyToClipboard}
         childrenOnSuccess={
-          <div className={'text-secondary flex items-center gap-2'}>
+          <div className={'text-secondary flex items-center gap-2'} data-testid="post-copy-link-success">
             <Share color={'currentColor'} size={'xs'} />
             <span>{translate('link-copied')}</span>
           </div>
@@ -71,7 +71,7 @@ export default function PostButtons({ post }: Props) {
         childrenOnClick={<></>}
         animationDuration={2000}
       >
-        <div className={'text-secondary flex items-center gap-2'}>
+        <div className={'text-secondary flex items-center gap-2'} data-testid="post-copy-link-button">
           <Share color={'currentColor'} size={'xs'} />
           <span>{translate('link-copy')}</span>
         </div>

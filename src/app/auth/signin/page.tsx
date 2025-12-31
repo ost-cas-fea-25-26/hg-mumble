@@ -44,6 +44,7 @@ export default function Login() {
               setLoading(true)
               signIn()
             }}
+            dataTestId="login-button"
           >
             {loading ? <Loader size={'small'} color={'white'} /> : translate('login')}
           </Button>

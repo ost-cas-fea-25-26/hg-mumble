@@ -15,7 +15,7 @@ export default function ReplyList({ initialReplies }: Props) {
   usePostCreated(setReplies, replies)
 
   return (
-    <div>
+    <div data-testid="reply-list">
       {replies &&
         replies?.map((posts) => {
           return <Reply reply={posts} key={posts.id} />

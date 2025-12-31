@@ -17,9 +17,7 @@
   "paths": {
     "/posts": {
       "get": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Fetch/Search a paginated list of posts.",
         "description": "Fetch or search a paginated list of posts, ordered by the time of their creation.",
         "parameters": [
@@ -132,17 +130,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "post": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Create a new post.",
         "description": "Create a new post with the logged in user. A post can contain text and/or an image. Either text or the image must be provided, otherwise a BadRequest is returned. Upload Limit: 2 MB.",
         "requestBody": {
@@ -195,19 +191,17 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
     },
     "/posts/{id}": {
       "get": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Fetch a specific post with the given ID.",
         "parameters": [
           {
@@ -247,17 +241,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "put": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Update a post with the given ID.",
         "description": "Update (replace) a post. This replaces the entire post. If the post does not exist, a NotFound is returned. If the post is not valid (has no text and no media), a BadRequest is returned. There is no partial update on this method.",
         "parameters": [
@@ -331,17 +323,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "patch": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Partial update of a post.",
         "description": "This partially updates (patches) a post with the given ID. All fields that are \"null\" are ignored and not updated. If the post text is set to an empty string, it will be removed (null). The post must always have either text or media. If this patch results in a post with no text and no media, a BadRequest is returned.",
         "parameters": [
@@ -398,17 +388,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "delete": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Delete a given post.",
         "description": "This can be a post or a reply. The post is marked as deleted and will not be returned in any search.",
         "parameters": [
@@ -442,19 +430,17 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
     },
     "/posts/{id}/media": {
       "put": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Update the media of a post.",
         "description": "This replaces the entire media of the post and returns the new media URL.",
         "parameters": [
@@ -482,9 +468,7 @@
                 "type": "object",
                 "properties": {
                   "media": {
-                    "required": [
-                      "media"
-                    ],
+                    "required": ["media"],
                     "type": "string",
                     "description": "Media file for the upload.",
                     "format": "binary",
@@ -528,17 +512,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "delete": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Remove the media of a post.",
         "description": "Remove the media of a post with the given ID. The post must always have either text or media. If this delete results in a post with no text and no media, a BadRequest is returned.",
         "parameters": [
@@ -575,19 +557,17 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
     },
     "/posts/{id}/replies": {
       "get": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Fetch a list of replies.",
         "description": "Fetch a list of (paginated) replies for a given post. There is only one level for replies. Replies cannot have replies. Trying to fetch replies for a reply will result in a BadRequest.",
         "parameters": [
@@ -653,17 +633,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "post": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Create a reply to a post.",
         "description": "Create a new reply to a post. It is not possible to create a reply to a reply. This results in a BadRequest.",
         "parameters": [
@@ -737,19 +715,17 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
     },
     "/posts/{id}/likes": {
       "put": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Like a post.",
         "description": " A user can only like a post once. This is an idempotent operation. If the user already likes the post, nothing is updated.",
         "parameters": [
@@ -783,17 +759,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "delete": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "summary": "Unlike a post.",
         "description": "Unlike the given post for the current user. If the user does not like the post, nothing is updated.",
         "parameters": [
@@ -827,19 +801,17 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
     },
     "/users": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Fetch a paginated list of users.",
         "description": "Fetch a paginated list of users. If the caller is authenticated, the user list will contain more data.",
         "parameters": [
@@ -883,17 +855,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "patch": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Update the authenticated user profile.",
         "description": "Update the current authenticated user profile. Returns a bad request if fields are set to an empty string. Omitting a field does not update them. Uploading an avatar is done via the /users/avatar endpoint. The username is unique, duplicating it results in an error.",
         "requestBody": {
@@ -934,19 +904,17 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
     },
     "/users/{id}": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Get a specific user by their ID.",
         "description": "Fetch a specific user profile from the API. If the caller is authenticated, more information than the public profile is provided.",
         "parameters": [
@@ -979,19 +947,17 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
     },
     "/users/avatar": {
       "put": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Upload an avatar.",
         "description": "Upload an avatar picture for the actual authenticated user. Returns the new media url to the uploaded user avatar. Upload limit: 0.5 MB.",
         "requestBody": {
@@ -1001,9 +967,7 @@
                 "type": "object",
                 "properties": {
                   "media": {
-                    "required": [
-                      "media"
-                    ],
+                    "required": ["media"],
                     "type": "string",
                     "description": "Media file for the upload.",
                     "format": "binary",
@@ -1035,17 +999,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "delete": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Remove an avatar.",
         "description": "Remove the current avatar picture (if any) for the actual authenticated user.",
         "responses": {
@@ -1058,19 +1020,17 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
     },
     "/users/{id}/followers": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Fetch a list of followers.",
         "description": " Fetch a (paginated) list of followers for a given user (All users that follow the given user). Returns only public information (public profile).",
         "parameters": [
@@ -1122,17 +1082,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "put": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Follow a user.",
         "description": "Add the currently authenticated user as a follower to the given user (id). User A (authenticated) calls this endpoint to follow user B (id).",
         "parameters": [
@@ -1158,17 +1116,15 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       },
       "delete": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Unfollow a user.",
         "description": "Remove the currently authenticated user from the follower list of the given user (id). User A (authenticated) calls this endpoint to unfollow user B (id).",
         "parameters": [
@@ -1191,19 +1147,17 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
     },
     "/users/{id}/followees": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Fetch a list of followees.",
         "description": "Fetch a (paginated) list of followees for a given user(All users that are being followed by the given user). Returns only public information (public profile).",
         "parameters": [
@@ -1255,19 +1209,17 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
     },
     "/posts/_sse": {
       "get": {
-        "tags": [
-          "Real Time Data"
-        ],
+        "tags": ["Real Time Data"],
         "summary": "Get a stream of new or updated posts via Server Sent Event push.",
         "description": "The server sent events contain newly created posts as well as updated posts. \r\nDepending on the authentication state, the post contain more or less information.\r\n\r\nCurrently, the following events are supported:\r\n- postCreated (for creating a new post or a reply)\r\n- postUpdated\r\n- postDeleted\r\n- postLiked\r\n- postUnliked\r\n\r\nAs an example, using the posts server sent events in javascript is done as follows:\r\n```js\r\nconst evtSource = new EventSource(\"/posts/_sse\");\r\nevtSource.addEventListener('postCreated', (e) => console.log(e.data));\r\n```\r\n\r\nYou may read more about server sent events in the\r\n[documentation about Using Server Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)",
         "responses": {
@@ -1281,11 +1233,7 @@
                     "oneOf": [
                       {
                         "title": "Post Created Event",
-                        "required": [
-                          "id",
-                          "event",
-                          "data"
-                        ],
+                        "required": ["id", "event", "data"],
                         "properties": {
                           "id": {
                             "title": "ID of the event.",
@@ -1294,9 +1242,7 @@
                           },
                           "event": {
                             "title": "Event type.",
-                            "enum": [
-                              "postCreated"
-                            ],
+                            "enum": ["postCreated"],
                             "format": "string",
                             "readOnly": true
                           },
@@ -1308,11 +1254,7 @@
                       },
                       {
                         "title": "Reply Created Event",
-                        "required": [
-                          "id",
-                          "event",
-                          "data"
-                        ],
+                        "required": ["id", "event", "data"],
                         "properties": {
                           "id": {
                             "title": "ID of the event.",
@@ -1321,9 +1263,7 @@
                           },
                           "event": {
                             "title": "Event type.",
-                            "enum": [
-                              "postCreated"
-                            ],
+                            "enum": ["postCreated"],
                             "format": "string",
                             "readOnly": true
                           },
@@ -1335,11 +1275,7 @@
                       },
                       {
                         "title": "Post/Reply Updated Event",
-                        "required": [
-                          "id",
-                          "event",
-                          "data"
-                        ],
+                        "required": ["id", "event", "data"],
                         "properties": {
                           "id": {
                             "title": "ID of the event.",
@@ -1348,9 +1284,7 @@
                           },
                           "event": {
                             "title": "Event type.",
-                            "enum": [
-                              "postUpdated"
-                            ],
+                            "enum": ["postUpdated"],
                             "format": "string",
                             "readOnly": true
                           },
@@ -1362,11 +1296,7 @@
                       },
                       {
                         "title": "Reply Created Event",
-                        "required": [
-                          "id",
-                          "event",
-                          "data"
-                        ],
+                        "required": ["id", "event", "data"],
                         "properties": {
                           "id": {
                             "title": "ID of the event.",
@@ -1375,9 +1305,7 @@
                           },
                           "event": {
                             "title": "Event type.",
-                            "enum": [
-                              "postDeleted"
-                            ],
+                            "enum": ["postDeleted"],
                             "format": "string",
                             "readOnly": true
                           },
@@ -1389,11 +1317,7 @@
                       },
                       {
                         "title": "Reply Created Event",
-                        "required": [
-                          "id",
-                          "event",
-                          "data"
-                        ],
+                        "required": ["id", "event", "data"],
                         "properties": {
                           "id": {
                             "title": "ID of the event.",
@@ -1402,9 +1326,7 @@
                           },
                           "event": {
                             "title": "Event type.",
-                            "enum": [
-                              "postLiked"
-                            ],
+                            "enum": ["postLiked"],
                             "format": "string",
                             "readOnly": true
                           },
@@ -1416,11 +1338,7 @@
                       },
                       {
                         "title": "Reply Created Event",
-                        "required": [
-                          "id",
-                          "event",
-                          "data"
-                        ],
+                        "required": ["id", "event", "data"],
                         "properties": {
                           "id": {
                             "title": "ID of the event.",
@@ -1429,9 +1347,7 @@
                           },
                           "event": {
                             "title": "Event type.",
-                            "enum": [
-                              "postUnliked"
-                            ],
+                            "enum": ["postUnliked"],
                             "format": "string",
                             "readOnly": true
                           },
@@ -1454,11 +1370,7 @@
               "application/json": {
                 "schema": {
                   "title": "Post Created Event",
-                  "required": [
-                    "id",
-                    "event",
-                    "data"
-                  ],
+                  "required": ["id", "event", "data"],
                   "properties": {
                     "id": {
                       "title": "ID of the event.",
@@ -1467,9 +1379,7 @@
                     },
                     "event": {
                       "title": "Event type.",
-                      "enum": [
-                        "postCreated"
-                      ],
+                      "enum": ["postCreated"],
                       "format": "string",
                       "readOnly": true
                     },
@@ -1488,11 +1398,7 @@
               "application/json": {
                 "schema": {
                   "title": "Reply Created Event",
-                  "required": [
-                    "id",
-                    "event",
-                    "data"
-                  ],
+                  "required": ["id", "event", "data"],
                   "properties": {
                     "id": {
                       "title": "ID of the event.",
@@ -1501,9 +1407,7 @@
                     },
                     "event": {
                       "title": "Event type.",
-                      "enum": [
-                        "postCreated"
-                      ],
+                      "enum": ["postCreated"],
                       "format": "string",
                       "readOnly": true
                     },
@@ -1522,11 +1426,7 @@
               "application/json": {
                 "schema": {
                   "title": "Post/Reply Updated Event",
-                  "required": [
-                    "id",
-                    "event",
-                    "data"
-                  ],
+                  "required": ["id", "event", "data"],
                   "properties": {
                     "id": {
                       "title": "ID of the event.",
@@ -1535,9 +1435,7 @@
                     },
                     "event": {
                       "title": "Event type.",
-                      "enum": [
-                        "postUpdated"
-                      ],
+                      "enum": ["postUpdated"],
                       "format": "string",
                       "readOnly": true
                     },
@@ -1556,11 +1454,7 @@
               "application/json": {
                 "schema": {
                   "title": "Reply Created Event",
-                  "required": [
-                    "id",
-                    "event",
-                    "data"
-                  ],
+                  "required": ["id", "event", "data"],
                   "properties": {
                     "id": {
                       "title": "ID of the event.",
@@ -1569,9 +1463,7 @@
                     },
                     "event": {
                       "title": "Event type.",
-                      "enum": [
-                        "postDeleted"
-                      ],
+                      "enum": ["postDeleted"],
                       "format": "string",
                       "readOnly": true
                     },
@@ -1590,11 +1482,7 @@
               "application/json": {
                 "schema": {
                   "title": "Reply Created Event",
-                  "required": [
-                    "id",
-                    "event",
-                    "data"
-                  ],
+                  "required": ["id", "event", "data"],
                   "properties": {
                     "id": {
                       "title": "ID of the event.",
@@ -1603,9 +1491,7 @@
                     },
                     "event": {
                       "title": "Event type.",
-                      "enum": [
-                        "postLiked"
-                      ],
+                      "enum": ["postLiked"],
                       "format": "string",
                       "readOnly": true
                     },
@@ -1624,11 +1510,7 @@
               "application/json": {
                 "schema": {
                   "title": "Reply Created Event",
-                  "required": [
-                    "id",
-                    "event",
-                    "data"
-                  ],
+                  "required": ["id", "event", "data"],
                   "properties": {
                     "id": {
                       "title": "ID of the event.",
@@ -1637,9 +1519,7 @@
                     },
                     "event": {
                       "title": "Event type.",
-                      "enum": [
-                        "postUnliked"
-                      ],
+                      "enum": ["postUnliked"],
                       "format": "string",
                       "readOnly": true
                     },
@@ -1658,10 +1538,10 @@
         },
         "security": [
           {
-            "None": [ ]
+            "None": []
           },
           {
-            "ZITADEL": [ ]
+            "ZITADEL": []
           }
         ]
       }
@@ -1735,7 +1615,7 @@
             "type": "string",
             "description": "URL - if any - to the media object attached to this post.",
             "nullable": true,
-            "example": "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
+            "example": "https://images.unsplash.com/photo-1563387852576-964bc31b73af?q=80&w=3007&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           },
           "mediaType": {
             "type": "string",
@@ -1795,7 +1675,7 @@
             "type": "string",
             "description": "URL - if any - to the media object attached to this post.",
             "nullable": true,
-            "example": "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
+            "example": "https://images.unsplash.com/photo-1563387852576-964bc31b73af?q=80&w=3007&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           },
           "mediaType": {
             "type": "string",
@@ -1901,13 +1781,13 @@
             "type": "string",
             "description": "Text for the post. Can be null if the post is only a media post.\nCan contain hashtags and mentions.",
             "nullable": true,
-            "example": "Hello World! #newpost."
+            "example": "This is a reply to a post. #reply"
           },
           "mediaUrl": {
             "type": "string",
             "description": "URL - if any - to the media object attached to this post.",
             "nullable": true,
-            "example": "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
+            "example": "https://images.unsplash.com/photo-1563387852576-964bc31b73af?q=80&w=3007&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           },
           "mediaType": {
             "type": "string",
@@ -2035,17 +1915,20 @@
             "type": "string",
             "description": "If set, points to the avatar of the user.",
             "nullable": true,
-            "readOnly": true
+            "readOnly": true,
+            "example": "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           },
           "firstname": {
             "type": "string",
             "description": "Firstname of the user.",
-            "nullable": true
+            "nullable": true,
+            "example": "Max"
           },
           "lastname": {
             "type": "string",
             "description": "Lastname of the user.",
-            "nullable": true
+            "nullable": true,
+            "example": "Muster"
           }
         },
         "additionalProperties": false,
