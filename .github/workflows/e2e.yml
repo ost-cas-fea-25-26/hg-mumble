@@ -49,14 +49,32 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Start mock server (background) using npx (ensures prism is available)
-        run: npx prism mock scripts/generate/swagger_mumble_api.json --port 4011 &
+      - name: Ensure @stoplight/prism-cli available
+        run: |
+          if command -v prism >/dev/null 2>&1; then
+            prism --version || true
+          else
+            npm i @stoplight/prism-cli --no-save --silent
+            ./node_modules/.bin/prism --version
+          fi
 
-      - name: Start dev:mock (background)
-        run: npm run dev:mock --silent &
+      - name: Start mock server (background) and log output
+        run: |
+          npx prism mock scripts/generate/swagger_mumble_api.json --port 4011 > prism.log 2>&1 &
+          echo "prism pid: $!"
 
-      - name: Wait for both servers to be ready
-        run: npx wait-on http://localhost:4011 http://localhost:3000 --timeout 120000
+      - name: Start dev:mock (background) and log output
+        run: |
+          npm run dev:mock --silent > devmock.log 2>&1 &
+          echo "dev:mock pid: $!"
+
+      - name: Wait for TCP ports and stream logs
+        run: |
+          # stream logs so Actions shows startup output while waiting
+          tail -F prism.log devmock.log & tailpid=$!
+          # wait on TCP ports (doesn't depend on HTTP status) and increase timeout to 5min
+          npx wait-on tcp:4011 tcp:3000 --timeout 300000 --verbose
+          kill $tailpid || true
 
       - name: Run Playwright tests
         env:
