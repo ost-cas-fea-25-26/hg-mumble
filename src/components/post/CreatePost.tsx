@@ -13,6 +13,7 @@ import { Avatar } from '@/lib/hg-storybook'
 export default function CreatePost() {
   const sessionData = useSession()
   const [showModal, setShowModal] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const translate = useTranslations('mumble-post')
 
@@ -20,9 +21,11 @@ export default function CreatePost() {
   const userDetails = sessionData.data?.user || { image: null }
 
   const handleSubmit = ({ text }: FormValues) => {
+    setIsSaving(true)
     createPost(text, file!).then((res) => {
       formProps.reset({ text: '' })
       setFile(null)
+      setIsSaving(false)
     })
   }
   return (
@@ -43,6 +46,7 @@ export default function CreatePost() {
             setFile={setFile}
             showModal={showModal}
             handleSubmit={handleSubmit}
+            isSaving={isSaving}
           />
         </form>
       </FormProvider>

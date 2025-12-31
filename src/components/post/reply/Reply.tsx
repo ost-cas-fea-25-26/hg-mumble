@@ -3,6 +3,7 @@
 import { fetchUser } from '@/actions/users/fetchUser'
 import LoadingText from '@/components/loading/LoadingText'
 import ReplyButtons from '@/components/post/reply/ReplyButtons'
+import ReplySkeleton from '@/components/post/reply/ReplySkeleton'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
@@ -17,12 +18,17 @@ interface Props {
 export default function Reply({ reply }: Props) {
   const [userData, setUserData] = useState<User>({})
   const [isLoading, setIsLoading] = useState(true)
+  const data = useFormattedDate(new Date(decodeTime(reply.id!)))
   useEffect(() => {
     fetchUser(reply.creator!.id!).then((response) => {
       setUserData(response)
       setIsLoading(false)
     })
   }, [])
+
+  if (isLoading && !userData.username) {
+    return <ReplySkeleton />
+  }
 
   return (
     <div className="relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white p-4">
@@ -35,25 +41,19 @@ export default function Reply({ reply }: Props) {
         <Avatar src={userData.avatarUrl || undefined} size={'s'} borderless />
         <div>
           <h3 className={clsx('text-lg font-bold')}>
-            {isLoading ? <LoadingText width={'w-32'} /> : `${userData?.firstname} ${userData?.lastname}`}
+            {userData?.firstname} {userData?.lastname}
           </h3>
-          <div className={clsx('flex items-center gap-4')}>
+          <div className={clsx('desktop:flex-row flex flex-col items-center gap-4')}>
             <Link
               url={`/mumble/profile/${reply.creator?.id}`}
               className={'text-primary flex items-center justify-start gap-1 font-bold'}
             >
-              {isLoading ? (
-                <LoadingText width={'w-25'} />
-              ) : (
-                <>
-                  <Profile color={'currentColor'} size={'xs'} />
-                  <span>{userData?.username}</span>
-                </>
-              )}
+              <Profile color={'currentColor'} size={'xs'} />
+              <span>{userData?.username}</span>
             </Link>
             <span className={clsx('text-secondary-400 flex items-center gap-2 font-semibold')}>
               <Time size={'xs'} color={'currentColor'} />
-              <span>{useFormattedDate(new Date(decodeTime(reply.id!)))}</span>
+              <span>{data}</span>
             </span>
           </div>
         </div>

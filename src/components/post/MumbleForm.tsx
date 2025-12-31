@@ -1,6 +1,7 @@
 import { FormValues } from '@/interfaces/MumbleFormValues'
 import clsx from 'clsx'
-import React, { useRef } from 'react'
+import { Loader } from 'hg-storybook'
+import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
 import { useSession } from '@/lib/auth-client'
@@ -12,9 +13,10 @@ interface Props {
   showModal: boolean
   setShowModal: (show: boolean) => void
   handleSubmit: ({ text }: FormValues) => void
+  isSaving: boolean
 }
 
-export default function MumbleForm({ file, setFile, showModal, setShowModal, handleSubmit }: Props) {
+export default function MumbleForm({ file, setFile, showModal, setShowModal, handleSubmit, isSaving }: Props) {
   const { register, watch } = useFormContext<FormValues>()
   const translate = useTranslations('mumble-post')
   const sessionData = useSession()
@@ -70,7 +72,7 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
           />
         </Modal>
       )}
-      <div className={'flex w-full items-center justify-center gap-4'}>
+      <div className={'desktop:flex-row flex w-full flex-col items-center justify-center gap-4'}>
         <Button
           width={'w-full'}
           variant={'secondary'}
@@ -81,8 +83,14 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
         >
           {translate('add-image')}
         </Button>
-        <Button type="submit" width={'w-full'} disabled={!sessionData}>
-          {translate('save')}
+        <Button type="submit" width={'w-full'} disabled={!sessionData || isSaving}>
+          {isSaving ? (
+            <span className="min-h-5">
+              <Loader size="small" color="white" />
+            </span>
+          ) : (
+            `${translate('save')}`
+          )}
         </Button>
       </div>
     </div>
