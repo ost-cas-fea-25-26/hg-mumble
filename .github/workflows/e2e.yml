@@ -35,7 +35,7 @@ jobs:
         run: npm run build
 
       - name: Run Playwright tests
-        run: npx playwright test src/tests/visual.spec.ts
+        run: npm run test
 
       - uses: actions/upload-artifact@v5
         if: ${{ !cancelled() }}
