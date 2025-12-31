@@ -18,18 +18,11 @@ jobs:
           version: 10
           cache: true
 
-      - uses: actions/setup-node@v6
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
-
       - name: Install dependencies
         run: pnpm install
 
       - name: Install Playwright Browsers
         run: pnpm dlx playwright install chromium
-
-      - name: Build the Next.js app
-        run: pnpm run build
 
       - name: Run Playwright tests
         run: pnpm run test
