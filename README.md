@@ -73,7 +73,7 @@ note that this only mocks the quacker api, the auth will still be necessary (i t
 
 change the API_URL in your .env to:
 ```
-API_URL=http://localhost:4010
+API_URL=http://localhost:4011
 OR: just run:
 pnpm dev:mock
 ```
