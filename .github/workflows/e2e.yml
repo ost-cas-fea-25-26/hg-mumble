@@ -16,7 +16,6 @@ jobs:
         name: Install pnpm
         with:
           version: 10
-          cache: true
 
       - name: Install dependencies
         run: pnpm install
