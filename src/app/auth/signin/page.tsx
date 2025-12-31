@@ -44,7 +44,6 @@ export default function Login() {
               setLoading(true)
               signIn()
             }}
-            name={'asdf'}
           >
             {loading ? <Loader size={'small'} color={'white'} /> : translate('login')}
           </Button>
