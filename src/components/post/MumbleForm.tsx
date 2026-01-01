@@ -1,5 +1,6 @@
 import { FormValues } from '@/interfaces/MumbleFormValues'
 import clsx from 'clsx'
+import { Loader } from 'hg-storybook'
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
@@ -11,12 +12,21 @@ interface Props {
   setFile: (file: File | null) => void
   showModal: boolean
   setShowModal: (show: boolean) => void
+  handleSubmit: ({ text }: FormValues) => void
+  isSaving: boolean
 }
 
-export default function MumbleForm({ file, setFile, showModal, setShowModal }: Props) {
-  const { register } = useFormContext<FormValues>()
+export default function MumbleForm({ file, setFile, showModal, setShowModal, handleSubmit, isSaving }: Props) {
+  const { register, watch } = useFormContext<FormValues>()
   const translate = useTranslations('mumble-post')
   const sessionData = useSession()
+
+  const onEnterPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.code == 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSubmit({ text: watch('text') })
+    }
+  }
 
   return (
     <div>
@@ -42,7 +52,7 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal }: P
             />
           </span>
         )}
-        <Textarea {...register('text')} className={'h-40 w-fit'} />
+        <Textarea {...register('text')} className={'h-40 w-fit'} onKeyPress={onEnterPress} />
       </div>
       {showModal && (
         <Modal title={translate('add-image')} onClose={() => setShowModal(false)}>
@@ -62,7 +72,7 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal }: P
           />
         </Modal>
       )}
-      <div className={'flex w-full items-center justify-center gap-4'}>
+      <div className={'desktop:flex-row flex w-full flex-col items-center justify-center gap-4'}>
         <Button
           width={'w-full'}
           variant={'secondary'}
@@ -73,8 +83,14 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal }: P
         >
           {translate('add-image')}
         </Button>
-        <Button type="submit" width={'w-full'} disabled={!sessionData}>
-          {translate('save')}
+        <Button type="submit" width={'w-full'} disabled={!sessionData || isSaving}>
+          {isSaving ? (
+            <span className="min-h-5">
+              <Loader size="small" color="white" />
+            </span>
+          ) : (
+            `${translate('save')}`
+          )}
         </Button>
       </div>
     </div>

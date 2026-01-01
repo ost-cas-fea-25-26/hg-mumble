@@ -13,11 +13,21 @@ import { Avatar } from '@/lib/hg-storybook'
 export default function CreatePost() {
   const sessionData = useSession()
   const [showModal, setShowModal] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const translate = useTranslations('mumble-post')
 
   const formProps = useForm<FormValues>()
   const userDetails = sessionData.data?.user || { image: null }
+
+  const handleSubmit = ({ text }: FormValues) => {
+    setIsSaving(true)
+    createPost(text, file!).then((res) => {
+      formProps.reset({ text: '' })
+      setFile(null)
+      setIsSaving(false)
+    })
+  }
   return (
     <div
       className={clsx(
@@ -29,16 +39,15 @@ export default function CreatePost() {
         <h3 className={clsx('text-lg font-bold')}>{translate('create-post-title')}</h3>
       </div>
       <FormProvider {...formProps}>
-        <form
-          onSubmit={formProps.handleSubmit(({ text }) => {
-            createPost(text, file!).then((res) => {
-              formProps.reset({ text: '' })
-              setFile(null)
-            })
-          })}
-          className={clsx('h-full')}
-        >
-          <MumbleForm setShowModal={setShowModal} file={file} setFile={setFile} showModal={showModal} />
+        <form onSubmit={formProps.handleSubmit(handleSubmit)} className={clsx('h-full')}>
+          <MumbleForm
+            setShowModal={setShowModal}
+            file={file}
+            setFile={setFile}
+            showModal={showModal}
+            handleSubmit={handleSubmit}
+            isSaving={isSaving}
+          />
         </form>
       </FormProvider>
     </div>
