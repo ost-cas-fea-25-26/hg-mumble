@@ -10,9 +10,11 @@ export default function Login() {
   const formProps = useForm()
   const [type, setType] = useState('password')
   const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     return () => setLoading(false)
   }, [])
+
   return (
     <div className={'flex flex-col justify-center gap-4'}>
       <h1 className={'text-2xl font-bold'}>{translate('login-title')}</h1>

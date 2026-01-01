@@ -10,9 +10,9 @@ export const updateUser = async (id: string, updatedUser: UserSettingsFormValues
     body: JSON.stringify({
       human: {
         profile: {
-          givenName: firstName,
-          familyName: lastName,
-          displayName: `${firstName} ${lastName}`,
+          givenName: firstName?.trim(),
+          familyName: lastName?.trim(),
+          displayName: `${firstName?.trim()} ${lastName?.trim()}`,
         },
       },
     }),

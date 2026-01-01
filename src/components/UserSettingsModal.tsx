@@ -1,10 +1,11 @@
 import { updateUser } from '@/actions/zitadel/updateUser'
+import { MAX_NAME_LENGTH } from '@/utils/form/validation/constants'
 import { Button, Field, Input, Label, Loader, Modal, SpeechBubble } from 'hg-storybook'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
-import { authClient, signOut, useSession } from '@/lib/auth-client'
+import { signOut, useSession } from '@/lib/auth-client'
 
 type Props = {
   close: () => void
@@ -20,6 +21,7 @@ export default function UserSettingsModal({ close }: Props) {
   const { data: sessionData } = useSession()
   const user = sessionData?.user
   const formProps = useForm<UserSettingsFormValues>({
+    mode: 'all',
     values: {
       firstName: user?.name?.split?.(' ')[0] || '',
       lastName: user?.name?.split?.(' ')[1] || '',
@@ -28,8 +30,21 @@ export default function UserSettingsModal({ close }: Props) {
 
   const router = useRouter()
   const translate = useTranslations('general')
-  const { register } = formProps
+  const {
+    register,
+    formState: { errors, isValid },
+  } = formProps
   if (!sessionData) return null
+  const validateName = {
+    maxLength: {
+      value: MAX_NAME_LENGTH,
+      message: translate('max-length', { maxLength: MAX_NAME_LENGTH }),
+    },
+    pattern: {
+      value: /[\p{Script=Latin}\p{M}\p{Zs}\-]+/gu,
+      message: translate('invalid-special-characters'),
+    },
+  }
   return (
     <Modal title={translate('usersettings')} onClose={close}>
       <FormProvider {...formProps}>
@@ -44,19 +59,21 @@ export default function UserSettingsModal({ close }: Props) {
             })
           })}
         >
-          <Field {...register('firstName')}>
+          <Field>
             <Label htmlFor="firstName">{translate('firstName')}</Label>
-            <Input name="firstName" />
+            <Input {...register('firstName', validateName)} error={errors.firstName?.message} />
           </Field>
-          <Field {...register('lastName')}>
+          <Field>
             <Label htmlFor="lastName">{translate('lastName')}</Label>
-            <Input name="lastName" />
+            <Input {...register('lastName', validateName)} error={errors.lastName?.message} />
           </Field>
           <p className={'text-contrast mt-2 mb-2 flex items-center gap-2 text-sm font-semibold'}>
             <SpeechBubble color={'currentColor'} size={'xs'} />
             <span>{translate('hint-logout')}</span>
           </p>
-          <Button type={'submit'}>{loading ? <Loader size={'small'} color={'white'} /> : translate('save')}</Button>
+          <Button disabled={!isValid} type={'submit'}>
+            {loading ? <Loader size={'small'} color={'white'} /> : translate('save')}
+          </Button>
         </form>
       </FormProvider>
     </Modal>

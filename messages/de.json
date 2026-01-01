@@ -17,7 +17,9 @@
     "displayName": "Anzeigename",
     "email": "E-Mail",
     "hint-logout": "Wenn du deinen Namen änderst, wirst du ausgeloggt!",
-    "save": "Speichern"
+    "save": "Speichern",
+    "max-length": "Maximal {maxLength} zeichen erlaubt",
+    "invalid-special-characters": "Enthält ungültige Sonderzeichen"
   },
   "mumble-post": {
     "new-posts": "Es gibt neue Mumbles!",
