@@ -86,7 +86,7 @@ importers:
         version: 6.0.0(prettier@3.7.4)
       '@types/node':
         specifier: ^24.0.0
-        version: 24.10.3
+        version: 24.10.4
       '@types/pg':
         specifier: ^8.15.6
         version: 8.15.6
@@ -110,7 +110,7 @@ importers:
         version: 5.5.4(eslint-config-prettier@10.1.8(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(prettier@3.7.4)
       knip:
         specifier: ^5.69.0
-        version: 5.71.0(@types/node@24.10.3)(typescript@5.9.3)
+        version: 5.71.0(@types/node@24.10.4)(typescript@5.9.3)
       prettier:
         specifier: ^3.6.2
         version: 3.7.4
@@ -125,7 +125,7 @@ importers:
         version: 4.1.18
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.18))(@types/node@24.10.3)(typescript@5.9.3)
+        version: 10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.18))(@types/node@24.10.4)(typescript@5.9.3)
       typescript:
         specifier: ^5
         version: 5.9.3
@@ -1299,9 +1299,6 @@ packages:
 
   '@types/lodash@4.17.20':
     resolution: {integrity: sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==}
-
-  '@types/node@24.10.3':
-    resolution: {integrity: sha512-gqkrWUsS8hcm0r44yn7/xZeV1ERva/nLgrLxFRUGb7aoNMIJfZJ3AC261zDQuOAKC7MiXai1WCpYc48jAHoShQ==}
 
   '@types/node@24.10.4':
     resolution: {integrity: sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg==}
@@ -5689,17 +5686,13 @@ snapshots:
 
   '@types/lodash@4.17.20': {}
 
-  '@types/node@24.10.3':
-    dependencies:
-      undici-types: 7.16.0
-
   '@types/node@24.10.4':
     dependencies:
       undici-types: 7.16.0
 
   '@types/pg@8.15.6':
     dependencies:
-      '@types/node': 24.10.3
+      '@types/node': 24.10.4
       pg-protocol: 1.10.3
       pg-types: 2.2.0
 
@@ -5717,7 +5710,7 @@ snapshots:
 
   '@types/type-is@1.6.7':
     dependencies:
-      '@types/node': 24.10.3
+      '@types/node': 24.10.4
 
   '@types/ws@8.18.1':
     dependencies:
@@ -7369,10 +7362,10 @@ snapshots:
 
   kleur@3.0.3: {}
 
-  knip@5.71.0(@types/node@24.10.3)(typescript@5.9.3):
+  knip@5.71.0(@types/node@24.10.4)(typescript@5.9.3):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
-      '@types/node': 24.10.3
+      '@types/node': 24.10.4
       fast-glob: 3.3.3
       formatly: 0.3.0
       jiti: 2.6.1
@@ -8603,14 +8596,14 @@ snapshots:
     dependencies:
       typescript: 5.9.3
 
-  ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.18))(@types/node@24.10.3)(typescript@5.9.3):
+  ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.18))(@types/node@24.10.4)(typescript@5.9.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.12
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 24.10.3
+      '@types/node': 24.10.4
       acorn: 8.15.0
       acorn-walk: 8.3.4
       arg: 4.1.3
