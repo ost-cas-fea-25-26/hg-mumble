@@ -5,7 +5,7 @@ import React from 'react'
 
 export default function Loading() {
   return (
-    <div className="mt-28 w-full rounded-md bg-white">
+    <div className="my-28 w-full rounded-md bg-white">
       <PostSkeleton />
       <div className="p-6">
         <CreateReplySkeleton />

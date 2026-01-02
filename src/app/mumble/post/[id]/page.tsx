@@ -21,7 +21,7 @@ export default async function Page({ params }: Props) {
   const replies = repliesData as ReplyPaginatedResult
 
   return (
-    <div className="mt-28 w-full rounded-md bg-white">
+    <div className="my-28 w-full rounded-md bg-white">
       {post && <Post post={post} />}
       <div className="p-6">
         <CreateReply postId={postId} />

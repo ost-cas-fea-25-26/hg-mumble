@@ -19,6 +19,7 @@ test('authenticate', async ({ page }) => {
   await page.getByTestId('password-text-input').fill(process.env.E2E_PASSWORD || '')
   await page.getByTestId('submit-button').click()
 
+  await page.waitForURL('**/mumble')
   await expect(page.getByText('Willkommen auf Mumble!')).toBeVisible()
 
   await page.context().storageState({ path: authFile })
