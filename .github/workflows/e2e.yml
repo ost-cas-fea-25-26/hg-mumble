@@ -22,30 +22,17 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm dlx playwright install chromium
 
-      - name: 'Create env file'
-        env:
-          E2E_USERNAME: ${{ env.E2E_USERNAME }}
-        run: |
-          touch .env
-          echo E2E_USERNAME=${{ env.E2E_USERNAME }} >> .env
-          cat .env
-
-      - name: log envs
-        env:
-          env1: ${{ env.E2E_USERNAME }}
-        run: |
-          echo "BETTER_AUTH_SECRET: ${{ env.env1 }}"
-
       - name: Run Playwright tests
         env:
-          E2E_USERNAME: ${{ env.E2E_USERNAME }}
-          E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
-          E2E_HOST: ${{ env.E2E_HOST }}
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-          NEXT_PUBLIC_BASE_URL: ${{ env.NEXT_PUBLIC_BASE_URL }}
-          ZITADEL_API_URL: ${{ env.ZITADEL_API_URL }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          API_URL: ${{ vars.API_URL }}
+          E2E_HOST: ${{ vars.E2E_HOST }}
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_BASE_URL: ${{ vars.NEXT_PUBLIC_BASE_URL }}
+          ZITADEL_API_URL: ${{ vars.ZITADEL_API_URL }}
         run: pnpm run test
 
       - uses: actions/upload-artifact@v6
