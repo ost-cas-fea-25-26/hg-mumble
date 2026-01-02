@@ -32,7 +32,7 @@ jobs:
 
       - name: log envs
         env:
-          env1: ${{ vars.E2E_USERNAME }}
+          env1: ${{ env.E2E_USERNAME }}
         run: |
           echo "BETTER_AUTH_SECRET: ${{ env.env1 }}"
 
