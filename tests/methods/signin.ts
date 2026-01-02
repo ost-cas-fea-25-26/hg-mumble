@@ -5,7 +5,7 @@ export default async function signin(page: Page) {
   await page.getByTestId('login-button').click()
 
   // redirect to zitadel login
-  await page.getByTestId('username-text-input').fill(process.env.E2E_PASSWORD || '')
+  await page.getByTestId('username-text-input').fill(process.env.E2E_USERNAME || '')
   await page.getByTestId('submit-button').click()
   await page.getByTestId('password-text-input').fill(process.env.E2E_PASSWORD || '')
   await page.getByTestId('submit-button').click()
