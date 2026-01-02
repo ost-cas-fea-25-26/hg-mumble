@@ -30,8 +30,10 @@ jobs:
           echo E2E_USERNAME=${{ env.E2E_USERNAME }} >> .env
           cat .env
 
-      - name: log env file
-        run: cat .env
+      - name: log envs
+        run: |
+          echo "E2E_USERNAME: ${{ env.E2E_USERNAME }}"
+          echo "E2E_USERNAME2: E2E_USERNAME"
 
       - name: Run Playwright tests
         env:
