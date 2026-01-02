@@ -28,6 +28,7 @@ jobs:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          E2E_USERNAME: ${{ vars.E2E_USERNAME }}
           API_URL: ${{ vars.API_URL }}
           E2E_HOST: ${{ vars.E2E_HOST }}
           NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
@@ -37,6 +38,7 @@ jobs:
           echo BETTER_AUTH_SECRET=${{ env.BETTER_AUTH_SECRET }} >> .env
           echo CLIENT_ID=${{ env.CLIENT_ID }} >> .env
           echo E2E_PASSWORD=${{ env.E2E_PASSWORD }} >> .env
+          echo E2E_USERNAME=${{ env.E2E_USERNAME }} >> .env
           echo POSTGRES_URL=${{ env.POSTGRES_URL }} >> .env
           echo API_URL=${{ env.API_URL }} >> .env
           echo E2E_HOST=${{ env.E2E_HOST }} >> .env
