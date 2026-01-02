@@ -1,95 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Logo](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE2MCIgdmlld0JveD0iMCAwIDE2MCAxNjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDY0QzAgNDEuNTk3OSAwIDMwLjM5NjggNC4zNTk3NCAyMS44NDA0QzguMTk0NjcgMTQuMzEzOSAxNC4zMTM5IDguMTk0NjcgMjEuODQwNCA0LjM1OTc0QzMwLjM5NjggMCA0MS41OTc5IDAgNjQgMEg5NkMxMTguNDAyIDAgMTI5LjYwMyAwIDEzOC4xNiA0LjM1OTc0QzE0NS42ODYgOC4xOTQ2NyAxNTEuODA1IDE0LjMxMzkgMTU1LjY0IDIxLjg0MDRDMTYwIDMwLjM5NjggMTYwIDQxLjU5NzkgMTYwIDY0Vjk2QzE2MCAxMTguNDAyIDE2MCAxMjkuNjAzIDE1NS42NCAxMzguMTZDMTUxLjgwNSAxNDUuNjg2IDE0NS42ODYgMTUxLjgwNSAxMzguMTYgMTU1LjY0QzEyOS42MDMgMTYwIDExOC40MDIgMTYwIDk2IDE2MEg2NEM0MS41OTc5IDE2MCAzMC4zOTY4IDE2MCAyMS44NDA0IDE1NS42NEMxNC4zMTM5IDE1MS44MDUgOC4xOTQ2NyAxNDUuNjg2IDQuMzU5NzQgMTM4LjE2QzAgMTI5LjYwMyAwIDExOC40MDIgMCA5NlY2NFoiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl80MzdfMTEwMikiLz4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzQzN18xMTAyKSI+CjxwYXRoIGQ9Ik04Ni42NjY3IDkwSDczLjMzMzNDNzEuNDI1OCA5MCA2OS43MTM1IDkxLjA2MTIgNjguODYwNyA5Mi43NjY5QzY4LjAwNzggOTQuNDY5NCA2OC4xOTAxIDk2LjQ3NzkgNjkuMzMyNyA5Ny45OTgxTDc1Ljk5OTMgMTA2Ljg5MUM3Ni45NTMxIDEwOC4xNjEgNzguNDExNCAxMDguODkgODAgMTA4Ljg5QzgxLjU4ODYgMTA4Ljg5IDgzLjA0NjkgMTA4LjE2MSA4NC4wMDA3IDEwNi44ODhMOTAuNjY3MyA5OC4wMDEzQzkxLjgwOTkgOTYuNDc3OSA5MS45OTIyIDk0LjQ2OTQgOTEuMTM5MyA5Mi43NjY5QzkwLjI4NjUgOTEuMDYxMiA4OC41NzQyIDkwIDg2LjY2NjcgOTBaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTE2LjEyIDcyLjE1MTdDMTE1LjIzNSA2OS44MTU5IDExNC4xMzYgNjcuNDU3MSAxMTIuODYxIDY1LjE0MjJDMTE3LjEzNSA2Mi44OTc5IDEyMCA1OC40MTkgMTIwIDUzLjMzMzNDMTIwIDQ1Ljk3OTggMTE0LjAyIDQwIDEwNi42NjcgNDBDMTAxLjg2NSA0MCA5Ny40MDY0IDQyLjgwMzMgOTQuOTg4MiA0Ni45NDZDOTAuNTY4OCA0NC42OTMgODUuNTc0NyA0My4zMzMzIDgwIDQzLjMzMzNDNzQuNDI1MyA0My4zMzMzIDY5LjQzMTQgNDQuNjkzMiA2NS4wMTE4IDQ2Ljk0NkM2Mi41OTM2IDQyLjgwMzMgNTguMTM1IDQwIDUzLjMzMzMgNDBDNDUuOTc5OCA0MCA0MCA0NS45Nzk4IDQwIDUzLjMzMzNDNDAgNTguNDE4NCA0Mi44NjQ2IDYyLjg5NzEgNDcuMTM3NSA2NS4xNDE2QzQ1Ljg2MjIgNjcuNDU2NyA0NC43NjI4IDY5LjgxNTcgNDMuODc3IDcyLjE1MTdDNDAuMTM2NyA4Mi4wMzEzIDM3LjIxNjggOTYuMDM1MiA0NC41NjA2IDEwNi42N0M1MC42NjczIDExNS41MTQgNjIuNTkxMSAxMjAgODAgMTIwQzk3LjQwODkgMTIwIDEwOS4zMzMgMTE1LjUxNCAxMTUuNDM5IDEwNi42N0MxMjIuNzgzIDk2LjAzNTIgMTE5Ljg2IDgyLjAzMTMgMTE2LjEyIDcyLjE1MTdaTTEwOS45NTQgMTAyLjg4MUMxMDUuMTY2IDEwOS44MTggOTUuMDg3OSAxMTMuMzMzIDgwIDExMy4zMzNDNjQuOTEyMSAxMTMuMzMzIDU0LjgzNCAxMDkuODE4IDUwLjA0NTYgMTAyLjg4MUM0NC4zNDU3IDk0LjYyODkgNDYuOTM2OCA4Mi45MDA0IDUwLjExMDcgNzQuNTE1QzUxLjY2MzQgNzAuNDE5OSA2MC40MDA0IDUwIDgwIDUwQzk5LjU5OTYgNTAgMTA4LjMzNyA3MC40MTk5IDEwOS44ODkgNzQuNTE1QzExMy4wNjMgODIuOTAwNCAxMTUuNjU0IDk0LjYyODkgMTA5Ljk1NCAxMDIuODgxWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTcyLjEyODkgODEuMjY2M0M3NS4xMzY3IDc2Ljk4ODkgNzUuMzk3MSA3NS4yODY0IDc0LjY0NTIgNzIuMzQzN0M3My4yMTk0IDY2Ljc2MTEgNjkuNjY0NyA2NS41ODkyIDY2LjkzNjggNjUuNTg5MkM2MC4xNTk1IDY1LjU4OTIgNTQuODczIDc0LjczNjMgNTQuODA3OSA3OS4zMDk5QzU0Ljc2ODkgODIuMDU3MyA1NS44Nzg5IDg0LjkxODYgNTcuNzExNiA4Ni43NzczQzU4Ljk5NzQgODguMDc5NCA2MC41MDc4IDg4Ljc2OTUgNjIuMDgzMyA4OC43Njk1QzY2LjI5MjMgODguNzY5NSA2OS41MjQ3IDg0Ljk3NzIgNzIuMTI4OSA4MS4yNjYzWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTkzLjA2MzIgNjUuNTg5MkM5MC4zMzUzIDY1LjU4OTIgODYuNzgwNiA2Ni43NjExIDg1LjM1NDggNzIuMzQzOEM4NC42MDI5IDc1LjI4NjUgODQuODYzMyA3Ni45ODg5IDg3Ljg3MTEgODEuMjY2M0M5MC40NzUzIDg0Ljk3NzIgOTMuNzA3NyA4OC43Njk2IDk3LjkxNjcgODguNzY5NkM5OS40OTIyIDg4Ljc2OTYgMTAxLjAwMyA4OC4wNzk1IDEwMi4yODggODYuNzc3NEMxMDQuMTIxIDg0LjkxODYgMTA1LjIzMSA4Mi4wNTczIDEwNS4xOTIgNzkuMzEzMkMxMDUuMTI3IDc0LjczNjMgOTkuODQwNSA2NS41ODkyIDkzLjA2MzIgNjUuNTg5MloiIGZpbGw9IndoaXRlIi8+CjwvZz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl80MzdfMTEwMiIgeDE9IjEuMTkyMDllLTA2IiB5MT0iODAiIHgyPSIxNjAiIHkyPSI4MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjRUM0ODk5Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzdDM0FFRCIvPgo8L2xpbmVhckdyYWRpZW50Pgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzQzN18xMTAyIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSJ3aGl0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDAgNDApIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==)
 
-## Getting Started
+# HG Mumble
 
-First, run the development server:
+HG Mumble is a twitter clone built with next.js and tailwindcss. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-
-## required environment variables
-
-```
-CLIENT_ID=<secret>
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
-BETTER_AUTH_SECRET=irgendöppis
-E2E_HOST=https://hg-mumble-taupe.vercel.app/
-API_URL=https://qwacker-api-http-prod-927407260649.europe-west6.run.app/
-NEXT_PUBLIC_API_URL=https://mumble-api-prod-714602723919.europe-west6.run.app #used for SSE endpoint - directly from client
-
-```
-
-## e2e tests
-
-after pnpm i, run:
-```
-npx playwright install
-```
-to setup local browser binaries, only needs to be once per playwright version
-
-## Mock Server
-
-before you can use the mock server, you need to install prism:
-```
-npm i -g @stoplight/prism-cli
-```
-
-after installing the thing, you can run the mockserver:
-```
-pnpm mock
-OR: prism mock scripts/generate/swagger.json
-```
-note that this only mocks the quacker api, the auth will still be necessary (i think)
-
-
-change the API_URL in your .env to:
-```
-API_URL=http://localhost:4011
-OR: just run:
-pnpm dev:mock
-```
-
-### i need other mock data than the server returns
-
-you can change the data from the server by changin the "examples" in the swagger.json file:
-```json
-{
-  "properties": {
-    "id": {
-      ...
-      "example": "if i change this, the new value will be returned for every api call"
-    }
-  }
-}
-```
-
-if you need dynamic data: you're on your own
+## Features
+- User authentication
+- creating posts
+- liking posts
+- following users
+- user profiles
+- responsive design

@@ -1,4 +1,3 @@
-# yaml
 name: Playwright Tests
 on:
   push:
@@ -6,7 +5,7 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
+  e2e-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -23,6 +22,30 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm dlx playwright install chromium
 
+      - name: Create env file
+        env:
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          E2E_USERNAME: ${{ vars.E2E_USERNAME }}
+          API_URL: ${{ vars.API_URL }}
+          E2E_HOST: ${{ vars.E2E_HOST }}
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_BASE_URL: ${{ vars.NEXT_PUBLIC_BASE_URL }}
+          ZITADEL_API_URL: ${{ vars.ZITADEL_API_URL }}
+        run: |
+          echo BETTER_AUTH_SECRET=${{ env.BETTER_AUTH_SECRET }} >> .env
+          echo CLIENT_ID=${{ env.CLIENT_ID }} >> .env
+          echo E2E_PASSWORD=${{ env.E2E_PASSWORD }} >> .env
+          echo E2E_USERNAME=${{ env.E2E_USERNAME }} >> .env
+          echo POSTGRES_URL=${{ env.POSTGRES_URL }} >> .env
+          echo API_URL=${{ env.API_URL }} >> .env
+          echo E2E_HOST=${{ env.E2E_HOST }} >> .env
+          echo NEXT_PUBLIC_API_URL=${{ env.NEXT_PUBLIC_API_URL }} >> .env
+          echo NEXT_PUBLIC_BASE_URL=${{ env.NEXT_PUBLIC_BASE_URL }} >> .env
+          echo ZITADEL_API_URL=${{ env.ZITADEL_API_URL }} >> .env
+
       - name: Run Playwright tests
         run: pnpm run test
 
@@ -30,5 +53,5 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
-          path: playwright-report/
+          path: test-results/
           retention-days: 7
