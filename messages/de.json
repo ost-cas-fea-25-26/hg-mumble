@@ -10,7 +10,16 @@
     "welcome-subtitle": "Voluptatem qui cumque voluptatem quia tempora dolores distinctio vel repellat dicta.",
     "not-logged-in": "Du bist noch nicht eingeloggt!",
     "password": "Passwort",
-    "reveal-password": "Passwort anzeigen"
+    "reveal-password": "Passwort anzeigen",
+    "usersettings": "Benutzereinstellungen",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "displayName": "Anzeigename",
+    "email": "E-Mail",
+    "hint-logout": "Wenn du deinen Namen änderst, wirst du ausgeloggt!",
+    "save": "Speichern",
+    "max-length": "Maximal {maxLength} zeichen erlaubt",
+    "invalid-special-characters": "Enthält ungültige Sonderzeichen"
   },
   "mumble-post": {
     "new-posts": "Es gibt neue Mumbles!",
