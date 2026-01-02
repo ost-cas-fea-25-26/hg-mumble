@@ -1,12 +1,11 @@
 'use client'
 
 import { fetchUser } from '@/actions/users/fetchUser'
-import LoadingText from '@/components/loading/LoadingText'
 import ReplyButtons from '@/components/post/reply/ReplyButtons'
 import ReplySkeleton from '@/components/post/reply/ReplySkeleton'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { decodeTime } from 'ulidx'
 import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
 import { Reply as ReplyType, User } from '@/mumble/api/generated/MumbleApi'
@@ -19,6 +18,12 @@ export default function Reply({ reply }: Props) {
   const [userData, setUserData] = useState<User>({})
   const [isLoading, setIsLoading] = useState(true)
   const data = useFormattedDate(new Date(decodeTime(reply.id!)))
+  const avatarPlaceholderText = useMemo(() => {
+    if (userData.firstname && userData.lastname) {
+      return userData.firstname.charAt(0) + userData.lastname.charAt(0)
+    }
+    return undefined
+  }, [userData])
   useEffect(() => {
     fetchUser(reply.creator!.id!).then((response) => {
       setUserData(response)
@@ -32,18 +37,13 @@ export default function Reply({ reply }: Props) {
 
   return (
     <div className="relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white p-4">
-      <div
-        className={clsx(
-          //left -32 because avatar-width is 64
-          'flex h-16 w-full items-center justify-start gap-3'
-        )}
-      >
-        <Avatar src={userData.avatarUrl || undefined} size={'s'} borderless />
-        <div>
+      <div className="desktop:h-16 flex w-full items-center justify-start gap-3">
+        <Avatar src={userData.avatarUrl || undefined} size={'s'} borderless placeholderText={avatarPlaceholderText} />
+        <div className="pl-1">
           <h3 className={clsx('text-lg font-bold')}>
             {userData?.firstname} {userData?.lastname}
           </h3>
-          <div className={clsx('desktop:flex-row flex flex-col items-center gap-4')}>
+          <div className="desktop:flex-row desktop:items-center desktop:gap-4 desktop:w-full flex flex-col gap-2">
             <Link
               url={`/mumble/profile/${reply.creator?.id}`}
               className={'text-primary flex items-center justify-start gap-1 font-bold'}
@@ -58,9 +58,8 @@ export default function Reply({ reply }: Props) {
           </div>
         </div>
       </div>
-      {/*content*/}
       <div>
-        <div className={'flex max-h-50 gap-4'}>
+        <div className="flex max-h-50 gap-4">
           {reply.mediaUrl && (
             <img
               className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}

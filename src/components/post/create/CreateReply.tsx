@@ -2,7 +2,7 @@
 import { createReply } from '@/actions/posts/comments/createReply'
 import { fetchUser } from '@/actions/users/fetchUser'
 import LoadingText from '@/components/loading/LoadingText'
-import MumbleForm from '@/components/post/MumbleForm'
+import MumbleForm from '@/components/post/create/MumbleForm'
 import { FormValues } from '@/interfaces/MumbleFormValues'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'

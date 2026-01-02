@@ -1,7 +1,7 @@
 'use client'
 
 import { createPost } from '@/actions/posts/createPost'
-import MumbleForm from '@/components/post/MumbleForm'
+import MumbleForm from '@/components/post/create/MumbleForm'
 import { FormValues } from '@/interfaces/MumbleFormValues'
 import clsx from 'clsx'
 import React, { useState } from 'react'

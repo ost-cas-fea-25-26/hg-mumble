@@ -72,7 +72,7 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
           />
         </Modal>
       )}
-      <div className={'desktop:flex-row flex w-full flex-col items-center justify-center gap-4'}>
+      <div className={'desktop:flex-row desktop:gap-4 flex w-full flex-col items-center justify-center gap-2'}>
         <Button
           width={'w-full'}
           variant={'secondary'}

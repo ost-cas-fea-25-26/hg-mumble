@@ -1,6 +1,6 @@
 import { fetchPosts } from '@/actions/posts/fetchPosts'
-import CreatePost from '@/components/post/CreatePost'
 import PostsList from '@/components/post/PostsList'
+import CreatePost from '@/components/post/create/CreatePost'
 import clsx from 'clsx'
 import { getTranslations } from 'next-intl/server'
 import { redirect } from 'next/navigation'

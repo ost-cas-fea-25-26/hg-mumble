@@ -1,7 +1,7 @@
 import { fetchComments } from '@/actions/posts/comments/fetchComments'
 import { fetchPost } from '@/actions/posts/fetchPost'
-import CreateReply from '@/components/post/CreateReply'
 import Post from '@/components/post/Post'
+import CreateReply from '@/components/post/create/CreateReply'
 import Reply from '@/components/post/reply/Reply'
 import ReplyList from '@/components/post/reply/ReplyList'
 import React from 'react'
@@ -21,7 +21,7 @@ export default async function Page({ params }: Props) {
   const replies = repliesData as ReplyPaginatedResult
 
   return (
-    <div className="w-full rounded-md bg-white">
+    <div className="mt-28 w-full rounded-md bg-white">
       {post && <Post post={post} />}
       <div className="p-6">
         <CreateReply postId={postId} />

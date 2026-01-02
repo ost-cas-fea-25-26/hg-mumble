@@ -8,18 +8,13 @@ import { Avatar, Time } from '@/lib/hg-storybook'
 export default function ReplySkeleton() {
   return (
     <div className="relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white p-4">
-      <div
-        className={clsx(
-          //left -32 because avatar-width is 64
-          'flex h-16 w-full items-center justify-start gap-3'
-        )}
-      >
+      <div className="desktop:h-16 flex w-full items-center justify-start gap-3">
         <Avatar src={undefined} size={'s'} borderless />
-        <div>
-          <h3 className={clsx('text-lg font-bold')}>
+        <div className="pl-1">
+          <h3 className={clsx('mb-1 text-lg font-bold')}>
             <LoadingText width={'w-32'} />
           </h3>
-          <div className={clsx('desktop:flex-row mt-1 flex flex-col items-center gap-4')}>
+          <div className="desktop:flex-row desktop:items-center desktop:gap-4 desktop:w-full flex flex-col gap-2">
             <div className={'text-primary flex items-center justify-start gap-1 font-bold'}>
               <LoadingText width={'w-25'} />
             </div>
@@ -30,9 +25,8 @@ export default function ReplySkeleton() {
           </div>
         </div>
       </div>
-      {/*content*/}
       <div>
-        <div className={'flex max-h-50 gap-4'}>
+        <div className="flex max-h-50 gap-4">
           <span className={'flex w-full flex-col gap-2'}>
             <LoadingText />
             <LoadingText />
