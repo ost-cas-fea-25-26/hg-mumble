@@ -43,7 +43,7 @@ jobs:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
         run: pnpm run test
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
