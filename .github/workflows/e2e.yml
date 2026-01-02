@@ -32,9 +32,9 @@ jobs:
 
       - name: log envs
         env:
-          super_secret: ${{ secrets.BETTER_AUTH_SECRET }}
+          env1: ${{ vars.E2E_USERNAME }}
         run: |
-          echo "BETTER_AUTH_SECRET: ${{ env.super_secret }}"
+          echo "BETTER_AUTH_SECRET: ${{ env.env1 }}"
 
       - name: Run Playwright tests
         env:
