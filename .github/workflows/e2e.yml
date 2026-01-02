@@ -31,8 +31,12 @@ jobs:
           cat .env
 
       - name: log envs
+        env:
+          E2E_USERNAME: ${{ env.E2E_USERNAME }}
+          TEST_VAR: "asdf"
         run: |
           echo "E2E_USERNAME: ${{ env.E2E_USERNAME }}"
+          echo "TEST_VAR: $TEST_VAR"
           echo "E2E_USERNAME2: E2E_USERNAME"
 
       - name: Run Playwright tests
