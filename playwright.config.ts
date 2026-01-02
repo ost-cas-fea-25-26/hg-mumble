@@ -14,6 +14,7 @@ export default defineConfig({
     baseURL: 'http://localhost:3000',
     headless: true,
     permissions: ['clipboard-read', 'clipboard-write'],
+    screenshot: 'only-on-failure',
   },
   workers: 2,
   webServer: [
