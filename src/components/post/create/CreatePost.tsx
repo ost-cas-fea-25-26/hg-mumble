@@ -3,12 +3,12 @@
 import { createPost } from '@/actions/posts/createPost'
 import MumbleForm from '@/components/post/create/MumbleForm'
 import { FormValues } from '@/interfaces/MumbleFormValues'
-import clsx from 'clsx'
-import React, { useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { useTranslations } from 'use-intl'
 import { useSession } from '@/lib/auth-client'
 import { Avatar } from '@/lib/hg-storybook'
+import clsx from 'clsx'
+import { useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useTranslations } from 'use-intl'
 
 export default function CreatePost() {
   const sessionData = useSession()

@@ -1,14 +1,12 @@
 'use client'
 
-import { fetchUser } from '@/actions/users/fetchUser'
 import ReplyButtons from '@/components/post/reply/ReplyButtons'
-import ReplySkeleton from '@/components/post/reply/ReplySkeleton'
+import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
+import { Reply as ReplyType } from '@/mumble/api/generated/MumbleApi'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import clsx from 'clsx'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { decodeTime } from 'ulidx'
-import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
-import { Reply as ReplyType, User } from '@/mumble/api/generated/MumbleApi'
 
 interface Props {
   reply: ReplyType

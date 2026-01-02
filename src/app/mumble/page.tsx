@@ -1,11 +1,10 @@
 import { fetchPosts } from '@/actions/posts/fetchPosts'
 import PostsList from '@/components/post/PostsList'
 import CreatePost from '@/components/post/create/CreatePost'
+import { getSession } from '@/lib/auth'
 import clsx from 'clsx'
 import { getTranslations } from 'next-intl/server'
 import { redirect } from 'next/navigation'
-import React from 'react'
-import { getSession } from '@/lib/auth'
 
 export default async function Home() {
   const sessionData = await getSession()

@@ -2,11 +2,11 @@
 
 import { addLike } from '@/actions/posts/like/addLike'
 import { removeLike } from '@/actions/posts/like/removeLike'
+import { Post } from '@/mumble/api/generated/MumbleApi'
 import { Heart, HeartEmpty, Share, SpeechBubbleEmpty, TimedButton, Toggle } from 'hg-storybook'
 import Link from 'next/link'
 import React from 'react'
 import { useTranslations } from 'use-intl'
-import { Post } from '@/mumble/api/generated/MumbleApi'
 
 type Props = {
   post: Post

@@ -1,11 +1,11 @@
 import { updateUser } from '@/actions/zitadel/updateUser'
+import { signOut, useSession } from '@/lib/auth-client'
 import { MAX_NAME_LENGTH } from '@/utils/form/validation/constants'
 import { Button, Field, Input, Label, Loader, Modal, SpeechBubble } from 'hg-storybook'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
-import { signOut, useSession } from '@/lib/auth-client'
 
 type Props = {
   close: () => void

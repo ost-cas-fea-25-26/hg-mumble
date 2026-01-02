@@ -2,9 +2,10 @@
 
 # HG Mumble
 
-HG Mumble is a twitter clone built with next.js and tailwindcss. 
+HG Mumble is a twitter clone built with next.js and tailwindcss.
 
 ## Features
+
 - User authentication
 - creating posts
 - liking posts

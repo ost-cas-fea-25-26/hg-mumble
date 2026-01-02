@@ -1,7 +1,6 @@
 import LoadingText from '@/components/loading/LoadingText'
-import clsx from 'clsx'
-import React from 'react'
 import { Avatar, Button, Link } from '@/lib/hg-storybook'
+import clsx from 'clsx'
 
 export default function CreateReplySkeleton() {
   return (

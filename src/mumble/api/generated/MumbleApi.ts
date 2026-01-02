@@ -16,7 +16,7 @@ export interface DeletedPost {
    * Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)
    * @format ULID
    */
-  id?: string;
+  id?: string
 }
 
 export interface LikeInfo {
@@ -25,12 +25,12 @@ export interface LikeInfo {
    * Universally Unique Lexicographically Sortable Identifier (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G)
    * @format ULID
    */
-  postId?: string;
+  postId?: string
   /**
    * The userid of the user that liked the post.
    * @example "179944860378202369"
    */
-  userId?: string | null;
+  userId?: string | null
 }
 
 /**
@@ -44,46 +44,46 @@ export interface Post {
    * @format ulid
    * @example "01GDMMR85BEHP8AKV8ZGGM259K"
    */
-  id?: string;
+  id?: string
   /**
    * Public user information. This information is publicly available to everyone.
    * It contains basic information such as the ID.
    */
-  creator?: PublicUser;
+  creator?: PublicUser
   /**
    * Text for the post. Can be null if the post is only a media post.
    * Can contain hashtags and mentions.
    * @example "Hello World! #newpost."
    */
-  text?: string | null;
+  text?: string | null
   /**
    * URL - if any - to the media object attached to this post.
    * @example "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
    */
-  mediaUrl?: string | null;
+  mediaUrl?: string | null
   /**
    * If mediaUrl is set, this field contains the mime type of the media object.
    * @example "image/png"
    */
-  mediaType?: string | null;
+  mediaType?: string | null
   /**
    * Number of total likes on this post.
    * @format int32
    * @example 42
    */
-  likes?: number;
+  likes?: number
   /**
    * Indicates if the current user liked this post. If the call was made unauthorized,
    * this field is "null" or absent. Otherwise `true` indicates that the authorized user
    * liked this post.
    */
-  likedBySelf?: boolean | null;
+  likedBySelf?: boolean | null
   /**
    * Number of total replies for this post.
    * @format int32
    * @example 42
    */
-  replies?: number;
+  replies?: number
 }
 
 export interface PostBase {
@@ -93,40 +93,40 @@ export interface PostBase {
    * @format ulid
    * @example "01GDMMR85BEHP8AKV8ZGGM259K"
    */
-  id?: string;
+  id?: string
   /**
    * Public user information. This information is publicly available to everyone.
    * It contains basic information such as the ID.
    */
-  creator?: PublicUser;
+  creator?: PublicUser
   /**
    * Text for the post. Can be null if the post is only a media post.
    * Can contain hashtags and mentions.
    * @example "Hello World! #newpost."
    */
-  text?: string | null;
+  text?: string | null
   /**
    * URL - if any - to the media object attached to this post.
    * @example "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
    */
-  mediaUrl?: string | null;
+  mediaUrl?: string | null
   /**
    * If mediaUrl is set, this field contains the mime type of the media object.
    * @example "image/png"
    */
-  mediaType?: string | null;
+  mediaType?: string | null
   /**
    * Number of total likes on this post.
    * @format int32
    * @example 42
    */
-  likes?: number;
+  likes?: number
   /**
    * Indicates if the current user liked this post. If the call was made unauthorized,
    * this field is "null" or absent. Otherwise `true` indicates that the authorized user
    * liked this post.
    */
-  likedBySelf?: boolean | null;
+  likedBySelf?: boolean | null
 }
 
 /**
@@ -139,21 +139,21 @@ export interface PostPaginatedResult {
    * @format int32
    * @example 1337
    */
-  count?: number;
+  count?: number
   /** The data for this given page. */
-  data?: Post[];
+  data?: Post[]
   /**
    * Link to next page. If this is null, there is no next page.
    * The link will contain pagination information (offset, limit).
    * If returned by a search, the link will not contain the search parameters.
    */
-  next?: string | null;
+  next?: string | null
   /**
    * Link to previous page. If this is null, there is no next page.
    * The link will contain pagination information (offset, limit).
    * If returned by a search, the link will not contain the search parameters.
    */
-  previous?: string | null;
+  previous?: string | null
 }
 
 /**
@@ -165,19 +165,19 @@ export interface PublicUser {
    * ID of the user who created the post.
    * @example "179944860378202369"
    */
-  id?: string | null;
+  id?: string | null
   /**
    * The username of the creator.
    * @example "max_muster"
    */
-  username?: string | null;
+  username?: string | null
   /**
    * The display name of the creator.
    * @example "max muster"
    */
-  displayName?: string | null;
+  displayName?: string | null
   /** If set, points to the avatar of the user. */
-  avatarUrl?: string | null;
+  avatarUrl?: string | null
 }
 
 /** A reply to a post. */
@@ -188,46 +188,46 @@ export interface Reply {
    * @format ulid
    * @example "01GDMMR85BEHP8AKV8ZGGM259K"
    */
-  id?: string;
+  id?: string
   /**
    * Public user information. This information is publicly available to everyone.
    * It contains basic information such as the ID.
    */
-  creator?: PublicUser;
+  creator?: PublicUser
   /**
    * Text for the post. Can be null if the post is only a media post.
    * Can contain hashtags and mentions.
    * @example "Hello World! #newpost."
    */
-  text?: string | null;
+  text?: string | null
   /**
    * URL - if any - to the media object attached to this post.
    * @example "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
    */
-  mediaUrl?: string | null;
+  mediaUrl?: string | null
   /**
    * If mediaUrl is set, this field contains the mime type of the media object.
    * @example "image/png"
    */
-  mediaType?: string | null;
+  mediaType?: string | null
   /**
    * Number of total likes on this post.
    * @format int32
    * @example 42
    */
-  likes?: number;
+  likes?: number
   /**
    * Indicates if the current user liked this post. If the call was made unauthorized,
    * this field is "null" or absent. Otherwise `true` indicates that the authorized user
    * liked this post.
    */
-  likedBySelf?: boolean | null;
+  likedBySelf?: boolean | null
   /**
    * ULID
    * The ID of the parent post.
    * @format ULID
    */
-  parentId?: string;
+  parentId?: string
 }
 
 /**
@@ -240,21 +240,21 @@ export interface ReplyPaginatedResult {
    * @format int32
    * @example 1337
    */
-  count?: number;
+  count?: number
   /** The data for this given page. */
-  data?: Reply[];
+  data?: Reply[]
   /**
    * Link to next page. If this is null, there is no next page.
    * The link will contain pagination information (offset, limit).
    * If returned by a search, the link will not contain the search parameters.
    */
-  next?: string | null;
+  next?: string | null
   /**
    * Link to previous page. If this is null, there is no next page.
    * The link will contain pagination information (offset, limit).
    * If returned by a search, the link will not contain the search parameters.
    */
-  previous?: string | null;
+  previous?: string | null
 }
 
 /** Data that is used to patch a given post. */
@@ -263,17 +263,17 @@ export interface UpdatePostData {
    * Text for the post. If omitted, the text will not be updated.
    * If set to empty string, the text will be removed.
    */
-  text?: string | null;
+  text?: string | null
 }
 
 /** Model to update user data. */
 export interface UpdateUserData {
   /** If set, updates the firstname of the profile. */
-  firstname?: string | null;
+  firstname?: string | null
   /** If set, updates the lastname of the profile. */
-  lastname?: string | null;
+  lastname?: string | null
   /** If set, updates the username of the profile. */
-  username?: string | null;
+  username?: string | null
 }
 
 /**
@@ -285,23 +285,23 @@ export interface User {
    * ID of the user who created the post.
    * @example "179944860378202369"
    */
-  id?: string | null;
+  id?: string | null
   /**
    * The username of the creator.
    * @example "max_muster"
    */
-  username?: string | null;
+  username?: string | null
   /**
    * The display name of the creator.
    * @example "max muster"
    */
-  displayName?: string | null;
+  displayName?: string | null
   /** If set, points to the avatar of the user. */
-  avatarUrl?: string | null;
+  avatarUrl?: string | null
   /** Firstname of the user. */
-  firstname?: string | null;
+  firstname?: string | null
   /** Lastname of the user. */
-  lastname?: string | null;
+  lastname?: string | null
 }
 
 /**
@@ -314,169 +314,146 @@ export interface UserPaginatedResult {
    * @format int32
    * @example 1337
    */
-  count?: number;
+  count?: number
   /** The data for this given page. */
-  data?: User[];
+  data?: User[]
   /**
    * Link to next page. If this is null, there is no next page.
    * The link will contain pagination information (offset, limit).
    * If returned by a search, the link will not contain the search parameters.
    */
-  next?: string | null;
+  next?: string | null
   /**
    * Link to previous page. If this is null, there is no next page.
    * The link will contain pagination information (offset, limit).
    * If returned by a search, the link will not contain the search parameters.
    */
-  previous?: string | null;
+  previous?: string | null
 }
 
-export type QueryParamsType = Record<string | number, any>;
-export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
+export type QueryParamsType = Record<string | number, any>
+export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
 
-export interface FullRequestParams extends Omit<RequestInit, "body"> {
+export interface FullRequestParams extends Omit<RequestInit, 'body'> {
   /** set parameter to `true` for call `securityWorker` for this request */
-  secure?: boolean;
+  secure?: boolean
   /** request path */
-  path: string;
+  path: string
   /** content type of request body */
-  type?: ContentType;
+  type?: ContentType
   /** query params */
-  query?: QueryParamsType;
+  query?: QueryParamsType
   /** format of response (i.e. response.json() -> format: "json") */
-  format?: ResponseFormat;
+  format?: ResponseFormat
   /** request body */
-  body?: unknown;
+  body?: unknown
   /** base url */
-  baseUrl?: string;
+  baseUrl?: string
   /** request cancellation token */
-  cancelToken?: CancelToken;
+  cancelToken?: CancelToken
 }
 
-export type RequestParams = Omit<
-  FullRequestParams,
-  "body" | "method" | "query" | "path"
->;
+export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>
 
 export interface ApiConfig<SecurityDataType = unknown> {
-  baseUrl?: string;
-  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
-  securityWorker?: (
-    securityData: SecurityDataType | null,
-  ) => Promise<RequestParams | void> | RequestParams | void;
-  customFetch?: typeof fetch;
+  baseUrl?: string
+  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>
+  securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void
+  customFetch?: typeof fetch
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown>
-  extends Response {
-  data: D;
-  error: E;
+export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
+  data: D
+  error: E
 }
 
-type CancelToken = Symbol | string | number;
+type CancelToken = Symbol | string | number
 
 export enum ContentType {
-  Json = "application/json",
-  JsonApi = "application/vnd.api+json",
-  FormData = "multipart/form-data",
-  UrlEncoded = "application/x-www-form-urlencoded",
-  Text = "text/plain",
+  Json = 'application/json',
+  JsonApi = 'application/vnd.api+json',
+  FormData = 'multipart/form-data',
+  UrlEncoded = 'application/x-www-form-urlencoded',
+  Text = 'text/plain',
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "";
-  private securityData: SecurityDataType | null = null;
-  private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
-  private abortControllers = new Map<CancelToken, AbortController>();
-  private customFetch = (...fetchParams: Parameters<typeof fetch>) =>
-    fetch(...fetchParams);
+  public baseUrl: string = ''
+  private securityData: SecurityDataType | null = null
+  private securityWorker?: ApiConfig<SecurityDataType>['securityWorker']
+  private abortControllers = new Map<CancelToken, AbortController>()
+  private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams)
 
   private baseApiParams: RequestParams = {
-    credentials: "same-origin",
+    credentials: 'same-origin',
     headers: {},
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-  };
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+  }
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
-    Object.assign(this, apiConfig);
+    Object.assign(this, apiConfig)
   }
 
   public setSecurityData = (data: SecurityDataType | null) => {
-    this.securityData = data;
-  };
+    this.securityData = data
+  }
 
   protected encodeQueryParam(key: string, value: any) {
-    const encodedKey = encodeURIComponent(key);
-    return `${encodedKey}=${encodeURIComponent(typeof value === "number" ? value : `${value}`)}`;
+    const encodedKey = encodeURIComponent(key)
+    return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : `${value}`)}`
   }
 
   protected addQueryParam(query: QueryParamsType, key: string) {
-    return this.encodeQueryParam(key, query[key]);
+    return this.encodeQueryParam(key, query[key])
   }
 
   protected addArrayQueryParam(query: QueryParamsType, key: string) {
-    const value = query[key];
-    return value.map((v: any) => this.encodeQueryParam(key, v)).join("&");
+    const value = query[key]
+    return value.map((v: any) => this.encodeQueryParam(key, v)).join('&')
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
-    const query = rawQuery || {};
-    const keys = Object.keys(query).filter(
-      (key) => "undefined" !== typeof query[key],
-    );
+    const query = rawQuery || {}
+    const keys = Object.keys(query).filter((key) => 'undefined' !== typeof query[key])
     return keys
-      .map((key) =>
-        Array.isArray(query[key])
-          ? this.addArrayQueryParam(query, key)
-          : this.addQueryParam(query, key),
-      )
-      .join("&");
+      .map((key) => (Array.isArray(query[key]) ? this.addArrayQueryParam(query, key) : this.addQueryParam(query, key)))
+      .join('&')
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
-    const queryString = this.toQueryString(rawQuery);
-    return queryString ? `?${queryString}` : "";
+    const queryString = this.toQueryString(rawQuery)
+    return queryString ? `?${queryString}` : ''
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === "object" || typeof input === "string")
-        ? JSON.stringify(input)
-        : input,
+      input !== null && (typeof input === 'object' || typeof input === 'string') ? JSON.stringify(input) : input,
     [ContentType.JsonApi]: (input: any) =>
-      input !== null && (typeof input === "object" || typeof input === "string")
-        ? JSON.stringify(input)
-        : input,
-    [ContentType.Text]: (input: any) =>
-      input !== null && typeof input !== "string"
-        ? JSON.stringify(input)
-        : input,
+      input !== null && (typeof input === 'object' || typeof input === 'string') ? JSON.stringify(input) : input,
+    [ContentType.Text]: (input: any) => (input !== null && typeof input !== 'string' ? JSON.stringify(input) : input),
     [ContentType.FormData]: (input: any) => {
       if (input instanceof FormData) {
-        return input;
+        return input
       }
 
       return Object.keys(input || {}).reduce((formData, key) => {
-        const property = input[key];
+        const property = input[key]
         formData.append(
           key,
           property instanceof Blob
             ? property
-            : typeof property === "object" && property !== null
+            : typeof property === 'object' && property !== null
               ? JSON.stringify(property)
-              : `${property}`,
-        );
-        return formData;
-      }, new FormData());
+              : `${property}`
+        )
+        return formData
+      }, new FormData())
     },
     [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
-  };
+  }
 
-  protected mergeRequestParams(
-    params1: RequestParams,
-    params2?: RequestParams,
-  ): RequestParams {
+  protected mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -486,33 +463,31 @@ export class HttpClient<SecurityDataType = unknown> {
         ...(params1.headers || {}),
         ...((params2 && params2.headers) || {}),
       },
-    };
+    }
   }
 
-  protected createAbortSignal = (
-    cancelToken: CancelToken,
-  ): AbortSignal | undefined => {
+  protected createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
-      const abortController = this.abortControllers.get(cancelToken);
+      const abortController = this.abortControllers.get(cancelToken)
       if (abortController) {
-        return abortController.signal;
+        return abortController.signal
       }
-      return void 0;
+      return void 0
     }
 
-    const abortController = new AbortController();
-    this.abortControllers.set(cancelToken, abortController);
-    return abortController.signal;
-  };
+    const abortController = new AbortController()
+    this.abortControllers.set(cancelToken, abortController)
+    return abortController.signal
+  }
 
   public abortRequest = (cancelToken: CancelToken) => {
-    const abortController = this.abortControllers.get(cancelToken);
+    const abortController = this.abortControllers.get(cancelToken)
 
     if (abortController) {
-      abortController.abort();
-      this.abortControllers.delete(cancelToken);
+      abortController.abort()
+      this.abortControllers.delete(cancelToken)
     }
-  };
+  }
 
   public request = async <T = any, E = any>({
     body,
@@ -526,64 +501,53 @@ export class HttpClient<SecurityDataType = unknown> {
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
     const secureParams =
-      ((typeof secure === "boolean" ? secure : this.baseApiParams.secure) &&
+      ((typeof secure === 'boolean' ? secure : this.baseApiParams.secure) &&
         this.securityWorker &&
         (await this.securityWorker(this.securityData))) ||
-      {};
-    const requestParams = this.mergeRequestParams(params, secureParams);
-    const queryString = query && this.toQueryString(query);
-    const payloadFormatter = this.contentFormatters[type || ContentType.Json];
-    const responseFormat = format || requestParams.format;
+      {}
+    const requestParams = this.mergeRequestParams(params, secureParams)
+    const queryString = query && this.toQueryString(query)
+    const payloadFormatter = this.contentFormatters[type || ContentType.Json]
+    const responseFormat = format || requestParams.format
 
-    return this.customFetch(
-      `${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`,
-      {
-        ...requestParams,
-        headers: {
-          ...(requestParams.headers || {}),
-          ...(type && type !== ContentType.FormData
-            ? { "Content-Type": type }
-            : {}),
-        },
-        signal:
-          (cancelToken
-            ? this.createAbortSignal(cancelToken)
-            : requestParams.signal) || null,
-        body:
-          typeof body === "undefined" || body === null
-            ? null
-            : payloadFormatter(body),
+    return this.customFetch(`${baseUrl || this.baseUrl || ''}${path}${queryString ? `?${queryString}` : ''}`, {
+      ...requestParams,
+      headers: {
+        ...(requestParams.headers || {}),
+        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
       },
-    ).then(async (response) => {
-      const r = response as HttpResponse<T, E>;
-      r.data = null as unknown as T;
-      r.error = null as unknown as E;
+      signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) || null,
+      body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body),
+    }).then(async (response) => {
+      const r = response as HttpResponse<T, E>
+      r.data = null as unknown as T
+      r.error = null as unknown as E
 
-      const responseToParse = responseFormat ? response.clone() : response;
+      const responseToParse = responseFormat ? response.clone() : response
       const data = !responseFormat
         ? r
         : await responseToParse[responseFormat]()
             .then((data) => {
               if (r.ok) {
-                r.data = data;
+                r.data = data
               } else {
-                r.error = data;
+                r.error = data
               }
-              return r;
+              return r
             })
             .catch((e) => {
-              r.error = e;
-              return r;
-            });
+              r.error = e
+              return r
+            })
 
       if (cancelToken) {
-        this.abortControllers.delete(cancelToken);
+        this.abortControllers.delete(cancelToken)
       }
 
-      if (!response.ok) throw data;
-      return data;
-    });
-  };
+      if (!response.ok) throw data
+      return data
+    })
+  }
 }
 
 /**
@@ -594,9 +558,7 @@ export class HttpClient<SecurityDataType = unknown> {
  *
  * API for 'mumble'. A simple messaging/twitter like API for the CAS Frontend Engineering Advanced.
  */
-export class Api<
-  SecurityDataType extends unknown,
-> extends HttpClient<SecurityDataType> {
+export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
   posts = {
     /**
      * @description Fetch or search a paginated list of posts, ordered by the time of their creation.
@@ -615,50 +577,50 @@ export class Api<
          * If omitted, no newer than filter is applied. The ID is a ULID (e.g. 01GEESHPQQ4NJKNZJN9AKWQW6G).
          * @format ULID
          */
-        newerThan?: string;
+        newerThan?: string
         /**
          * ULID
          * ID of a post. If set, only return posts that are older than the given post ID.
          * If omitted, no older than filter is applied.
          * @format ULID
          */
-        olderThan?: string;
+        olderThan?: string
         /** If set, search for posts that contain a specific text. */
-        text?: string;
+        text?: string
         /** Search for posts that contain this tag (#TEXT). */
-        tags?: string[];
+        tags?: string[]
         /**
          * Search for posts that were created by one of the given users (ID).
          * All IDs must be valid user IDs and are "OR"ed.
          */
-        creators?: string[];
+        creators?: string[]
         /**
          * Search for posts that were liked by specific user(s).
          * Multiple user IDs are "OR"ed (if a post is liked by user A OR B).
          */
-        likedBy?: string[];
+        likedBy?: string[]
         /**
          * The offset for pagination of further calls. Defaults to 0 if omitted.
          * @format int32
          * @example 0
          */
-        offset?: number;
+        offset?: number
         /**
          * The limit of items to return. Minimum is 1, maximum is 1000.
          * Defaults to 100.
          * @format int32
          * @example 100
          */
-        limit?: number;
+        limit?: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<PostPaginatedResult, void>({
         path: `/posts`,
-        method: "GET",
+        method: 'GET',
         query: query,
         secure: true,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -677,23 +639,23 @@ export class Api<
          * Text for the new post. If not set, a media file must be set.
          * If both are omitted, the API will return a 400 Bad Request.
          */
-        text?: string;
+        text?: string
         /**
          * Media file for the post. If not set, a text must be set.
          * If both are omitted, the API will return a 400 Bad Request.
          * @format binary
          */
-        media?: File;
+        media?: File
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Post, void>({
         path: `/posts`,
-        method: "POST",
+        method: 'POST',
         body: data,
         secure: true,
         type: ContentType.FormData,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -709,9 +671,9 @@ export class Api<
     postsDetail: (id: string, params: RequestParams = {}) =>
       this.request<Post, void>({
         path: `/posts/${id}`,
-        method: "GET",
+        method: 'GET',
         secure: true,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -731,23 +693,23 @@ export class Api<
          * Text for the new post. If not set, a media file must be set.
          * If both are omitted, the API will return a 400 Bad Request.
          */
-        text?: string;
+        text?: string
         /**
          * Media file for the post. If not set, a text must be set.
          * If both are omitted, the API will return a 400 Bad Request.
          * @format binary
          */
-        media?: File;
+        media?: File
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Post, void>({
         path: `/posts/${id}`,
-        method: "PUT",
+        method: 'PUT',
         body: data,
         secure: true,
         type: ContentType.FormData,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -760,14 +722,10 @@ export class Api<
      * @request PATCH:/posts/{id}
      * @secure
      */
-    postsPartialUpdate: (
-      id: string,
-      data: UpdatePostData,
-      params: RequestParams = {},
-    ) =>
+    postsPartialUpdate: (id: string, data: UpdatePostData, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/posts/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
         secure: true,
         type: ContentType.Json,
@@ -786,7 +744,7 @@ export class Api<
     postsDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/posts/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
         secure: true,
         ...params,
       }),
@@ -807,17 +765,17 @@ export class Api<
          * Media file for the upload.
          * @format binary
          */
-        media?: File;
+        media?: File
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<string, void>({
         path: `/posts/${id}/media`,
-        method: "PUT",
+        method: 'PUT',
         body: data,
         secure: true,
         type: ContentType.FormData,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -833,7 +791,7 @@ export class Api<
     mediaDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/posts/${id}/media`,
-        method: "DELETE",
+        method: 'DELETE',
         secure: true,
         ...params,
       }),
@@ -855,23 +813,23 @@ export class Api<
          * @format int32
          * @example 0
          */
-        offset?: number;
+        offset?: number
         /**
          * The limit of items to return. Minimum is 1, maximum is 1000.
          * Defaults to 100.
          * @format int32
          * @example 100
          */
-        limit?: number;
+        limit?: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ReplyPaginatedResult, void>({
         path: `/posts/${id}/replies`,
-        method: "GET",
+        method: 'GET',
         query: query,
         secure: true,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -891,23 +849,23 @@ export class Api<
          * Text for the new post. If not set, a media file must be set.
          * If both are omitted, the API will return a 400 Bad Request.
          */
-        text?: string;
+        text?: string
         /**
          * Media file for the post. If not set, a text must be set.
          * If both are omitted, the API will return a 400 Bad Request.
          * @format binary
          */
-        media?: File;
+        media?: File
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Reply, void>({
         path: `/posts/${id}/replies`,
-        method: "POST",
+        method: 'POST',
         body: data,
         secure: true,
         type: ContentType.FormData,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -923,7 +881,7 @@ export class Api<
     likesUpdate: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/posts/${id}/likes`,
-        method: "PUT",
+        method: 'PUT',
         secure: true,
         ...params,
       }),
@@ -940,7 +898,7 @@ export class Api<
     likesDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/posts/${id}/likes`,
-        method: "DELETE",
+        method: 'DELETE',
         secure: true,
         ...params,
       }),
@@ -962,83 +920,83 @@ export class Api<
                * ID of the event.
                * @format uuid
                */
-              id: any;
+              id: any
               /**
                * Event type.
                * @format string
                */
-              event: "postCreated";
+              event: 'postCreated'
               /**
                * Post in Mumble. This is user generated content.
                * Posts can be deleted by the user who created them.
                */
-              data: Post;
+              data: Post
             }
           | {
               /**
                * ID of the event.
                * @format uuid
                */
-              id: any;
+              id: any
               /**
                * Event type.
                * @format string
                */
-              event: "postCreated";
+              event: 'postCreated'
               /** A reply to a post. */
-              data: Reply;
+              data: Reply
             }
           | {
               /**
                * ID of the event.
                * @format uuid
                */
-              id: any;
+              id: any
               /**
                * Event type.
                * @format string
                */
-              event: "postUpdated";
-              data: PostBase;
+              event: 'postUpdated'
+              data: PostBase
             }
           | {
               /**
                * ID of the event.
                * @format uuid
                */
-              id: any;
+              id: any
               /**
                * Event type.
                * @format string
                */
-              event: "postDeleted";
-              data: DeletedPost;
+              event: 'postDeleted'
+              data: DeletedPost
             }
           | {
               /**
                * ID of the event.
                * @format uuid
                */
-              id: any;
+              id: any
               /**
                * Event type.
                * @format string
                */
-              event: "postLiked";
-              data: LikeInfo;
+              event: 'postLiked'
+              data: LikeInfo
             }
           | {
               /**
                * ID of the event.
                * @format uuid
                */
-              id: any;
+              id: any
               /**
                * Event type.
                * @format string
                */
-              event: "postUnliked";
-              data: LikeInfo;
+              event: 'postUnliked'
+              data: LikeInfo
             }
         )[],
         | void
@@ -1047,91 +1005,91 @@ export class Api<
              * ID of the event.
              * @format uuid
              */
-            id: any;
+            id: any
             /**
              * Event type.
              * @format string
              */
-            event: "postCreated";
+            event: 'postCreated'
             /**
              * Post in Mumble. This is user generated content.
              * Posts can be deleted by the user who created them.
              */
-            data: Post;
+            data: Post
           }
         | {
             /**
              * ID of the event.
              * @format uuid
              */
-            id: any;
+            id: any
             /**
              * Event type.
              * @format string
              */
-            event: "postCreated";
+            event: 'postCreated'
             /** A reply to a post. */
-            data: Reply;
+            data: Reply
           }
         | {
             /**
              * ID of the event.
              * @format uuid
              */
-            id: any;
+            id: any
             /**
              * Event type.
              * @format string
              */
-            event: "postUpdated";
-            data: PostBase;
+            event: 'postUpdated'
+            data: PostBase
           }
         | {
             /**
              * ID of the event.
              * @format uuid
              */
-            id: any;
+            id: any
             /**
              * Event type.
              * @format string
              */
-            event: "postDeleted";
-            data: DeletedPost;
+            event: 'postDeleted'
+            data: DeletedPost
           }
         | {
             /**
              * ID of the event.
              * @format uuid
              */
-            id: any;
+            id: any
             /**
              * Event type.
              * @format string
              */
-            event: "postLiked";
-            data: LikeInfo;
+            event: 'postLiked'
+            data: LikeInfo
           }
         | {
             /**
              * ID of the event.
              * @format uuid
              */
-            id: any;
+            id: any
             /**
              * Event type.
              * @format string
              */
-            event: "postUnliked";
-            data: LikeInfo;
+            event: 'postUnliked'
+            data: LikeInfo
           }
       >({
         path: `/posts/_sse`,
-        method: "GET",
+        method: 'GET',
         secure: true,
         ...params,
       }),
-  };
+  }
   users = {
     /**
      * @description Fetch a paginated list of users. If the caller is authenticated, the user list will contain more data.
@@ -1149,23 +1107,23 @@ export class Api<
          * @format int32
          * @example 0
          */
-        offset?: number;
+        offset?: number
         /**
          * The limit of items to return. Minimum is 1, maximum is 1000.
          * Defaults to 100.
          * @format int32
          * @example 100
          */
-        limit?: number;
+        limit?: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<UserPaginatedResult, void>({
         path: `/users`,
-        method: "GET",
+        method: 'GET',
         query: query,
         secure: true,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -1181,7 +1139,7 @@ export class Api<
     usersPartialUpdate: (data: UpdateUserData, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/users`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
         secure: true,
         type: ContentType.Json,
@@ -1200,9 +1158,9 @@ export class Api<
     usersDetail: (id: string, params: RequestParams = {}) =>
       this.request<User, void>({
         path: `/users/${id}`,
-        method: "GET",
+        method: 'GET',
         secure: true,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -1221,13 +1179,13 @@ export class Api<
          * Media file for the upload.
          * @format binary
          */
-        media?: File;
+        media?: File
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<void, void>({
         path: `/users/avatar`,
-        method: "PUT",
+        method: 'PUT',
         body: data,
         secure: true,
         type: ContentType.FormData,
@@ -1246,7 +1204,7 @@ export class Api<
     avatarDelete: (params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/users/avatar`,
-        method: "DELETE",
+        method: 'DELETE',
         secure: true,
         ...params,
       }),
@@ -1268,23 +1226,23 @@ export class Api<
          * @format int32
          * @example 0
          */
-        offset?: number;
+        offset?: number
         /**
          * The limit of items to return. Minimum is 1, maximum is 1000.
          * Defaults to 100.
          * @format int32
          * @example 100
          */
-        limit?: number;
+        limit?: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<UserPaginatedResult, void>({
         path: `/users/${id}/followers`,
-        method: "GET",
+        method: 'GET',
         query: query,
         secure: true,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -1300,7 +1258,7 @@ export class Api<
     followersUpdate: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/users/${id}/followers`,
-        method: "PUT",
+        method: 'PUT',
         secure: true,
         ...params,
       }),
@@ -1317,7 +1275,7 @@ export class Api<
     followersDelete: (id: string, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/users/${id}/followers`,
-        method: "DELETE",
+        method: 'DELETE',
         secure: true,
         ...params,
       }),
@@ -1339,24 +1297,24 @@ export class Api<
          * @format int32
          * @example 0
          */
-        offset?: number;
+        offset?: number
         /**
          * The limit of items to return. Minimum is 1, maximum is 1000.
          * Defaults to 100.
          * @format int32
          * @example 100
          */
-        limit?: number;
+        limit?: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<UserPaginatedResult, void>({
         path: `/users/${id}/followees`,
-        method: "GET",
+        method: 'GET',
         query: query,
         secure: true,
-        format: "json",
+        format: 'json',
         ...params,
       }),
-  };
+  }
 }

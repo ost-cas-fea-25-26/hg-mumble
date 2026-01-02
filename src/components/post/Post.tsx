@@ -1,14 +1,11 @@
 'use client'
-import { fetchUser } from '@/actions/users/fetchUser'
-import LoadingText from '@/components/loading/LoadingText'
 import PostButtons from '@/components/post/PostButtons'
-import PostSkeleton from '@/components/post/PostSkeleton'
+import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
+import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import clsx from 'clsx'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { decodeTime } from 'ulidx'
-import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
-import { Post as MumblePost, User } from '@/mumble/api/generated/MumbleApi'
 
 export default function Post({ post }: { post: MumblePost }) {
   const date = useFormattedDate(new Date(decodeTime(post.id!)))

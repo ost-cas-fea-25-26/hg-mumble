@@ -1,8 +1,7 @@
 import LoadingText from '@/components/loading/LoadingText'
+import { Avatar, Button } from '@/lib/hg-storybook'
 import clsx from 'clsx'
 import { getTranslations } from 'next-intl/server'
-import React from 'react'
-import { Avatar, Button } from '@/lib/hg-storybook'
 
 export default async function CreatePostSkeleton() {
   const translate = await getTranslations('mumble-post')

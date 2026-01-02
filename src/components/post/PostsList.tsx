@@ -4,10 +4,10 @@ import { fetchPosts } from '@/actions/posts/fetchPosts'
 import Post from '@/components/post/Post'
 import PostSkeleton from '@/components/post/PostSkeleton'
 import usePostCreated from '@/hooks/usePostCreated'
+import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 import { useInViewport } from 'ahooks'
 import { Loader } from 'hg-storybook'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 type Props = {
   initialPosts: MumblePost[]

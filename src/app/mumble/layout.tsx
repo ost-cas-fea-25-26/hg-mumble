@@ -1,6 +1,6 @@
 import Header from '@/components/Header'
 import 'hg-storybook/style'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import '../globals.css'
 
 type Props = {

@@ -2,8 +2,8 @@ import { fetchPosts } from '@/actions/posts/fetchPosts'
 import { fetchUser } from '@/actions/users/fetchUser'
 import PostsList from '@/components/post/PostsList'
 import ProfileHeader from '@/components/profile/ProfileHeader'
-import { redirect } from 'next/navigation'
 import { getSession } from '@/lib/auth'
+import { redirect } from 'next/navigation'
 
 type Props = {
   params: Promise<{ id: string }>

@@ -1,7 +1,6 @@
 import PostSkeleton from '@/components/post/PostSkeleton'
 import CreateReplySkeleton from '@/components/post/create/CreateReplySkeleton'
 import ReplySkeleton from '@/components/post/reply/ReplySkeleton'
-import React from 'react'
 
 export default function Loading() {
   return (

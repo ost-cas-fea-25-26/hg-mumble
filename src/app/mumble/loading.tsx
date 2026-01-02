@@ -2,7 +2,6 @@ import PostSkeleton from '@/components/post/PostSkeleton'
 import CreatePostSkeleton from '@/components/post/create/CreatePostSkeleton'
 import clsx from 'clsx'
 import { getTranslations } from 'next-intl/server'
-import React from 'react'
 
 export default async function Loading() {
   const translate = await getTranslations('general')

@@ -2,9 +2,7 @@ import { fetchComments } from '@/actions/posts/comments/fetchComments'
 import { fetchPost } from '@/actions/posts/fetchPost'
 import Post from '@/components/post/Post'
 import CreateReply from '@/components/post/create/CreateReply'
-import Reply from '@/components/post/reply/Reply'
 import ReplyList from '@/components/post/reply/ReplyList'
-import React from 'react'
 import { ReplyPaginatedResult } from '@/mumble/api/generated/MumbleApi'
 
 interface Props {
