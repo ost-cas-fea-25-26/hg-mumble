@@ -9,7 +9,7 @@ const __dirname = dirname(__filename)
 const authFile = path.join(__dirname, '../.auth/user.json')
 
 test('authenticate', async ({ page }) => {
-  await page.goto(`http://localhost:3000/`)
+  await page.goto(process.env.E2E_HOST || '')
   await page.getByTestId('login-button').click()
 
   // redirect to zitadel login

@@ -1,13 +1,13 @@
 import { expect, test } from '@playwright/test'
 
 test('display post detail', async ({ page }) => {
-  await page.goto(`http://localhost:3000/`)
+  await page.goto(process.env.E2E_HOST || '')
   await page.getByTestId('post-comments-link').first().click()
   await expect(page.getByTestId('post-content').first()).toHaveText('Hello World! #newpost.')
 })
 
 test('like in post detail', async ({ page }) => {
-  await page.goto(`http://localhost:3000/`)
+  await page.goto(process.env.E2E_HOST || '')
   await page.getByTestId('post-comments-link').first().click()
 
   await expect(page.getByTestId('post-like-toggle').first()).toHaveText('42 Likes')
@@ -18,7 +18,7 @@ test('like in post detail', async ({ page }) => {
 })
 
 test('copy detail url', async ({ page, context }) => {
-  await page.goto(`http://localhost:3000/`)
+  await page.goto(process.env.E2E_HOST || '')
   await page.getByTestId('post-comments-link').first().click()
 
   await page.getByTestId('post-copy-link-button').first().click()
@@ -30,7 +30,7 @@ test('copy detail url', async ({ page, context }) => {
 })
 
 test('display replies in post detail', async ({ page }) => {
-  await page.goto(`http://localhost:3000/`)
+  await page.goto(process.env.E2E_HOST || '')
   await page.goto('/mumble/post/01GDMMR85BEHP8AKV8ZGGM259K')
 
   await page.getByTestId('post-copy-link-button').first().click()
