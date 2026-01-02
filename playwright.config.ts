@@ -16,12 +16,21 @@ export default defineConfig({
     permissions: ['clipboard-read', 'clipboard-write'],
   },
   workers: 2,
-  webServer: {
-    command: 'npm run dev:mock',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-    stdout: 'ignore',
-    stderr: 'pipe',
-    timeout: 120 * 1000,
-  },
+  webServer: [
+    {
+      command: 'npm run dev:mock',
+      url: 'http://localhost:3000',
+      reuseExistingServer: !process.env.CI,
+      stdout: 'ignore',
+      stderr: 'pipe',
+      timeout: 120 * 1000,
+    },
+    {
+      command: 'npm run mock',
+      reuseExistingServer: !process.env.CI,
+      stdout: 'ignore',
+      stderr: 'pipe',
+      timeout: 120 * 1000,
+    },
+  ],
 })
