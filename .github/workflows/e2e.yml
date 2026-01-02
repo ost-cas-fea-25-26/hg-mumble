@@ -37,7 +37,7 @@ jobs:
         run: |
           echo BETTER_AUTH_SECRET=${{ env.BETTER_AUTH_SECRET }} >> .env
           echo CLIENT_ID=${{ env.CLIENT_ID }} >> .env
-          echo E2E_PASSWORD="${{ env.E2E_PASSWORD }}" >> .env
+          echo E2E_PASSWORD=${{ env.E2E_PASSWORD }} >> .env
           echo E2E_USERNAME=${{ env.E2E_USERNAME }} >> .env
           echo POSTGRES_URL=${{ env.POSTGRES_URL }} >> .env
           echo API_URL=${{ env.API_URL }} >> .env
