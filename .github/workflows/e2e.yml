@@ -23,9 +23,11 @@ jobs:
         run: pnpm dlx playwright install chromium
 
       - name: 'Create env file'
+        env:
+          E2E_USERNAME: ${{ env.E2E_USERNAME }}
         run: |
           touch .env
-          echo API_KEY=${{ env.E2E_USERNAME }} >> .env
+          echo E2E_USERNAME=${{ env.E2E_USERNAME }} >> .env
           cat .env
 
       - name: log env file
