@@ -1,8 +1,6 @@
 import { expect, test } from '@playwright/test'
-import signin from '../methods/signin'
 
 test('sign in', async ({ page }) => {
-  await signin(page)
-
+  await page.goto(`http://localhost:3000/`)
   await expect(page.getByText('Willkommen auf Mumble!')).toBeVisible()
 })

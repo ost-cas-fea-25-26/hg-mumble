@@ -1,6 +1,14 @@
-import { Page, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
+import path from 'path'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
 
-export default async function signin(page: Page) {
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+const authFile = path.join(__dirname, '../.auth/user.json')
+
+test('authenticate', async ({ page }) => {
   await page.goto(`http://localhost:3000/`)
   await page.getByTestId('login-button').click()
 
@@ -11,4 +19,6 @@ export default async function signin(page: Page) {
   await page.getByTestId('submit-button').click()
 
   await expect(page.getByText('Willkommen auf Mumble!')).toBeVisible()
-}
+
+  await page.context().storageState({ path: authFile })
+})
