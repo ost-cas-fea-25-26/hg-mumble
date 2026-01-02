@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
+  e2e-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +22,7 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm dlx playwright install chromium
 
-      - name: create env file
+      - name: Create env file
         env:
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -45,7 +45,6 @@ jobs:
           echo NEXT_PUBLIC_API_URL=${{ env.NEXT_PUBLIC_API_URL }} >> .env
           echo NEXT_PUBLIC_BASE_URL=${{ env.NEXT_PUBLIC_BASE_URL }} >> .env
           echo ZITADEL_API_URL=${{ env.ZITADEL_API_URL }} >> .env
-          cat .env
 
       - name: Run Playwright tests
         run: pnpm run test
