@@ -11,7 +11,6 @@ const authFile = path.join(__dirname, '../.auth/user.json')
 test('authenticate', async ({ page }) => {
   await page.goto(process.env.E2E_HOST || '')
 
-  await page.waitForURL('**/mumble')
   await page.getByTestId('login-button').click()
 
   // redirect to zitadel login
