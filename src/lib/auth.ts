@@ -46,6 +46,7 @@ export const auth = betterAuth({
             'openid',
             'profile',
             'email',
+            'urn:zitadel:iam:org:project:id:zitadel:aud',
             'urn:zitadel:iam:org:project:id:342477345380127384:aud',
             'urn:zitadel:iam:org:project:id:348701753820117818:aud',
           ],
