@@ -171,6 +171,11 @@ export interface PublicUser {
    * @example "max_muster"
    */
   username?: string | null;
+  /**
+   * The display name of the creator.
+   * @example "max muster"
+   */
+  displayName?: string | null;
   /** If set, points to the avatar of the user. */
   avatarUrl?: string | null;
 }
@@ -286,6 +291,11 @@ export interface User {
    * @example "max_muster"
    */
   username?: string | null;
+  /**
+   * The display name of the creator.
+   * @example "max muster"
+   */
+  displayName?: string | null;
   /** If set, points to the avatar of the user. */
   avatarUrl?: string | null;
   /** Firstname of the user. */

@@ -1615,7 +1615,7 @@
             "type": "string",
             "description": "URL - if any - to the media object attached to this post.",
             "nullable": true,
-            "example": "https://images.unsplash.com/photo-1563387852576-964bc31b73af?q=80&w=3007&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            "example": "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
           },
           "mediaType": {
             "type": "string",
@@ -1675,7 +1675,7 @@
             "type": "string",
             "description": "URL - if any - to the media object attached to this post.",
             "nullable": true,
-            "example": "https://images.unsplash.com/photo-1563387852576-964bc31b73af?q=80&w=3007&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            "example": "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
           },
           "mediaType": {
             "type": "string",
@@ -1749,6 +1749,12 @@
             "nullable": true,
             "example": "max_muster"
           },
+          "displayName": {
+            "type": "string",
+            "description": "The display name of the creator.",
+            "nullable": true,
+            "example": "max muster"
+          },
           "avatarUrl": {
             "type": "string",
             "description": "If set, points to the avatar of the user.",
@@ -1781,13 +1787,13 @@
             "type": "string",
             "description": "Text for the post. Can be null if the post is only a media post.\nCan contain hashtags and mentions.",
             "nullable": true,
-            "example": "This is a reply to a post. #reply"
+            "example": "Hello World! #newpost."
           },
           "mediaUrl": {
             "type": "string",
             "description": "URL - if any - to the media object attached to this post.",
             "nullable": true,
-            "example": "https://images.unsplash.com/photo-1563387852576-964bc31b73af?q=80&w=3007&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            "example": "https://storage.googleapis.com/cas-fee-adv-mumble-api/1094b5e0-5f30-4f0b-a342-ae12936c42ff"
           },
           "mediaType": {
             "type": "string",
@@ -1911,24 +1917,27 @@
             "nullable": true,
             "example": "max_muster"
           },
+          "displayName": {
+            "type": "string",
+            "description": "The display name of the creator.",
+            "nullable": true,
+            "example": "max muster"
+          },
           "avatarUrl": {
             "type": "string",
             "description": "If set, points to the avatar of the user.",
             "nullable": true,
-            "readOnly": true,
-            "example": "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            "readOnly": true
           },
           "firstname": {
             "type": "string",
             "description": "Firstname of the user.",
-            "nullable": true,
-            "example": "Max"
+            "nullable": true
           },
           "lastname": {
             "type": "string",
             "description": "Lastname of the user.",
-            "nullable": true,
-            "example": "Muster"
+            "nullable": true
           }
         },
         "additionalProperties": false,

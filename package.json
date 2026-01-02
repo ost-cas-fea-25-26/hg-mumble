@@ -10,7 +10,7 @@
     "build": "next build --turbopack",
     "start": "cross-env PGSSLMODE=require NODE_TLS_REJECT_UNAUTHORIZED=0 next start",
     "lint": "eslint",
-    "generate": "ts-node scripts/generate/generateApis.ts",
+    "generate": "node --loader ts-node/esm scripts/generate/generateApis.ts",
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "e2e": "npm run test"
@@ -36,7 +36,8 @@
     "sonner": "^2.0.7",
     "ufo": "^1.6.1",
     "ulidx": "^2.4.1",
-    "use-intl": "^4.5.3"
+    "use-intl": "^4.5.3",
+    "ahooks": "^3.9.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -60,6 +61,7 @@
     "typescript": "^5",
     "zod": "^4.1.12",
     "@stoplight/prism-cli": "^5.14.2",
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "tsx": "^4.21.0"
   }
 }
