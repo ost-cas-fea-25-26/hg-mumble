@@ -1,5 +1,7 @@
 import Header from '@/components/Header'
+import { getSession } from '@/lib/auth'
 import 'hg-storybook/style'
+import { redirect } from 'next/navigation'
 import { ReactNode } from 'react'
 import '../globals.css'
 
@@ -8,6 +10,12 @@ type Props = {
 }
 
 export default async function MumbleLayout({ children }: Props) {
+  const sessionData = await getSession()
+
+  if (!sessionData?.session) {
+    redirect('/auth/signin')
+  }
+
   return (
     <>
       <Header />

@@ -1,5 +1,6 @@
 'use client'
 import PostButtons from '@/components/post/PostButtons'
+import PostContent from '@/components/post/PostContent'
 import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
@@ -42,21 +43,8 @@ export default function Post({ post }: { post: MumblePost }) {
           </div>
         </div>
       </div>
-      <div className="desktop:mt-0 mt-4 ml-6">
-        <div className={'flex max-h-50 gap-4'}>
-          {post.mediaUrl && (
-            <img
-              className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}
-              src={post.mediaUrl}
-              alt={'user uploaded file'}
-            />
-          )}
-          {post.text && (
-            <p className={'max-h-full overflow-auto break-all hyphens-auto'} data-testid="post-content">
-              {post.text}
-            </p>
-          )}
-        </div>
+      <div className="desktop:mt-0 mt-4 mx-6">
+        <PostContent text={post.text} mediaUrl={post.mediaUrl} />
       </div>
       <PostButtons post={post} />
     </div>

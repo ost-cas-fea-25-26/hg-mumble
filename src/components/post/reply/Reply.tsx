@@ -1,11 +1,12 @@
 'use client'
 
+import PostContent from '@/components/post/PostContent'
 import ReplyButtons from '@/components/post/reply/ReplyButtons'
 import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
 import { Reply as ReplyType } from '@/mumble/api/generated/MumbleApi'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import clsx from 'clsx'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { decodeTime } from 'ulidx'
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function Reply({ reply }: Props) {
+  const [lightboxOpen, setLightboxOpen] = useState(false)
   const data = useFormattedDate(new Date(decodeTime(reply.id!)))
   const avatarPlaceholderText = useMemo(() => {
     if (reply.creator?.displayName) {
@@ -50,21 +52,8 @@ export default function Reply({ reply }: Props) {
           </div>
         </div>
       </div>
-      <div>
-        <div className="flex max-h-50 gap-4">
-          {reply.mediaUrl && (
-            <img
-              className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}
-              src={reply.mediaUrl}
-              alt={'user uploaded file'}
-            />
-          )}
-          {reply.text && (
-            <p className={'max-h-full overflow-auto'} data-testid="reply-text">
-              {reply.text}
-            </p>
-          )}
-        </div>
+      <div data-testid="reply-content">
+        <PostContent text={reply.text} mediaUrl={reply.mediaUrl} />
       </div>
       <ReplyButtons reply={reply} />
     </div>
