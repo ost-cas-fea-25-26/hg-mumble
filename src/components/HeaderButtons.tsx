@@ -1,13 +1,10 @@
 'use client'
 
-import { updateUser } from '@/actions/zitadel/updateUser'
 import UserSettingsModal from '@/components/UserSettingsModal'
-import { FormValues } from '@/interfaces/MumbleFormValues'
-import { Button, Input, Logout, Modal, Settings } from 'hg-storybook'
+import { signOut, useSession } from '@/lib/auth-client'
+import { Button, Logout, Settings } from 'hg-storybook'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { authClient, signOut, useSession } from '@/lib/auth-client'
 
 export default function HeaderButtons() {
   const [showModal, setShowModal] = React.useState(false)

@@ -1,9 +1,9 @@
 'use client'
+import { signIn } from '@/lib/auth-client'
 import { Button, Eye, Field, Input, Label, Loader } from 'hg-storybook'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
-import { signIn } from '@/lib/auth-client'
 
 export default function Login() {
   const translate = useTranslations('general')

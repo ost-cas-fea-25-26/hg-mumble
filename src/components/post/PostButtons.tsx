@@ -2,11 +2,11 @@
 
 import { addLike } from '@/actions/posts/like/addLike'
 import { removeLike } from '@/actions/posts/like/removeLike'
+import { Post } from '@/mumble/api/generated/MumbleApi'
 import { Heart, HeartEmpty, Share, SpeechBubbleEmpty, TimedButton, Toggle } from 'hg-storybook'
 import Link from 'next/link'
 import React from 'react'
 import { useTranslations } from 'use-intl'
-import { Post } from '@/mumble/api/generated/MumbleApi'
 
 type Props = {
   post: Post
@@ -30,6 +30,7 @@ export default function PostButtons({ post }: Props) {
         href={'/mumble/post/' + post.id}
         className="text-secondary hover:not-data-disabled:bg-primary-50 hover:not-data-disabled:text-primary-700 flex items-center gap-1 rounded-full p-1 pr-2 pl-2 font-bold hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed"
         data-testid="post-comments-link"
+        scroll={false}
       >
         <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />
         <p className="hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed">

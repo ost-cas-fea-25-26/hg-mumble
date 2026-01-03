@@ -2,14 +2,14 @@
 import { createReply } from '@/actions/posts/comments/createReply'
 import { fetchUser } from '@/actions/users/fetchUser'
 import LoadingText from '@/components/loading/LoadingText'
-import MumbleForm from '@/components/post/MumbleForm'
+import MumbleForm from '@/components/post/create/MumbleForm'
 import { FormValues } from '@/interfaces/MumbleFormValues'
-import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
 import { useSession } from '@/lib/auth-client'
 import { Avatar, Link, Profile } from '@/lib/hg-storybook'
 import { User } from '@/mumble/api/generated/MumbleApi'
+import clsx from 'clsx'
+import { useEffect, useMemo, useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 
 interface Props {
   postId: string
@@ -23,6 +23,13 @@ export default function CreateReply({ postId }: Props) {
   const [isSaving, setIsSaving] = useState(false)
   const [userData, setUserData] = useState<User>({})
 
+  const avatarPlaceholderText = useMemo(() => {
+    if (!userData.avatarUrl && userData.firstname && userData.lastname) {
+      return userData.firstname?.slice(0, 1) + userData.lastname?.slice(0, 1)
+    }
+    return undefined
+  }, [userData])
+
   useEffect(() => {
     if (sessionData.data) {
       // @ts-ignore error in swagger file
@@ -34,7 +41,6 @@ export default function CreateReply({ postId }: Props) {
   }, [sessionData])
 
   const methods = useForm<FormValues>()
-  const userDetails = sessionData.data?.user || { image: null }
 
   const handleSubmit = ({ text }: FormValues) => {
     setIsSaving(true)
@@ -52,10 +58,10 @@ export default function CreateReply({ postId }: Props) {
       )}
     >
       <div className="flex h-16 w-full items-center justify-start gap-3">
-        <Avatar src={userDetails?.image || undefined} size={'s'} borderless />
+        <Avatar src={userData.avatarUrl || undefined} size={'s'} borderless placeholderText={avatarPlaceholderText} />
         <div>
           <h3 className={clsx('text-lg font-bold')}>
-            {isLoading ? <LoadingText width={'w-32 mb-1'} /> : `${userData?.firstname} ${userData?.lastname}`}
+            {isLoading ? <LoadingText width={'w-25'} className="mb-1" /> : userData.firstname + ' ' + userData.lastname}
           </h3>
           <div className={clsx('flex items-center gap-4')}>
             <Link url={`/mumble/profile`} className={'text-primary flex items-center justify-start gap-1 font-bold'}>

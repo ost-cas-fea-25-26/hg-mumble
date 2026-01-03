@@ -1,11 +1,11 @@
 import { FormValues } from '@/interfaces/MumbleFormValues'
+import { useSession } from '@/lib/auth-client'
+import { Button, Cross, FileInput, Modal, Textarea } from '@/lib/hg-storybook'
 import clsx from 'clsx'
 import { Loader } from 'hg-storybook'
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
-import { useSession } from '@/lib/auth-client'
-import { Button, Cross, FileInput, Modal, Textarea } from '@/lib/hg-storybook'
 
 interface Props {
   file: File | null
@@ -72,7 +72,7 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
           />
         </Modal>
       )}
-      <div className={'desktop:flex-row flex w-full flex-col items-center justify-center gap-4'}>
+      <div className={'desktop:flex-row desktop:gap-4 flex w-full flex-col items-center justify-center gap-2'}>
         <Button
           width={'w-full'}
           variant={'secondary'}

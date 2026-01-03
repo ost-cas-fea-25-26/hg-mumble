@@ -1,7 +1,6 @@
+import { getSession } from '@/lib/auth'
 import { Loader } from 'hg-storybook'
 import { redirect } from 'next/navigation'
-import React from 'react'
-import { getSession } from '@/lib/auth'
 
 export default async function Page() {
   const session = await getSession()

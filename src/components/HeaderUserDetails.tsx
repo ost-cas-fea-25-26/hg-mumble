@@ -1,8 +1,7 @@
 import HeaderButtons from '@/components/HeaderButtons'
-import { getTranslations } from 'next-intl/server'
-import React from 'react'
 import { getSession } from '@/lib/auth'
 import { Avatar, Link } from '@/lib/hg-storybook'
+import { getTranslations } from 'next-intl/server'
 
 export default async function HeaderUserDetails() {
   const sessionData = await getSession()

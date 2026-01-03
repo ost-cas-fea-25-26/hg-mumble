@@ -1,7 +1,7 @@
+import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 import { useEffect } from 'react'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
-import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 
 function getPostEventSource() {
   return new EventSource(`${process.env.NEXT_PUBLIC_API_URL}/posts/_sse`)

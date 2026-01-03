@@ -1,11 +1,10 @@
 import { fetchPosts } from '@/actions/posts/fetchPosts'
-import CreatePost from '@/components/post/CreatePost'
 import PostsList from '@/components/post/PostsList'
+import CreatePost from '@/components/post/create/CreatePost'
+import { getSession } from '@/lib/auth'
 import clsx from 'clsx'
 import { getTranslations } from 'next-intl/server'
 import { redirect } from 'next/navigation'
-import React from 'react'
-import { getSession } from '@/lib/auth'
 
 export default async function Home() {
   const sessionData = await getSession()
@@ -21,7 +20,7 @@ export default async function Home() {
         <h1 className={clsx('text-primary text-4xl font-bold')}>{translate('welcome-to-mumble')}</h1>
         <span className={clsx('text-secondary text-lg font-semibold')}>{translate('welcome-subtitle')}</span>
       </div>
-      {sessionData && <CreatePost />}
+      {sessionData && <CreatePost sessionData={sessionData} />}
       {posts.data && <PostsList initialPosts={posts.data} />}
     </div>
   )
