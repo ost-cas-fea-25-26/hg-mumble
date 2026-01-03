@@ -68,7 +68,11 @@ export default function Reply({ reply }: Props) {
               alt={'user uploaded file'}
             />
           )}
-          {reply.text && <p className={'max-h-full overflow-auto'}>{reply.text}</p>}
+          {reply.text && (
+            <p className={'max-h-full overflow-auto'} data-testid="reply-text">
+              {reply.text}
+            </p>
+          )}
         </div>
       </div>
       <ReplyButtons reply={reply} />

@@ -64,7 +64,11 @@ export default function Post({ post }: { post: MumblePost }) {
                 alt={'user uploaded file'}
               />
             )}
-            {post.text && <p className={'max-h-full overflow-auto break-all hyphens-auto'}>{post.text}</p>}
+            {post.text && (
+              <p className={'max-h-full overflow-auto break-all hyphens-auto'} data-testid="post-content">
+                {post.text}
+              </p>
+            )}
           </div>
         </div>
         <PostButtons post={post} />
