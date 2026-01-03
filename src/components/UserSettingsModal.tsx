@@ -1,10 +1,12 @@
-import { updateUser } from '@/actions/zitadel/updateUser'
+import { updateUser } from '@/actions/users/updateUser'
+import { updateUser as updateZitadelUser } from '@/actions/zitadel/updateUser'
 import { signOut, useSession } from '@/lib/auth-client'
 import { MAX_NAME_LENGTH } from '@/utils/form/validation/constants'
 import { Button, Field, Input, Label, Loader, Modal, SpeechBubble } from 'hg-storybook'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
 type Props = {
@@ -19,12 +21,12 @@ export type UserSettingsFormValues = {
 export default function UserSettingsModal({ close }: Props) {
   const [loading, setLoading] = useState(false)
   const { data: sessionData } = useSession()
-  const user = sessionData?.user
+  const { firstName, lastName, sub } = sessionData?.user || {}
   const formProps = useForm<UserSettingsFormValues>({
     mode: 'all',
     values: {
-      firstName: user?.name?.split?.(' ')[0] || '',
-      lastName: user?.name?.split?.(' ')[1] || '',
+      firstName: firstName || '',
+      lastName: lastName || '',
     },
   })
 
@@ -52,10 +54,18 @@ export default function UserSettingsModal({ close }: Props) {
           className={'flex flex-col gap-2'}
           onSubmit={formProps.handleSubmit((values) => {
             setLoading(true)
-            //@ts-ignore
-            return updateUser(user.sub, values).then(async () => {
-              router.push('/auth/signin')
-              return await signOut()
+            return Promise.allSettled([
+              updateUser(values.firstName, values.lastName),
+              updateZitadelUser(sub!, values),
+            ]).then(async ([one, two]) => {
+              if ([one.status, two.status].every((s) => s === 'fulfilled')) {
+                router.push('/auth/signin')
+                toast.message(translate('name-change-success'))
+                return await signOut()
+              } else {
+                close()
+                toast.error(translate('name-change-failure'))
+              }
             })
           })}
         >

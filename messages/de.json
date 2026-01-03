@@ -19,7 +19,9 @@
     "hint-logout": "Wenn du deinen Namen änderst, wirst du ausgeloggt!",
     "save": "Speichern",
     "max-length": "Maximal {maxLength} zeichen erlaubt",
-    "invalid-special-characters": "Enthält ungültige Sonderzeichen"
+    "invalid-special-characters": "Enthält ungültige Sonderzeichen",
+    "name-change-success": "Name erfolgreich geändert!",
+    "name-change-failure": "Name konnte nicht gespeichert werden!"
   },
   "mumble-post": {
     "new-posts": "Es gibt neue Mumbles!",
