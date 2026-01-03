@@ -1,7 +1,8 @@
 import { fetchPosts } from '@/actions/posts/fetchPosts'
 import { fetchUser } from '@/actions/users/fetchUser'
 import PostsList from '@/components/post/PostsList'
-import ProfileHeader from '@/components/profile/ProfileHeader'
+import ProfileHeader from '@/components/profile/Header'
+import RecommendedProfiles from '@/components/recommendation/RecommendedProfiles'
 import { getSession } from '@/lib/auth'
 import { Tab, TabGroup, TabList, TabPanel } from 'hg-storybook'
 import { getTranslations } from 'next-intl/server'
@@ -13,7 +14,7 @@ export default async function ProfileIndex() {
   if (!session?.user?.sub) {
     return (
       <section className="flex h-[50vh] items-center justify-center font-bold text-red-600">
-        Please log in to view your profile.
+        {translate('profile-login-required')}
       </section>
     )
   }
@@ -29,7 +30,7 @@ export default async function ProfileIndex() {
   if (!user) {
     return (
       <section className="flex h-[50vh] items-center justify-center font-bold text-red-600">
-        User profile not found.
+        {translate('profile-user-not-found')}
       </section>
     )
   }
@@ -38,11 +39,13 @@ export default async function ProfileIndex() {
     <section className="my-6 w-full">
       <ProfileHeader user={user} />
 
-      <div className="mt-8">
+      <RecommendedProfiles />
+
+      <div className="mt-6">
         <TabGroup>
           <TabList>
-            <Tab>{'Deine Mumbles'}</Tab>
-            <Tab>{'Deine Likes'}</Tab>
+            <Tab>{translate('your-mumbles')}</Tab>
+            <Tab>{translate('your-likes')}</Tab>
           </TabList>
 
           <TabPanel className="mt-4 flex flex-col gap-4">
