@@ -38,7 +38,8 @@
     "ufo": "^1.6.1",
     "ulidx": "^2.4.1",
     "use-intl": "^4.5.3",
-    "ahooks": "^3.9.6"
+    "ahooks": "^3.9.6",
+    "fslightbox-react": "^2.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -49,6 +50,7 @@
     "@types/pg": "^8.15.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/fslightbox-react": "^1.8.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "eslint-config-prettier": "^10.1.8",

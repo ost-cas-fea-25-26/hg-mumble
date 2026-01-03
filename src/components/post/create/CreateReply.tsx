@@ -57,7 +57,7 @@ export default function CreateReply({ postId }: Props) {
         'relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white pt-10 pr-4 pb-4 pl-4'
       )}
     >
-      <div className="flex h-16 w-full items-center justify-start gap-3">
+      <div className="flex w-full items-center justify-start gap-3">
         <Avatar src={userData.avatarUrl || undefined} size={'s'} borderless placeholderText={avatarPlaceholderText} />
         <div>
           <h3 className={clsx('text-lg font-bold')}>

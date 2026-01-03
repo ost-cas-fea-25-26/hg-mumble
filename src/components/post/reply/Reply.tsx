@@ -1,11 +1,13 @@
 'use client'
 
+import PostText from '@/components/post/PostText'
 import ReplyButtons from '@/components/post/reply/ReplyButtons'
 import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
 import { Reply as ReplyType } from '@/mumble/api/generated/MumbleApi'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import clsx from 'clsx'
-import { useMemo } from 'react'
+import FsLightbox from 'fslightbox-react'
+import { useMemo, useState } from 'react'
 import { decodeTime } from 'ulidx'
 
 interface Props {
@@ -13,6 +15,7 @@ interface Props {
 }
 
 export default function Reply({ reply }: Props) {
+  const [lightboxOpen, setLightboxOpen] = useState(false)
   const data = useFormattedDate(new Date(decodeTime(reply.id!)))
   const avatarPlaceholderText = useMemo(() => {
     if (reply.creator?.displayName) {
@@ -51,18 +54,21 @@ export default function Reply({ reply }: Props) {
         </div>
       </div>
       <div>
-        <div className="flex max-h-50 gap-4">
+        <div className="flex flex-col gap-4">
+          {reply.text && <PostText text={reply.text} />}
           {reply.mediaUrl && (
-            <img
-              className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}
-              src={reply.mediaUrl}
-              alt={'user uploaded file'}
-            />
-          )}
-          {reply.text && (
-            <p className={'max-h-full overflow-auto'} data-testid="reply-text">
-              {reply.text}
-            </p>
+            <>
+              <FsLightbox
+                toggler={lightboxOpen}
+                sources={[<img className={'rounded-md'} src={reply.mediaUrl} alt={'user uploaded file'} />]}
+              />
+              <img
+                className={'w-full object-cover aspect-2/1 rounded-md cursor-pointer'}
+                src={reply.mediaUrl}
+                alt={'user uploaded file'}
+                onClick={() => setLightboxOpen(!lightboxOpen)}
+              />
+            </>
           )}
         </div>
       </div>
