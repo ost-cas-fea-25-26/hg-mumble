@@ -1,16 +1,14 @@
 'use client'
 import PostButtons from '@/components/post/PostButtons'
-import PostText from '@/components/post/PostText'
+import PostContent from '@/components/post/PostContent'
 import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import clsx from 'clsx'
-import FsLightbox from 'fslightbox-react'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { decodeTime } from 'ulidx'
 
 export default function Post({ post }: { post: MumblePost }) {
-  const [lightboxOpen, setLightboxOpen] = useState(false)
   const date = useFormattedDate(new Date(decodeTime(post.id!)))
   const avatarPlaceholderText = useMemo(() => {
     if (post.creator?.displayName) {
@@ -46,23 +44,7 @@ export default function Post({ post }: { post: MumblePost }) {
         </div>
       </div>
       <div className="desktop:mt-0 mt-4 mx-6">
-        <div className={'flex flex-col gap-4'}>
-          {post.text && <PostText text={post.text} />}
-          {post.mediaUrl && (
-            <>
-              <FsLightbox
-                toggler={lightboxOpen}
-                sources={[<img className={'rounded-md'} src={post.mediaUrl} alt={'user uploaded file'} />]}
-              />
-              <img
-                className={'w-full object-cover aspect-2/1 rounded-md cursor-pointer'}
-                src={post.mediaUrl}
-                alt={'user uploaded file'}
-                onClick={() => setLightboxOpen(!lightboxOpen)}
-              />
-            </>
-          )}
-        </div>
+        <PostContent text={post.text} mediaUrl={post.mediaUrl} />
       </div>
       <PostButtons post={post} />
     </div>

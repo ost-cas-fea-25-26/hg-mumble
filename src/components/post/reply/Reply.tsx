@@ -1,12 +1,11 @@
 'use client'
 
-import PostText from '@/components/post/PostText'
+import PostContent from '@/components/post/PostContent'
 import ReplyButtons from '@/components/post/reply/ReplyButtons'
 import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
 import { Reply as ReplyType } from '@/mumble/api/generated/MumbleApi'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import clsx from 'clsx'
-import FsLightbox from 'fslightbox-react'
 import { useMemo, useState } from 'react'
 import { decodeTime } from 'ulidx'
 
@@ -53,24 +52,8 @@ export default function Reply({ reply }: Props) {
           </div>
         </div>
       </div>
-      <div>
-        <div className="flex flex-col gap-4" data-testid="reply-content">
-          {reply.text && <PostText text={reply.text} />}
-          {reply.mediaUrl && (
-            <>
-              <FsLightbox
-                toggler={lightboxOpen}
-                sources={[<img className={'rounded-md'} src={reply.mediaUrl} alt={'user uploaded file'} />]}
-              />
-              <img
-                className={'w-full object-cover aspect-2/1 rounded-md cursor-pointer'}
-                src={reply.mediaUrl}
-                alt={'user uploaded file'}
-                onClick={() => setLightboxOpen(!lightboxOpen)}
-              />
-            </>
-          )}
-        </div>
+      <div data-testid="reply-content">
+        <PostContent text={reply.text} mediaUrl={reply.mediaUrl} />
       </div>
       <ReplyButtons reply={reply} />
     </div>

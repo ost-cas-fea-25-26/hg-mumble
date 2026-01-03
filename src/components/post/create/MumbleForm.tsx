@@ -1,9 +1,10 @@
 import { FormValues } from '@/interfaces/MumbleFormValues'
 import { useSession } from '@/lib/auth-client'
 import { Button, Cross, FileInput, Modal, Textarea } from '@/lib/hg-storybook'
+import { useKeyPress } from 'ahooks'
 import clsx from 'clsx'
 import { Loader } from 'hg-storybook'
-import React from 'react'
+import { useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
 
@@ -20,13 +21,14 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
   const { register, watch } = useFormContext<FormValues>()
   const translate = useTranslations('mumble-post')
   const sessionData = useSession()
+  const { ref, ...rest } = register('text')
+  const textRef = useRef<HTMLTextAreaElement>(null)
 
-  const onEnterPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.code == 'Enter' && !e.shiftKey) {
-      e.preventDefault()
+  useKeyPress(['meta.enter'], () => {
+    if (document.activeElement === textRef.current && !isSaving) {
       handleSubmit({ text: watch('text') })
     }
-  }
+  })
 
   return (
     <div>
@@ -52,7 +54,14 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
             />
           </span>
         )}
-        <Textarea {...register('text')} className={'h-40 w-fit'} onKeyPress={onEnterPress} />
+        <Textarea
+          {...rest}
+          className={'h-40 w-fit'}
+          ref={(e) => {
+            ref(e)
+            textRef.current = e
+          }}
+        />
       </div>
       {showModal && (
         <Modal title={translate('add-image')} onClose={() => setShowModal(false)}>
