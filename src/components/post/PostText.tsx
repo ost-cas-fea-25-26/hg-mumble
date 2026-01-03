@@ -37,7 +37,7 @@ export default function PostText({ text }: Props) {
 
   return (
     <div className="max-h-60 overflow-y-auto">
-      <p className="max-h-full overflow-auto break-all hyphens-auto" data-testid="post-content">
+      <p className="max-h-full overflow-auto break-all hyphens-auto" data-testid="post-text">
         {parts}
       </p>
     </div>

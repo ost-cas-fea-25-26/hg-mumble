@@ -54,7 +54,7 @@ export default function Reply({ reply }: Props) {
         </div>
       </div>
       <div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4" data-testid="reply-content">
           {reply.text && <PostText text={reply.text} />}
           {reply.mediaUrl && (
             <>
