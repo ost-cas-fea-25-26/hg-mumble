@@ -10,7 +10,9 @@ const authFile = path.join(__dirname, '../.auth/user.json')
 test('authenticate', async ({ page }) => {
   await page.goto(process.env.E2E_HOST || '')
 
-  await page.getByTestId('login-button').first().click()
+  await page.getByTestId('login-button').click()
+
+  await page.waitForURL('**/login/**', { timeout: 20000 })
 
   // redirect to zitadel login
   await page.getByTestId('username-text-input').fill(process.env.E2E_USERNAME || '')
