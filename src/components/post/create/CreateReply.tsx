@@ -43,12 +43,14 @@ export default function CreateReply({ postId }: Props) {
   const methods = useForm<FormValues>()
 
   const handleSubmit = ({ text }: FormValues) => {
-    setIsSaving(true)
-    createReply(postId, text, file!).then((res) => {
-      methods.reset({ text: '' })
-      setFile(null)
-      setIsSaving(false)
-    })
+    if (text) {
+      setIsSaving(true)
+      createReply(postId, text, file!).then((res) => {
+        methods.reset({ text: '' })
+        setFile(null)
+        setIsSaving(false)
+      })
+    }
   }
 
   return (

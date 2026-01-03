@@ -23,12 +23,14 @@ export default function CreatePost({ sessionData }: Props) {
   const formProps = useForm<FormValues>()
 
   const handleSubmit = ({ text }: FormValues) => {
-    setIsSaving(true)
-    createPost(text, file!).then((res) => {
-      formProps.reset({ text: '' })
-      setFile(null)
-      setIsSaving(false)
-    })
+    if (text) {
+      setIsSaving(true)
+      createPost(text, file!).then((res) => {
+        formProps.reset({ text: '' })
+        setFile(null)
+        setIsSaving(false)
+      })
+    }
   }
   return (
     <div

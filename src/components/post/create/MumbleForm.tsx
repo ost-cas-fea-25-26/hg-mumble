@@ -92,7 +92,7 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
         >
           {translate('add-image')}
         </Button>
-        <Button type="submit" width={'w-full'} disabled={!sessionData || isSaving}>
+        <Button type="submit" width={'w-full'} disabled={!sessionData || isSaving || !watch('text')}>
           {isSaving ? (
             <span className="min-h-5">
               <Loader size="small" color="white" />
