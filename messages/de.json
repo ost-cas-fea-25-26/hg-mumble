@@ -38,5 +38,17 @@
     "file-input-title": "Einfach Datei hierhin ziehen!",
     "file-input-accepted-images": "Erlaubt sind Bilder (PNG, JPG, SVG, WEBP...)",
     "file-upload-button": "Oder klicke hier..."
+  },
+  "recommendations": {
+    "title": "Empfohlene Mumbler",
+    "follow": "Folgen",
+    "unfollow": "Entfolgen",
+    "following": "Folge...",
+    "followed-success": "Du folgst jetzt {name}",
+    "unfollowed-success": "Du folgst {name} nicht mehr",
+    "follow-error": "Nutzer konnte nicht gefolgt werden.",
+    "unexpected-error": "Ein unerwarteter Fehler ist aufgetreten.",
+    "no-recommendations": "Keine weiteren Empfehlungen verfügbar.",
+    "login-required": "Bitte melde dich an, um Empfehlungen zu sehen."
   }
 }

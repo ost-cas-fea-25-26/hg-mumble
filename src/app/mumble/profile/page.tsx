@@ -1,7 +1,8 @@
 import { fetchPosts } from '@/actions/posts/fetchPosts'
 import { fetchUser } from '@/actions/users/fetchUser'
 import PostsList from '@/components/post/PostsList'
-import ProfileHeader from '@/components/profile/ProfileHeader'
+import ProfileHeader from '@/components/profile/Header'
+import RecommendedProfiles from '@/components/recommendation/RecommendedProfiles'
 import { getSession } from '@/lib/auth'
 import { Tab, TabGroup, TabList, TabPanel } from 'hg-storybook'
 import { getTranslations } from 'next-intl/server'
@@ -38,7 +39,9 @@ export default async function ProfileIndex() {
     <section className="my-6 w-full">
       <ProfileHeader user={user} />
 
-      <div className="mt-8">
+      <RecommendedProfiles />
+
+      <div className="mt-6">
         <TabGroup>
           <TabList>
             <Tab>{'Deine Mumbles'}</Tab>
