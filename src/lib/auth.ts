@@ -16,6 +16,18 @@ export const auth = betterAuth({
         required: true,
         defaultValue: 'NO_NAME',
       },
+      firstName: {
+        type: 'string',
+        required: false,
+      },
+      lastName: {
+        type: 'string',
+        required: false,
+      },
+      displayName: {
+        type: 'string',
+        required: false,
+      },
     },
   },
   secret: process.env.BETTER_AUTH_SECRET,
@@ -52,6 +64,17 @@ export const auth = betterAuth({
           ],
           pkce: true,
           overrideUserInfo: true,
+          mapProfileToUser: async (profile) => {
+            return {
+              firstName: profile.given_name || profile.name.split(' ')[0],
+              lastName: profile.family_name || profile.name.split(' ').slice(1).join(' '),
+              displayName: profile.preferred_username || profile.name,
+              image: profile.picture,
+              sub: profile.sub,
+              email: profile.email,
+              emailVerified: profile.email_verified,
+            }
+          },
         },
       ],
     }),
