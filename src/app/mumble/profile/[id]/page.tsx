@@ -6,6 +6,7 @@ import ProfileFollow from '@/components/profile/Follow'
 import ProfileHeader from '@/components/profile/Header'
 import { getSession } from '@/lib/auth'
 import { User } from '@/mumble/api/generated/MumbleApi'
+import { getTranslations } from 'next-intl/server'
 import { redirect } from 'next/navigation'
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 export default async function PublicProfilePage({ params }: Props) {
   const { id } = await params
   const session = await getSession()
+  const translate = await getTranslations('general')
   const currentUserId = session?.user?.sub
 
   if (currentUserId === id) {
@@ -28,7 +30,7 @@ export default async function PublicProfilePage({ params }: Props) {
   ])
 
   if (!user) {
-    return <div className="p-10 font-bold">User not found</div>
+    return <div className="p-10 font-bold text-red-600">{translate('profile-user-not-found')}</div>
   }
 
   const isFollowing = followersData.data?.some((follower: User) => follower.id === currentUserId) || false
@@ -36,14 +38,8 @@ export default async function PublicProfilePage({ params }: Props) {
   return (
     <section className="my-6 w-full max-w-4xl mx-auto">
       <ProfileHeader user={user} stats={{ followers: followersData.count }} />
-
-      <div className="my-3">
-        {currentUserId && (
-          <ProfileFollow userId={user.id} userName={user.firstname || user.username} initialIsFollowing={isFollowing} />
-        )}
-      </div>
-
-      <div className="flex flex-col gap-4">
+      <ProfileFollow userId={user.id} userName={user.firstname || user.username} initialIsFollowing={isFollowing} />
+      <div className="flex flex-col gap-4 mt-6">
         <PostsList initialPosts={mumbles.data || []} filters={{ creatorIds: [user.id] }} />
       </div>
     </section>

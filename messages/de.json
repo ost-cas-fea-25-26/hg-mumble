@@ -19,7 +19,13 @@
     "hint-logout": "Wenn du deinen Namen änderst, wirst du ausgeloggt!",
     "save": "Speichern",
     "max-length": "Maximal {maxLength} zeichen erlaubt",
-    "invalid-special-characters": "Enthält ungültige Sonderzeichen"
+    "invalid-special-characters": "Enthält ungültige Sonderzeichen",
+    "followers": "{count, plural, =0 {Keine Follower} =1 {1 Follower} other {# Follower}}",
+    "no-bio": "Noch keine Bio vorhanden.",
+    "profile-login-required": "Bitte melde dich an, um dein Profil zu sehen.",
+    "profile-user-not-found": "Benutzerprofil nicht gefunden.",
+    "your-mumbles": "Deine Mumbles",
+    "your-likes": "Deine Likes"
   },
   "mumble-post": {
     "new-posts": "Es gibt neue Mumbles!",

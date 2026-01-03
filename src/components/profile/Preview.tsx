@@ -28,8 +28,8 @@ export default function ProfilePreview({ user, onFollowSuccess }: Props) {
       const status = await followUser(user.id as string)
 
       if (status === 204 || status === 200) {
-        toast.success(t('followed-success', { name: user.firstname }), {
-          description: `@${user.username}`,
+        toast.success(t('followed-success', { name: user.displayName || user.username! }), {
+          description: `${user.username}`,
           duration: 2000,
         })
 

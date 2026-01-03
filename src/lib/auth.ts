@@ -28,6 +28,10 @@ export const auth = betterAuth({
         type: 'string',
         required: false,
       },
+      bio: {
+        type: 'string',
+        required: false,
+      },
     },
   },
   secret: process.env.BETTER_AUTH_SECRET,

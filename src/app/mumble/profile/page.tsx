@@ -14,7 +14,7 @@ export default async function ProfileIndex() {
   if (!session?.user?.sub) {
     return (
       <section className="flex h-[50vh] items-center justify-center font-bold text-red-600">
-        Please log in to view your profile.
+        {translate('profile-login-required')}
       </section>
     )
   }
@@ -30,7 +30,7 @@ export default async function ProfileIndex() {
   if (!user) {
     return (
       <section className="flex h-[50vh] items-center justify-center font-bold text-red-600">
-        User profile not found.
+        {translate('profile-user-not-found')}
       </section>
     )
   }
@@ -44,8 +44,8 @@ export default async function ProfileIndex() {
       <div className="mt-6">
         <TabGroup>
           <TabList>
-            <Tab>{'Deine Mumbles'}</Tab>
-            <Tab>{'Deine Likes'}</Tab>
+            <Tab>{translate('your-mumbles')}</Tab>
+            <Tab>{translate('your-likes')}</Tab>
           </TabList>
 
           <TabPanel className="mt-4 flex flex-col gap-4">

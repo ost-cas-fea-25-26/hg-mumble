@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'unsplash.it',
+      },
+    ],
+  },
 }
 
 const withNextIntl = createNextIntlPlugin()

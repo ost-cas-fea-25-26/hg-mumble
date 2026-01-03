@@ -2,7 +2,7 @@
 
 import { followUser } from '@/actions/users/followers/addFollow'
 import { unfollowUser } from '@/actions/users/followers/removeFollow'
-import { Button, Mumble } from 'hg-storybook'
+import { Button, Cross, Mumble } from 'hg-storybook'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
@@ -62,17 +62,11 @@ export default function ProfileFollow({ userId, initialIsFollowing, userName }: 
   const isBusy = isFetching || isPending
 
   return (
-    <div className="w-full desktop:w-auto">
-      <Button
-        width="w-full"
-        variant={isFollowing ? 'secondary' : 'primary'}
-        size="medium"
-        onClick={handleToggle}
-        disabled={isBusy}
-      >
+    <div className="w-full flex justfify-end">
+      <Button variant={isFollowing ? 'secondary' : 'primary'} size="small" onClick={handleToggle} disabled={isBusy}>
         {isFollowing ? t('unfollow') : t('follow')}
 
-        {!isFollowing && <Mumble color="white" className="h-4 w-4 ml-2" />}
+        {isFollowing ? <Cross color="white" size={'xs'}></Cross> : <Mumble color="white" size={'xs'} />}
       </Button>
     </div>
   )

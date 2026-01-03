@@ -28,7 +28,7 @@ export default async function RecommendedProfiles() {
       return !excludedIds.has(user.id)
     })
 
-    priorityRecommendations.forEach((u) => excludedIds.add(u.id))
+    priorityRecommendations.forEach((u: User) => excludedIds.add(u.id))
 
     const fillerRecommendations = allUsers.filter((user: User) => {
       return !excludedIds.has(user.id)
