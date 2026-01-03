@@ -28,14 +28,14 @@ export default function PostSkeleton() {
           </div>
         </div>
       </div>
-      <div className="desktop:mt-0 mt-4 ml-6">
+      <div className="desktop:mt-0 mt-4 mx-6">
         <span className={'flex w-full flex-col gap-2'}>
           <LoadingText />
           <LoadingText />
           <LoadingText width="w-[80%]" />
         </span>
       </div>
-      <div className="flex h-6 w-[80%] items-end gap-4 text-lg">
+      <div className="flex h-6 w-[80%] items-end gap-4 text-lg mx-6 mt-2">
         <LoadingText />
         <LoadingText />
         <LoadingText />

@@ -25,10 +25,10 @@ export default function PostButtons({ post }: Props) {
   }
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap mx-[20px] mt-2 gap-2">
       <Link
         href={'/mumble/post/' + post.id}
-        className="text-secondary hover:not-data-disabled:bg-primary-50 hover:not-data-disabled:text-primary-700 flex items-center gap-1 rounded-full p-1 pr-2 pl-2 font-bold hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed"
+        className="text-secondary hover:not-data-disabled:bg-primary-50 hover:not-data-disabled:text-primary-700 flex items-center gap-1 rounded-full p-1 pr-3 pl-3 font-bold hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed"
         data-testid="post-comments-link"
         scroll={false}
       >

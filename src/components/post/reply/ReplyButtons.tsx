@@ -17,7 +17,7 @@ export default function ReplyButtons({ reply }: Props) {
   const [likedBySelf, setLikedBySelf] = React.useState(Boolean(reply.likedBySelf))
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap mx-[-12px]">
       <Toggle
         color={'contrast'}
         initialChecked={Boolean(reply.likedBySelf)}
