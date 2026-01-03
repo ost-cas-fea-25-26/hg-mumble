@@ -7,6 +7,6 @@ export async function updateUser(firstname: string, lastname: string) {
   const api = await getMumbleApi()
   const session = await getSession()
   if (!session) return
-  const response = await api.users.usersPartialUpdate({ firstname, lastname, username: session.user.name })
+  const response = await api.users.usersPartialUpdate({ firstname, lastname, username: session.user.displayName })
   return response.status
 }

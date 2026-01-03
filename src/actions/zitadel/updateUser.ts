@@ -12,7 +12,6 @@ export const updateUser = async (id: string, updatedUser: UserSettingsFormValues
         profile: {
           givenName: firstName?.trim(),
           familyName: lastName?.trim(),
-          displayName: `${firstName?.trim()} ${lastName?.trim()}`,
         },
       },
     }),
