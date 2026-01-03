@@ -1,24 +1,26 @@
 'use client'
 
 import { createPost } from '@/actions/posts/createPost'
-import MumbleForm from '@/components/post/MumbleForm'
+import MumbleForm from '@/components/post/create/MumbleForm'
 import { FormValues } from '@/interfaces/MumbleFormValues'
+import { getSession } from '@/lib/auth'
+import { Avatar } from '@/lib/hg-storybook'
 import clsx from 'clsx'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
-import { useSession } from '@/lib/auth-client'
-import { Avatar } from '@/lib/hg-storybook'
 
-export default function CreatePost() {
-  const sessionData = useSession()
+interface Props {
+  sessionData?: Awaited<ReturnType<typeof getSession>>
+}
+
+export default function CreatePost({ sessionData }: Props) {
   const [showModal, setShowModal] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const translate = useTranslations('mumble-post')
 
   const formProps = useForm<FormValues>()
-  const userDetails = sessionData.data?.user || { image: null }
 
   const handleSubmit = ({ text }: FormValues) => {
     setIsSaving(true)
@@ -35,7 +37,7 @@ export default function CreatePost() {
       )}
     >
       <div className="absolute top-4 left-[-32] flex h-16 w-full items-center justify-start gap-3">
-        <Avatar src={userDetails?.image || undefined} size={'m'} />
+        {sessionData?.user.image && <Avatar src={sessionData?.user.image || undefined} size={'m'} />}
         <h3 className={clsx('text-lg font-bold')}>{translate('create-post-title')}</h3>
       </div>
       <FormProvider {...formProps}>

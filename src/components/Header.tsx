@@ -1,6 +1,5 @@
 import HeaderTitle from '@/components/HeaderTitle'
 import HeaderUserDetails from '@/components/HeaderUserDetails'
-import React from 'react'
 
 export default async function Header() {
   return (

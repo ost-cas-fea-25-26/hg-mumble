@@ -2,10 +2,9 @@ import { fetchPosts } from '@/actions/posts/fetchPosts'
 import { fetchUser } from '@/actions/users/fetchUser'
 import PostsList from '@/components/post/PostsList'
 import ProfileHeader from '@/components/profile/ProfileHeader'
-import clsx from 'clsx'
+import { getSession } from '@/lib/auth'
 import { Tab, TabGroup, TabList, TabPanel } from 'hg-storybook'
 import { getTranslations } from 'next-intl/server'
-import { getSession } from '@/lib/auth'
 
 export default async function ProfileIndex() {
   const session = await getSession()

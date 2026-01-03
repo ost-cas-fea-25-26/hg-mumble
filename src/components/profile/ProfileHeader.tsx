@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { Avatar, Calendar, Link, Location, Profile } from 'hg-storybook'
+import { Avatar, Calendar, Location, Profile } from 'hg-storybook'
 
 type Props = {
   user: any

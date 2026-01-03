@@ -2,8 +2,8 @@
 
 import Reply from '@/components/post/reply/Reply'
 import usePostCreated from '@/hooks/usePostCreated'
-import React, { useState } from 'react'
 import { Reply as ReplyType } from '@/mumble/api/generated/MumbleApi'
+import { useState } from 'react'
 
 interface Props {
   initialReplies: ReplyType[]

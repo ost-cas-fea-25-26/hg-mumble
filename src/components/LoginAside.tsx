@@ -1,6 +1,5 @@
 import { Mumble } from 'hg-storybook'
 import { getTranslations } from 'next-intl/server'
-import React from 'react'
 
 export default async function LoginAside() {
   const translate = await getTranslations('general')

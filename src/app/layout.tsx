@@ -1,7 +1,7 @@
 import 'hg-storybook/style'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { Toaster } from 'sonner'
 
 type Props = { children: ReactNode }
