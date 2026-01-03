@@ -1787,7 +1787,7 @@
             "type": "string",
             "description": "Text for the post. Can be null if the post is only a media post.\nCan contain hashtags and mentions.",
             "nullable": true,
-            "example": "Hello World! #newpost."
+            "example": "This is a reply to a post. #reply"
           },
           "mediaUrl": {
             "type": "string",

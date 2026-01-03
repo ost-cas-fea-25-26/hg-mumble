@@ -52,11 +52,9 @@ export default function CreateReply({ postId }: Props) {
       )}
     >
       <div className="flex h-16 w-full items-center justify-start gap-3">
-        <Avatar src={userDetails?.image || undefined} size={'s'} borderless />
+        <Avatar src={sessionData.data?.user?.image || undefined} size={'s'} borderless />
         <div>
-          <h3 className={clsx('text-lg font-bold')}>
-            {isLoading ? <LoadingText width={'w-32 mb-1'} /> : `${userData?.firstname} ${userData?.lastname}`}
-          </h3>
+          <h3 className={clsx('text-lg font-bold')}>{sessionData?.data?.user.name}</h3>
           <div className={clsx('flex items-center gap-4')}>
             <Link url={`/mumble/profile`} className={'text-primary flex items-center justify-start gap-1 font-bold'}>
               {isLoading ? (
