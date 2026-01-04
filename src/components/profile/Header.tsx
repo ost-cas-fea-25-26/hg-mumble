@@ -1,6 +1,7 @@
 'use client'
 
 import { User } from '@/mumble/api/generated/MumbleApi'
+import { getAvatarInitials } from '@/utils/getAvatarInitials'
 import clsx from 'clsx'
 import { Avatar, Mumble, Profile } from 'hg-storybook'
 import Image from 'next/image'
@@ -18,6 +19,7 @@ type Props = {
 export default function ProfileHeader({ user, stats, children }: Props) {
   const t = useTranslations('general')
   const [isImageLoaded, setIsImageLoaded] = useState(false)
+  const avatarPlaceholderText = getAvatarInitials(user.firstname + ' ' + user.lastname)
 
   const displayName = user.firstname && user.lastname ? `${user.firstname} ${user.lastname}` : user.username
 
@@ -38,8 +40,13 @@ export default function ProfileHeader({ user, stats, children }: Props) {
           )}
           onLoad={() => setIsImageLoaded(true)}
         />
-        <div className="absolute right-6 -bottom-16.5 z-10">
-          <Avatar src={user.avatarUrl ?? undefined} size={'xl'} editButton={false} />
+        <div className="absolute right-6 -bottom-16.5">
+          <Avatar
+            src={user.avatarUrl ?? undefined}
+            size={'xl'}
+            editButton={false}
+            placeholderText={avatarPlaceholderText}
+          />
         </div>
       </div>
 

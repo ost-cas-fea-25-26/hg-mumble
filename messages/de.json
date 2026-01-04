@@ -25,7 +25,9 @@
     "profile-login-required": "Bitte melde dich an, um dein Profil zu sehen.",
     "profile-user-not-found": "Benutzerprofil nicht gefunden.",
     "your-mumbles": "Deine Mumbles",
-    "your-likes": "Deine Likes"
+    "your-likes": "Deine Likes",
+    "settings": "Settings",
+    "logout": "Abmelden"
   },
   "mumble-post": {
     "new-posts": "Es gibt neue Mumbles!",
