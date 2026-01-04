@@ -20,7 +20,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="my-28 w-full rounded-md bg-white">
-      {post && <Post post={post} />}
+      {post && <Post post={post} detailView />}
       <div className="p-6">
         <CreateReply postId={postId} />
         <ReplyList initialReplies={replies.data || []} />

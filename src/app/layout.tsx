@@ -1,3 +1,4 @@
+import { ScrollToTop } from '@/components/ScrollToTop'
 import 'hg-storybook/style'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
@@ -31,6 +32,7 @@ export default async function RootLayout({ children }: Props) {
                 closeButton: true,
               }}
             />
+            <ScrollToTop />
             {children}
           </NextIntlClientProvider>
         </div>

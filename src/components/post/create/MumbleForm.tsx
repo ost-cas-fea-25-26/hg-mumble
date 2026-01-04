@@ -3,7 +3,7 @@ import { useSession } from '@/lib/auth-client'
 import { Button, Cross, FileInput, Modal, Textarea } from '@/lib/hg-storybook'
 import { useKeyPress } from 'ahooks'
 import clsx from 'clsx'
-import { Loader } from 'hg-storybook'
+import { Loader, Send, Upload } from 'hg-storybook'
 import { useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
@@ -68,7 +68,7 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
           <FileInput
             label={translate('file-input-title')}
             description={translate('file-input-accepted-images')}
-            size={'large'}
+            size={'small'}
             onDrop={([file]) => {
               setShowModal(false)
               setFile(file)
@@ -90,7 +90,10 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
             setShowModal(true)
           }}
         >
-          {translate('add-image')}
+          <span className="flex gap-2 items-center">
+            {translate('add-image')}
+            <Upload size="xs" color="white" />
+          </span>
         </Button>
         <Button type="submit" width={'w-full'} disabled={!sessionData || isSaving || !watch('text')}>
           {isSaving ? (
@@ -98,7 +101,10 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
               <Loader size="small" color="white" />
             </span>
           ) : (
-            `${translate('save')}`
+            <span className="flex gap-2 items-center">
+              {translate('save')}
+              <Send size="xs" color="white" />
+            </span>
           )}
         </Button>
       </div>

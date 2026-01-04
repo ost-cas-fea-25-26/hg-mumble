@@ -8,7 +8,12 @@ import { getAvatarInitials } from '@/utils/getAvatarInitials'
 import clsx from 'clsx'
 import { decodeTime } from 'ulidx'
 
-export default function Post({ post }: { post: MumblePost }) {
+interface Props {
+  post: MumblePost
+  detailView?: boolean
+}
+
+export default function Post({ post, detailView }: Props) {
   const date = useFormattedDate(new Date(decodeTime(post.id!)))
   const avatarPlaceholderText = getAvatarInitials(post.creator?.displayName || post.creator?.username)
 
@@ -38,7 +43,7 @@ export default function Post({ post }: { post: MumblePost }) {
       <div className="desktop:mt-0 mt-4 mx-6">
         <PostContent text={post.text} mediaUrl={post.mediaUrl} />
       </div>
-      <PostButtons post={post} />
+      <PostButtons post={post} detailView={detailView} />
     </div>
   )
 }
