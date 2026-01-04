@@ -16,7 +16,10 @@ test('authenticate', async ({ page }) => {
   await page.waitForURL('**/login/**', { timeout: 20000 })
 
   // redirect to zitadel login
-  await page.getByTestId('username-text-input').fill(process.env.E2E_USERNAME || '')
+  await page
+    .getByTestId('username-text-input')
+    .first()
+    .fill(process.env.E2E_USERNAME || '')
   await page.getByTestId('submit-button').click()
   await page.getByTestId('password-text-input').fill(process.env.E2E_PASSWORD || '')
   await page.getByTestId('submit-button').click()
