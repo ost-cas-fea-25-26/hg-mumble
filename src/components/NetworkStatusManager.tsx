@@ -2,9 +2,7 @@
 
 import { useEffect } from 'react'
 
-type Props = {}
-
-export default function NetworkStatusManager({}: Props) {
+export default function NetworkStatusManager() {
   useEffect(() => {
     window.addEventListener('load', () => {
       if ('serviceWorker' in navigator) {
@@ -12,5 +10,5 @@ export default function NetworkStatusManager({}: Props) {
       }
     })
   }, [])
-  return <div></div>
+  return <></>
 }
