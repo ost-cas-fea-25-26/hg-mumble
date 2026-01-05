@@ -1,5 +1,6 @@
 'use client'
 import { signIn } from '@/lib/auth-client'
+import createLoginSession from '@/actions/auth/createLoginSession'
 import { Button, Eye, Field, Input, Label, Loader } from 'hg-storybook'
 import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -12,6 +13,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    createLoginSession().then(console.log)
     return () => setLoading(false)
   }, [])
 

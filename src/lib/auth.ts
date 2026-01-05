@@ -1,9 +1,13 @@
+import { ServiceAccount } from '@zitadel/node/dist/credentials'
 import { betterAuth } from 'better-auth'
 import { nextCookies } from 'better-auth/next-js'
 import { genericOAuth } from 'better-auth/plugins'
 import { headers } from 'next/headers'
 import { Pool } from 'pg'
 import { cache } from 'react'
+import jsonKey from '../../secrets/352616763747224345.json'
+
+// Adjust the import path if needed
 
 export const auth = betterAuth({
   database: new Pool({
@@ -108,4 +112,20 @@ export const getAccessToken = cache(async () => {
 export async function authHeader(): Promise<HeadersInit> {
   const token = await getAccessToken()
   return token?.accessToken ? { Authorization: `Bearer ${token?.accessToken}` } : {}
+}
+
+export async function getServiceAccessToken() {
+  const sa = ServiceAccount.fromJson(jsonKey)
+  const token = await sa.authenticate(process.env.ZITADEL_API_URL as string, {
+    additionalScopes: [
+      'urn:zitadel:iam:org:project:id:346667353238429526:aud',
+      'urn:zitadel:iam:org:project:role:user',
+      'urn:zitadel:iam:org:projects:roles',
+    ],
+    apiAccess: true,
+  })
+  return {
+    accessToken: token,
+    serviceAccount: sa,
+  }
 }
