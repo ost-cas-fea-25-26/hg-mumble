@@ -1,59 +1,39 @@
 'use client'
-import { signIn } from '@/lib/auth-client'
-import createLoginSession from '@/actions/auth/createLoginSession'
+import { signIn, useSession } from '@/lib/auth-client'
 import { Button, Eye, Field, Input, Label, Loader } from 'hg-storybook'
-import { useEffect, useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
+import { useState } from 'react'
 import { useTranslations } from 'use-intl'
 
 export default function Login() {
   const translate = useTranslations('general')
-  const formProps = useForm()
-  const [type, setType] = useState('password')
   const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    createLoginSession().then(console.log)
-    return () => setLoading(false)
-  }, [])
-
+  useSession()
   return (
     <div className={'flex flex-col justify-center gap-4'}>
       <h1 className={'text-2xl font-bold'}>{translate('login-title')}</h1>
-      <FormProvider {...formProps}>
-        <Field>
+      <form>
+        <Field disabled className={'opacity-40'}>
           <Label htmlFor="email">{translate('username-email')}</Label>
           <Input name="email" />
         </Field>
-        <Field>
+        <Field disabled className={'opacity-40'}>
           <Label htmlFor="password">{translate('password')}</Label>
-          <Input
-            name="password"
-            type={type}
-            iconAction={{
-              name: translate('reveal-password'),
-              action: () => {
-                setType((prev) => (prev === 'password' ? 'text' : 'password'))
-              },
-            }}
-            icon={<Eye color={'var(--color-secondary)'} size={'xs'} />}
-          />
+          <Input name="password" type={'password'} icon={<Eye color={'var(--color-secondary)'} size={'xs'} />} />
         </Field>
-        <form>
-          <Button
-            variant={'gradient'}
-            width={'w-full'}
-            size={'medium'}
-            onClick={() => {
-              setLoading(true)
-              signIn()
-            }}
-            dataTestId="login-button"
-          >
-            {loading ? <Loader size={'small'} color={'white'} /> : translate('login')}
-          </Button>
-        </form>
-      </FormProvider>
+      </form>
+
+      <Button
+        variant={'gradient'}
+        width={'w-full'}
+        size={'medium'}
+        onClick={() => {
+          setLoading(true)
+          return signIn()
+        }}
+        dataTestId="login-button"
+      >
+        {loading ? <Loader size={'small'} color={'white'} /> : translate('login-button')}
+      </Button>
     </div>
   )
 }
