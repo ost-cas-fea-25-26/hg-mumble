@@ -1,7 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "ignoreFiles": ["src/utils/supabase/server.ts", "src/mumble/api/generated/**", "tests/methods/signin.setup.ts"],
-  "ignoreDependencies": ["eslint-config-next", "@supabase/ssr"],
+  "ignoreDependencies": ["@supabase/ssr"],
   "ignoreIssues": {
     "src/lib/auth-client.ts": ["exports"],
     "src/lib/auth.ts": ["exports"],
