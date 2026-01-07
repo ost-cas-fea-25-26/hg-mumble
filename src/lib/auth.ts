@@ -69,7 +69,6 @@ export const auth = betterAuth({
           overrideUserInfo: true,
           mapProfileToUser: async (profile): Promise<Record<string, any>> => {
             const { family_name, given_name, nickname } = profile
-            console.log(profile)
             return { ...profile, lastName: family_name, firstName: given_name, displayName: nickname }
           },
         },
