@@ -3,16 +3,18 @@
 import { addLike } from '@/actions/posts/like/addLike'
 import { removeLike } from '@/actions/posts/like/removeLike'
 import { Post } from '@/mumble/api/generated/MumbleApi'
-import { Heart, HeartEmpty, Share, SpeechBubbleEmpty, TimedButton, Toggle } from 'hg-storybook'
+import clsx from 'clsx'
+import { Heart, HeartEmpty, Share, SpeechBubble, SpeechBubbleEmpty, TimedButton, Toggle } from 'hg-storybook'
 import Link from 'next/link'
 import React from 'react'
 import { useTranslations } from 'use-intl'
 
 type Props = {
   post: Post
+  detailView?: boolean
 }
 
-export default function PostButtons({ post }: Props) {
+export default function PostButtons({ post, detailView }: Props) {
   const translate = useTranslations('mumble-post')
   const [likes, setLikes] = React.useState(post.likes || 0)
   const [likedBySelf, setLikedBySelf] = React.useState(Boolean(post.likedBySelf))
@@ -28,11 +30,17 @@ export default function PostButtons({ post }: Props) {
     <div className="flex flex-wrap mx-[20px] mt-2 gap-2">
       <Link
         href={'/mumble/post/' + post.id}
-        className="text-secondary hover:not-data-disabled:bg-primary-50 hover:not-data-disabled:text-primary-700 flex items-center gap-1 rounded-full p-1 pr-3 pl-3 font-bold hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed"
+        className={clsx(
+          ' hover:not-data-disabled:bg-primary-50 hover:not-data-disabled:text-primary-700 flex items-center gap-1 rounded-full p-1 pr-3 pl-3 font-bold hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed',
+          detailView ? 'text-primary' : 'text-secondary'
+        )}
         data-testid="post-comments-link"
-        scroll={false}
       >
-        <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />
+        {detailView ? (
+          <SpeechBubble color={'currentColor'} size={'xs'} />
+        ) : (
+          <SpeechBubbleEmpty color={'currentColor'} size={'xs'} />
+        )}
         <p className="hover:not-data-disabled:cursor-pointer group-data-disabled:hover:cursor-not-allowed">
           {translate('comments', { count: post.replies || 0 })}
         </p>

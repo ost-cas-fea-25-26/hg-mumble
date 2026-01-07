@@ -4,26 +4,23 @@ import PostContent from '@/components/post/PostContent'
 import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
+import { getAvatarInitials } from '@/utils/getAvatarInitials'
 import clsx from 'clsx'
-import { useMemo } from 'react'
 import { decodeTime } from 'ulidx'
 
-export default function Post({ post }: { post: MumblePost }) {
+interface Props {
+  post: MumblePost
+  detailView?: boolean
+}
+
+export default function Post({ post, detailView }: Props) {
   const date = useFormattedDate(new Date(decodeTime(post.id!)))
-  const avatarPlaceholderText = useMemo(() => {
-    if (post.creator?.displayName) {
-      const names = post.creator.displayName.split(' ')
-      if (names.length >= 2) {
-        return names[0].charAt(0) + names[1].charAt(0)
-      }
-    }
-    return undefined
-  }, [post.creator])
+  const avatarPlaceholderText = getAvatarInitials(post.creator?.displayName || post.creator?.username)
 
   return (
     <div className="relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white p-4" id={post.id}>
       <div className="desktop:h-16 flex w-full items-center justify-start gap-3">
-        <div className="absolute top-6 left-[-32]">
+        <div className="absolute top-6 -left-6">
           <Avatar src={post.creator?.avatarUrl || undefined} placeholderText={avatarPlaceholderText} size={'m'} />
         </div>
         <div className="pl-6">
@@ -46,7 +43,7 @@ export default function Post({ post }: { post: MumblePost }) {
       <div className="desktop:mt-0 mt-4 mx-6">
         <PostContent text={post.text} mediaUrl={post.mediaUrl} />
       </div>
-      <PostButtons post={post} />
+      <PostButtons post={post} detailView={detailView} />
     </div>
   )
 }
