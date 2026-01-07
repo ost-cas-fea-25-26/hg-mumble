@@ -40,5 +40,10 @@
     "file-input-title": "Einfach Datei hierhin ziehen!",
     "file-input-accepted-images": "Erlaubt sind Bilder (PNG, JPG, SVG, WEBP...)",
     "file-upload-button": "Oder klicke hier..."
+  },
+  "profile": {
+    "edit-avatar": "Avatar bearbeiten",
+    "edit-avatar-success": "Avatar erforlgreich gespeichert",
+    "edit-avatar-error": "Avatar konnte nicht gespeichert werden."
   }
 }

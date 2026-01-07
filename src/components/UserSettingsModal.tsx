@@ -54,19 +54,18 @@ export default function UserSettingsModal({ close }: Props) {
           className={'flex flex-col gap-2'}
           onSubmit={formProps.handleSubmit((values) => {
             setLoading(true)
-            return Promise.allSettled([
-              updateUser(values.firstName, values.lastName),
-              updateZitadelUser(sub!, values),
-            ]).then(async ([one, two]) => {
-              if ([one.status, two.status].every((s) => s === 'fulfilled')) {
-                router.push('/auth/signin')
-                toast.message(translate('name-change-success'))
-                return await signOut()
-              } else {
-                close()
-                toast.error(translate('name-change-failure'))
+            return Promise.allSettled([updateUser(values.firstName, values.lastName), updateZitadelUser(values)]).then(
+              async ([one, two]) => {
+                if ([one.status, two.status].every((s) => s === 'fulfilled')) {
+                  router.push('/auth/signin')
+                  toast.message(translate('name-change-success'))
+                  return await signOut()
+                } else {
+                  close()
+                  toast.error(translate('name-change-failure'))
+                }
               }
-            })
+            )
           })}
         >
           <Field>
