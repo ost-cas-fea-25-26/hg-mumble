@@ -62,11 +62,10 @@ export default function ProfileFollow({ userId, initialIsFollowing, userName }: 
   const isBusy = isFetching || isPending
 
   return (
-    <div className="w-full flex justfify-end">
+    <div className="w-full flex justify-start" data-testid="profile-follow-button">
       <Button variant={isFollowing ? 'secondary' : 'primary'} size="small" onClick={handleToggle} disabled={isBusy}>
         {isFollowing ? t('unfollow') : t('follow')}
-
-        {isFollowing ? <Cross color="white" size={'xs'}></Cross> : <Mumble color="white" size={'xs'} />}
+        {isFollowing ? <Cross color="white" size={'xs'} /> : <Mumble color="white" size={'xs'} />}
       </Button>
     </div>
   )

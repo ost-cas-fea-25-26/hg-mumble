@@ -21,7 +21,7 @@ export default function RecommendationsList({ initialUsers }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 desktop:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 desktop:grid-cols-3 gap-4" data-testid="recommended-profiles">
       {visibleUsers.map((user) => (
         <ProfilePreview key={user.id} user={user} onFollowSuccess={() => handleUserFollowed(user.id as string)} />
       ))}
