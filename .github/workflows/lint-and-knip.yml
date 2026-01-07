@@ -1,9 +1,9 @@
 name: Lint & Knip
 
 on:
-  pull_request:
   push:
-
+    branches: [main, master]
+  pull_request:
 jobs:
   lint_typecheck_knip_prettier:
     runs-on: ubuntu-latest
