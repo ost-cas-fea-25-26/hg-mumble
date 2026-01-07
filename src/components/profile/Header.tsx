@@ -117,7 +117,7 @@ export default function ProfileHeader({ user, stats, children }: Props) {
           </div>
 
           <div>
-            <p className="max-w-2xl font-medium text-slate-400">{user.bio || t('no-bio')}</p>
+            <p className="max-w-2xl font-medium text-slate-400">{sessionData?.user?.bio || t('no-bio')}</p>
           </div>
         </div>
       </div>
