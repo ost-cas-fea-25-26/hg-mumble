@@ -1,23 +1,18 @@
 'use server'
 
+import { getZitadelApi } from '@/actions/getZitadelApi'
 import { UserSettingsFormValues } from '@/components/UserSettingsModal'
-import { authHeader } from '@/lib/auth'
+import { getSession } from '@/lib/auth'
 
-export const updateUser = async (id: string, updatedUser: UserSettingsFormValues) => {
+export const updateUser = async (updatedUser: UserSettingsFormValues) => {
   const { firstName, lastName } = updatedUser
-  const response = await fetch(process.env.ZITADEL_API_URL + `/v2/users/${id}`, {
-    method: 'PATCH',
-    body: JSON.stringify({
-      human: {
-        profile: {
-          givenName: firstName?.trim(),
-          familyName: lastName?.trim(),
-          displayName: `${firstName?.trim()} ${lastName?.trim()}`,
-        },
+  const sessionData = await getSession()
+  const response = await getZitadelApi().updateUser(`/v2/users/${sessionData?.user.sub}`, {
+    human: {
+      profile: {
+        givenName: firstName?.trim(),
+        familyName: lastName?.trim(),
       },
-    }),
-    headers: {
-      ...(await authHeader()),
     },
   })
   return await response.json()

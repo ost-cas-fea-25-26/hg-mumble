@@ -14,19 +14,22 @@ export const auth = betterAuth({
       sub: {
         type: 'string',
         required: true,
-        defaultValue: 'NO_NAME',
+        defaultValue: '',
       },
       firstName: {
         type: 'string',
-        required: false,
+        required: true,
+        defaultValue: '',
       },
       lastName: {
         type: 'string',
-        required: false,
+        required: true,
+        defaultValue: '',
       },
       displayName: {
         type: 'string',
-        required: false,
+        required: true,
+        defaultValue: '',
       },
     },
   },
@@ -64,16 +67,9 @@ export const auth = betterAuth({
           ],
           pkce: true,
           overrideUserInfo: true,
-          mapProfileToUser: async (profile) => {
-            return {
-              firstName: profile.given_name || profile.name.split(' ')[0],
-              lastName: profile.family_name || profile.name.split(' ').slice(1).join(' '),
-              displayName: profile.preferred_username || profile.name,
-              image: profile.picture,
-              sub: profile.sub,
-              email: profile.email,
-              emailVerified: profile.email_verified,
-            }
+          mapProfileToUser: async (profile): Promise<Record<string, any>> => {
+            const { family_name, given_name, nickname } = profile
+            return { ...profile, lastName: family_name, firstName: given_name, displayName: nickname }
           },
         },
       ],

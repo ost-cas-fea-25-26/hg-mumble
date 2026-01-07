@@ -27,7 +27,9 @@
     "your-mumbles": "Deine Mumbles",
     "your-likes": "Deine Likes",
     "settings": "Settings",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "name-change-success": "Name erfolgreich geändert!",
+    "name-change-failure": "Name konnte nicht gespeichert werden!"
   },
   "mumble-post": {
     "new-posts": "Es gibt neue Mumbles!",
@@ -58,5 +60,10 @@
     "unexpected-error": "Ein unerwarteter Fehler ist aufgetreten.",
     "no-recommendations": "Keine weiteren Empfehlungen verfügbar.",
     "login-required": "Bitte melde dich an, um Empfehlungen zu sehen."
+  },
+  "profile": {
+    "edit-avatar": "Avatar bearbeiten",
+    "edit-avatar-success": "Avatar erforlgreich gespeichert",
+    "edit-avatar-error": "Avatar konnte nicht gespeichert werden."
   }
 }

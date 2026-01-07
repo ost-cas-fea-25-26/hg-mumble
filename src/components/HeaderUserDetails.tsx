@@ -14,9 +14,11 @@ export default async function HeaderUserDetails() {
         </Link>
       ) : (
         <div className={'flex items-center justify-between gap-2'}>
-          <Link url={'/mumble/profile'} className="mr-2 rounded-full">
-            {sessionData!.user.image && <Avatar size={'s'} src={sessionData!.user.image} borderless />}
-          </Link>
+          {sessionData!.user.image && (
+            <Link url={`/mumble/profile`}>
+              <Avatar size={'s'} src={sessionData!.user.image} />
+            </Link>
+          )}
           <HeaderButtons />
         </div>
       )}
