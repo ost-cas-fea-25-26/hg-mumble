@@ -22,7 +22,7 @@ export const RotatingTag = ({ words }: RotatingTagProps) => {
   }, [topics.length])
 
   return (
-    <span className="inline-grid grid-cols-1 grid-rows-1 overflow-hidden align-bottom -mb-1">
+    <span className="inline-grid grid-cols-1 grid-rows-1 overflow-hidden justify-center desktop:align-bottom -mb-1">
       {topics.map((topic) => (
         <span key={topic} className="col-start-1 row-start-1 invisible leading-none pb-1" aria-hidden="true">
           {topic}
