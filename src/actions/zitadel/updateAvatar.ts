@@ -7,5 +7,6 @@ export const updateAvatar = async (avatar: File) => {
   const data = new FormData()
   data.append('file', avatar)
   const response = await api.updateAvatar('/assets/v1/users/me/avatar', data, false)
-  return response.status
+  if (response.ok) return Promise.resolve(response.status)
+  return Promise.reject(response.status)
 }

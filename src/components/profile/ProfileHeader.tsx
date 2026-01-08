@@ -1,11 +1,11 @@
 'use client'
-import { updateAvatar } from '@/actions/users/updateAvatar'
-import { updateAvatar as updateAvatarZitadel } from '@/actions/zitadel/updateAvatar'
+
+import UserSettingsModal from '@/components/UserSettingsModal'
 import { useSession } from '@/lib/auth-client'
 import clsx from 'clsx'
-import { Avatar, Button, Calendar, FileInput, Location, Modal, Profile } from 'hg-storybook'
+import { Avatar, Calendar, Location, Profile } from 'hg-storybook'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
 type Props = {
@@ -14,45 +14,14 @@ type Props = {
 
 export default function ProfileHeader({ user }: Props) {
   const displayName = user.firstname && user.lastname ? `${user.firstname} ${user.lastname}` : user.username
-  const { data: sessionData } = useSession()
+  const { data: sessionData, refetch } = useSession()
   const [showEditModal, setShowEditModal] = useState(false)
   const translate = useTranslations()
-
-  const [avatar, setAvatar] = useState<File | null>(null)
-  const saveAvatar = () => {
-    if (avatar)
-      Promise.allSettled([updateAvatarZitadel(avatar), updateAvatar(avatar)]).then(([res1, res2]) => {
-        setShowEditModal(false)
-        if ([res1.status, res2.status].every((s) => s === 'fulfilled')) {
-          return toast.success(translate('profile.edit-avatar-success'))
-        }
-        return toast.error(translate('profile.edit-avatar-error'))
-      })
-  }
+  const router = useRouter()
 
   return (
     <>
-      {showEditModal && (
-        <Modal title={translate('profile.edit-avatar')} onClose={() => setShowEditModal(false)}>
-          <div className={clsx('flex flex-col gap-4')}>
-            <FileInput
-              label={translate('profile.edit-avatar')}
-              description={translate('mumble-post.file-input-accepted-images')}
-              size={'small'}
-              files={[avatar].filter(Boolean) as File[]}
-              onDrop={([file]) => {
-                setAvatar(file)
-              }}
-              setFiles={([file]) => {
-                setAvatar(file)
-              }}
-            />
-            <Button onClick={saveAvatar} variant={'primary'} width={'w-full'}>
-              {translate('general.save')}
-            </Button>
-          </div>
-        </Modal>
-      )}
+      {showEditModal && <UserSettingsModal close={() => setShowEditModal(false)}></UserSettingsModal>}
       <div className="mb-6 flex flex-col items-center justify-center gap-5">
         <div className="relative w-full">
           <img
@@ -66,7 +35,7 @@ export default function ProfileHeader({ user }: Props) {
               size={'xl'}
               editButton={sessionData?.user?.sub === user.id}
               onEdit={() => setShowEditModal(true)}
-              editAriaLabel={translate('profile.edit-avatar')}
+              editAriaLabel={translate('general.edit-avatar')}
             />
           </div>
         </div>

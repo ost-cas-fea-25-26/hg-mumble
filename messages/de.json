@@ -16,12 +16,16 @@
     "lastName": "Nachname",
     "displayName": "Anzeigename",
     "email": "E-Mail",
-    "hint-logout": "Wenn du deinen Namen änderst, wirst du ausgeloggt!",
+    "hint-logout": "Wenn du deine Angaben änderst, wirst du ausgeloggt!",
     "save": "Speichern",
     "max-length": "Maximal {maxLength} zeichen erlaubt",
     "invalid-special-characters": "Enthält ungültige Sonderzeichen",
-    "name-change-success": "Name erfolgreich geändert!",
-    "name-change-failure": "Name konnte nicht gespeichert werden!"
+    "name": "Name",
+    "avatar": "Avatar",
+    "edit-avatar": "Avatar bearbeiten",
+    "edit-error": "einige der Angaben konnten leider nicht richtig gespeichert werden.",
+    "edit-success": "{data} erforlgreich gespeichert",
+    "avatar-input-accepted-images": "Erlaubt sind Bilder (PNG, JPG, SVG, WEBP...)"
   },
   "mumble-post": {
     "new-posts": "Es gibt neue Mumbles!",
@@ -40,10 +44,5 @@
     "file-input-title": "Einfach Datei hierhin ziehen!",
     "file-input-accepted-images": "Erlaubt sind Bilder (PNG, JPG, SVG, WEBP...)",
     "file-upload-button": "Oder klicke hier..."
-  },
-  "profile": {
-    "edit-avatar": "Avatar bearbeiten",
-    "edit-avatar-success": "Avatar erforlgreich gespeichert",
-    "edit-avatar-error": "Avatar konnte nicht gespeichert werden."
   }
 }
