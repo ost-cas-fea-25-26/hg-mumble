@@ -5,7 +5,15 @@ import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
   {
-    ignores: ['node_modules/**', '.next/**', 'out/**', 'build/**', 'next-env.d.ts', 'src/mumble/api/generated/**'],
+    ignores: [
+      'playwright-report/**',
+      'node_modules/**',
+      '.next/**',
+      'out/**',
+      'build/**',
+      'next-env.d.ts',
+      'src/mumble/api/generated/**',
+    ],
   },
   js.configs.recommended,
   ...next,
