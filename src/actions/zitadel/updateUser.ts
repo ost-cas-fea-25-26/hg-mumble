@@ -6,7 +6,6 @@ import { getSession } from '@/lib/auth'
 
 export const updateUser = async (updatedUser: UserSettingsFormValues) => {
   const { firstName, lastName } = updatedUser
-  console.log(updatedUser)
   const sessionData = await getSession()
   const response = await getZitadelApi().updateUser(`/v2/users/${sessionData?.user.sub}`, {
     human: {
