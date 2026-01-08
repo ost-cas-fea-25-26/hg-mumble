@@ -10,12 +10,18 @@ export const createClient = (cookieStore: ReadonlyRequestCookies) => {
       set(name: string, value: string, options: CookieOptions) {
         try {
           cookieStore.set({ name, value, ...options })
-        } catch (error) {}
+          // eslint-disable-next-line no-unused-vars
+        } catch (error) {
+          // silent
+        }
       },
       remove(name: string, options: CookieOptions) {
         try {
           cookieStore.set({ name, value: '', ...options })
-        } catch (error) {}
+          // eslint-disable-next-line no-unused-vars
+        } catch (error) {
+          // silent
+        }
       },
     },
   })

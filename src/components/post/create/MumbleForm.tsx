@@ -4,17 +4,20 @@ import { Button, Cross, FileInput, Modal, Textarea } from '@/lib/hg-storybook'
 import { useKeyPress } from 'ahooks'
 import clsx from 'clsx'
 import { Loader, Send, Upload } from 'hg-storybook'
+import Image from 'next/image'
 import { useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
 
 interface Props {
   file: File | null
-  setFile: (file: File | null) => void
   showModal: boolean
-  setShowModal: (show: boolean) => void
-  handleSubmit: ({ text }: FormValues) => void
   isSaving: boolean
+  /*eslint-disable no-unused-vars */
+  handleSubmit: ({ text }: FormValues) => void
+  setFile: (file: File | null) => void
+  setShowModal: (show: boolean) => void
+  /* eslint-enable no-unused-vars */
 }
 
 export default function MumbleForm({ file, setFile, showModal, setShowModal, handleSubmit, isSaving }: Props) {
@@ -47,10 +50,12 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
                 <Cross color={'white'} size={'xs'} />
               </Button>
             </div>
-            <img
+            <Image
               className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}
               src={URL.createObjectURL(file)}
               alt={'user uploaded file'}
+              width={400}
+              height={400}
             />
           </span>
         )}
