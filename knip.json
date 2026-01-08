@@ -1,6 +1,11 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
-  "ignoreFiles": ["public/sw.js", "src/utils/supabase/server.ts", "src/mumble/api/generated/**", "tests/methods/signin.setup.ts"],
+  "ignoreFiles": [
+    "public/sw.js",
+    "src/utils/supabase/server.ts",
+    "src/mumble/api/generated/**",
+    "tests/methods/signin.setup.ts"
+  ],
   "ignoreDependencies": ["@supabase/ssr"],
   "ignoreIssues": {
     "src/lib/auth-client.ts": ["exports"],
