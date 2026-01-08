@@ -1,4 +1,5 @@
-import test, { expect } from '@playwright/test'
+import { expect } from '@playwright/test'
+import test from './fixtures/mumble'
 
 test.describe('Own Profile Page', () => {
   test.beforeEach(async ({ page }) => {
