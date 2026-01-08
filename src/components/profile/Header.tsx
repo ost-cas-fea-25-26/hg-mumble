@@ -7,7 +7,7 @@ import { getAvatarInitials } from '@/utils/getAvatarInitials'
 import clsx from 'clsx'
 import { Avatar, Mumble, Profile } from 'hg-storybook'
 import Image from 'next/image'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { useTranslations } from 'use-intl'
 
 type Props = {
@@ -25,10 +25,14 @@ export default function ProfileHeader({ user, stats, children }: Props) {
 
   const [isImageLoaded, setIsImageLoaded] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
+  const [isOwnProfile, setIsOwnProfile] = useState(false)
   const avatarPlaceholderText = getAvatarInitials(user.firstname + ' ' + user.lastname)
   const displayName = user.firstname && user.lastname ? `${user.firstname} ${user.lastname}` : user.username
   const coverImageUrl = `https://unsplash.it/1920/1080?random&seed=${user.id}`
-  const isOwnProfile = sessionData?.user?.sub === user.id
+
+  useEffect(() => {
+    setIsOwnProfile(sessionData?.user?.sub === user.id)
+  }, [sessionData?.user?.sub, user.id])
 
   return (
     <>

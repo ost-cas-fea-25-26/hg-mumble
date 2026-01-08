@@ -53,7 +53,19 @@
     "create-post-error": "Dein Mumble konnte nicht erstellt werden, bitte versuche es erneut.",
     "file-input-title": "Einfach Datei hierhin ziehen!",
     "file-input-accepted-images": "Erlaubt sind Bilder (PNG, JPG, SVG, WEBP...)",
-    "file-upload-button": "Oder klicke hier..."
+    "file-upload-button": "Oder klicke hier...",
+    "delete-title": "Mumble löschen",
+    "delete-confirmation": "Bist du sicher, dass du diesen Mumble löschen möchtest?",
+    "delete-success": "Mumble erfolgreich gelöscht.",
+    "delete-error": "Mumble konnte nicht gelöscht werden.",
+    "close": "Schliessen",
+    "delete": "Löschen",
+    "edit-title": "Mumble bearbeiten",
+    "edit-success": "Mumble erfolgreich bearbeitet.",
+    "edit-error": "Mumble konnte nicht bearbeitet werden.",
+    "not-found-title": "Mumble nicht gefunden",
+    "not-found-description": "Der gesuchte Mumble existiert nicht oder wurde gelöscht.",
+    "back-to-feed": "Zurück zum Feed"
   },
   "recommendations": {
     "title": "Empfohlene Mumbler",

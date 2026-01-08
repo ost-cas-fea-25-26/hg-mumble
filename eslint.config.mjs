@@ -25,6 +25,7 @@ export default defineConfig([
       'no-useless-escape': 'off',
       'no-undef': 'off',
       '@next/next/no-img-element': 'off',
+      'react-hooks/set-state-in-effect': 'off',
     },
   },
 ])
