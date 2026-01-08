@@ -27,6 +27,7 @@ export default function Post({ post, detailView }: Props) {
           <h3 className={clsx('text-lg font-bold')}>{post.creator?.displayName}</h3>
           <div className="desktop:flex-row desktop:items-center desktop:gap-4 desktop:w-full flex flex-col gap-2">
             <Link
+              data-testid="post-author-link"
               url={`/mumble/profile/${post.creator?.id}`}
               className={'text-primary flex items-center justify-start gap-1 font-bold'}
             >

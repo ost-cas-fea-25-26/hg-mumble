@@ -12,8 +12,8 @@
 
 # testing
 /coverage
-/test-results/
-/tests/.auth/
+/test-results/*
+/tests/.auth/*
 
 # next.js
 /.next/

@@ -33,9 +33,10 @@ export default function ProfileHeader({ user, stats, children }: Props) {
   return (
     <>
       {showEditModal && <UserSettingsModal close={() => setShowEditModal(false)}></UserSettingsModal>}
-      <div className="mb-6 flex flex-col items-center justify-center gap-5">
+      <div data-testid="profile-header" className="mb-6 flex flex-col items-center justify-center gap-5">
         <div className="relative h-80 w-full rounded-md bg-slate-200">
           <Image
+            data-testid="profile-cover-image"
             src={coverImageUrl}
             alt="Cover Image"
             fill
@@ -47,7 +48,7 @@ export default function ProfileHeader({ user, stats, children }: Props) {
             )}
             onLoad={() => setIsImageLoaded(true)}
           />
-          <div className="absolute right-6 -bottom-16.5">
+          <div className="absolute right-6 -bottom-16.5" data-testid="profile-avatar">
             <Avatar
               src={user.avatarUrl ?? undefined}
               size={'xl'}
@@ -61,26 +62,30 @@ export default function ProfileHeader({ user, stats, children }: Props) {
 
         <div className="flex w-full flex-col gap-2">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <h1 className={clsx('text-3xl font-bold text-slate-900')}>{displayName}</h1>
+            <h1 data-testid="profile-display-name" className={clsx('text-3xl font-bold text-slate-900')}>
+              {displayName}
+            </h1>
             {children && <div className="mt-2 md:mt-0">{children}</div>}
           </div>
 
           <div className="flex flex-row flex-wrap gap-4">
             <div className={'text-primary flex items-center justify-start gap-1 font-bold'}>
               <Profile color={'currentColor'} size={'xs'} />
-              <span>{user.username}</span>
+              <span data-testid="profile-username">{user.username}</span>
             </div>
 
             {stats && (
               <div className={'flex items-center justify-start gap-1 font-bold text-slate-400'}>
                 <Mumble size={'xs'} className="text-slate-400" />
-                <span>{t('followers', { count: stats.followers })}</span>
+                <span data-testid="profile-followers-count">{t('followers', { count: stats.followers })}</span>
               </div>
             )}
           </div>
 
           <div>
-            <p className="max-w-2xl font-medium text-slate-400">{sessionData?.user?.bio || t('no-bio')}</p>
+            <p data-testid="profile-bio" className="max-w-2xl font-medium text-slate-400">
+              {sessionData?.user?.bio || t('no-bio')}
+            </p>
           </div>
         </div>
       </div>
