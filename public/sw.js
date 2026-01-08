@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 const VERSION = 1
 const CACHE_NAME = 'offline'
 const OFFLINE_URL = 'offline.html'
