@@ -25,7 +25,7 @@ export type UserSettingsFormValues = {
 export default function UserSettingsModal({ close }: Props) {
   const [loading, setLoading] = useState(false)
   const { data: sessionData } = useSession()
-  const { firstName, lastName, sub } = sessionData?.user || {}
+  const { firstName, lastName } = sessionData?.user || {}
   const formProps = useForm<UserSettingsFormValues>({
     mode: 'all',
     values: {

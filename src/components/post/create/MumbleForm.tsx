@@ -3,18 +3,21 @@ import { useSession } from '@/lib/auth-client'
 import { Button, Cross, FileInput, Modal, Textarea } from '@/lib/hg-storybook'
 import { useKeyPress } from 'ahooks'
 import clsx from 'clsx'
-import { Loader } from 'hg-storybook'
+import { Loader, Send, Upload } from 'hg-storybook'
+import Image from 'next/image'
 import { useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
 
 interface Props {
   file: File | null
-  setFile: (file: File | null) => void
   showModal: boolean
-  setShowModal: (show: boolean) => void
-  handleSubmit: ({ text }: FormValues) => void
   isSaving: boolean
+  /*eslint-disable no-unused-vars */
+  handleSubmit: ({ text }: FormValues) => void
+  setFile: (file: File | null) => void
+  setShowModal: (show: boolean) => void
+  /* eslint-enable no-unused-vars */
 }
 
 export default function MumbleForm({ file, setFile, showModal, setShowModal, handleSubmit, isSaving }: Props) {
@@ -47,10 +50,12 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
                 <Cross color={'white'} size={'xs'} />
               </Button>
             </div>
-            <img
+            <Image
               className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}
               src={URL.createObjectURL(file)}
               alt={'user uploaded file'}
+              width={400}
+              height={400}
             />
           </span>
         )}
@@ -68,7 +73,7 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
           <FileInput
             label={translate('file-input-title')}
             description={translate('file-input-accepted-images')}
-            size={'large'}
+            size={'small'}
             onDrop={([file]) => {
               setShowModal(false)
               setFile(file)
@@ -90,7 +95,10 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
             setShowModal(true)
           }}
         >
-          {translate('add-image')}
+          <span className="flex gap-2 items-center">
+            {translate('add-image')}
+            <Upload size="xs" color="white" />
+          </span>
         </Button>
         <Button type="submit" width={'w-full'} disabled={!sessionData || isSaving || !watch('text')}>
           {isSaving ? (
@@ -98,7 +106,10 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
               <Loader size="small" color="white" />
             </span>
           ) : (
-            `${translate('save')}`
+            <span className="flex gap-2 items-center">
+              {translate('save')}
+              <Send size="xs" color="white" />
+            </span>
           )}
         </Button>
       </div>

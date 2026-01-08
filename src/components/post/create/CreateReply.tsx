@@ -45,7 +45,7 @@ export default function CreateReply({ postId }: Props) {
   const handleSubmit = ({ text }: FormValues) => {
     if (text) {
       setIsSaving(true)
-      createReply(postId, text, file!).then((res) => {
+      createReply(postId, text, file!).then(() => {
         methods.reset({ text: '' })
         setFile(null)
         setIsSaving(false)

@@ -7,6 +7,7 @@ function getPostEventSource() {
   return new EventSource(`${process.env.NEXT_PUBLIC_API_URL}/posts/_sse`)
 }
 
+// eslint-disable-next-line no-unused-vars
 export default function usePostCreated(updatePosts: (newPost: MumblePost[]) => void, posts: MumblePost[]) {
   const translate = useTranslations('mumble-post')
 

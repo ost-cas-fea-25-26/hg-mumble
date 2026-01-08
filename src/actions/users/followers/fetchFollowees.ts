@@ -7,8 +7,10 @@ type RequestParams = {
   limit?: number
 }
 
-export async function fetchUsers(params: RequestParams = { offset: 0, limit: 0 }) {
+export async function fetchFollowees(id: string, params: RequestParams = {}) {
   const api = await getMumbleApi()
-  const response = await api.users.usersList(params)
+
+  const response = await api.users.followeesList(id, params)
+
   return response.json()
 }
