@@ -1,4 +1,5 @@
 import HeaderButtons from '@/components/HeaderButtons'
+import NetworkStatusManager from '@/components/NetworkStatusManager'
 import { getSession } from '@/lib/auth'
 import { Avatar, Link } from '@/lib/hg-storybook'
 import { getTranslations } from 'next-intl/server'
@@ -20,6 +21,7 @@ export default async function HeaderUserDetails() {
             </Link>
           )}
           <HeaderButtons />
+          <NetworkStatusManager />
         </div>
       )}
     </>
