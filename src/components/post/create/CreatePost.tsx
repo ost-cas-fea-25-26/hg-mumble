@@ -25,7 +25,7 @@ export default function CreatePost({ sessionData }: Props) {
   const handleSubmit = ({ text }: FormValues) => {
     if (text) {
       setIsSaving(true)
-      createPost(text, file!).then((res) => {
+      createPost(text, file!).then(() => {
         formProps.reset({ text: '' })
         setFile(null)
         setIsSaving(false)

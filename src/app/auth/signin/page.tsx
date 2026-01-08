@@ -1,13 +1,12 @@
 'use client'
+import InfoMessage from '@/components/general/InfoMessage'
 import { signIn } from '@/lib/auth-client'
 import { Button, Eye, Field, Input, Label, Loader } from 'hg-storybook'
 import { useEffect, useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
 import { useTranslations } from 'use-intl'
 
 export default function Login() {
   const translate = useTranslations('general')
-  const formProps = useForm()
   const [type, setType] = useState('password')
   const [loading, setLoading] = useState(false)
 
@@ -18,12 +17,12 @@ export default function Login() {
   return (
     <div className={'flex flex-col justify-center gap-4'}>
       <h1 className={'text-2xl font-bold'}>{translate('login-title')}</h1>
-      <FormProvider {...formProps}>
-        <Field>
+      <form>
+        <Field disabled className={'opacity-50'}>
           <Label htmlFor="email">{translate('username-email')}</Label>
           <Input name="email" />
         </Field>
-        <Field>
+        <Field disabled className={'opacity-50'}>
           <Label htmlFor="password">{translate('password')}</Label>
           <Input
             name="password"
@@ -37,21 +36,20 @@ export default function Login() {
             icon={<Eye color={'var(--color-secondary)'} size={'xs'} />}
           />
         </Field>
-        <form>
-          <Button
-            variant={'gradient'}
-            width={'w-full'}
-            size={'medium'}
-            onClick={() => {
-              setLoading(true)
-              signIn()
-            }}
-            dataTestId="login-button"
-          >
-            {loading ? <Loader size={'small'} color={'white'} /> : translate('login')}
-          </Button>
-        </form>
-      </FormProvider>
+        <InfoMessage>{translate('login-unavailable')}</InfoMessage>
+        <Button
+          variant={'gradient'}
+          width={'w-full'}
+          size={'medium'}
+          onClick={() => {
+            setLoading(true)
+            signIn()
+          }}
+          dataTestId="login-button"
+        >
+          {loading ? <Loader size={'small'} color={'white'} /> : translate('login')}
+        </Button>
+      </form>
     </div>
   )
 }

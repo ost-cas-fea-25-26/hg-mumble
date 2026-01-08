@@ -10,6 +10,10 @@ dotenv.config({ path: path.resolve(__dirname, '.env') })
 
 export default defineConfig({
   testDir: 'tests',
+  reporter: process.env.CI ? 'line' : [['html', { open: 'always' }]],
+  use: {
+    trace: process.env.CI ? 'off' : 'on',
+  },
   projects: [
     {
       name: 'setup',
