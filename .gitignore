@@ -12,7 +12,7 @@
 
 # testing
 /coverage
-/test-results/
+/test-results/*
 /tests/.auth/
 
 # next.js
