@@ -25,6 +25,7 @@
     "clsx": "^2.1.1",
     "cross-env": "^10.1.0",
     "date-fns": "^4.1.0",
+    "framer-motion": "^12.24.12",
     "fslightbox-react": "^2.0.0",
     "hg-storybook": "^1.26.1",
     "next": "16.1.1",
