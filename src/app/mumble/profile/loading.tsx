@@ -1,4 +1,6 @@
+import TabsSkeleton from '@/components/loading/TabsSkeleton'
 import PostSkeleton from '@/components/post/PostSkeleton'
+import RecommendedProfilesSkeleton from '@/components/recommendation/RecommendedProfilesSkeleton'
 import { Avatar } from 'hg-storybook'
 
 export default function Loading() {
@@ -23,8 +25,12 @@ export default function Loading() {
         </div>
       </div>
 
+      <RecommendedProfilesSkeleton />
+
       <div className="mt-6">
-        <div className="flex flex-col gap-4">
+        <TabsSkeleton />
+
+        <div className="mt-4 flex flex-col gap-4">
           <PostSkeleton />
           <PostSkeleton />
           <PostSkeleton />

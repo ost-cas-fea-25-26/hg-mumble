@@ -9,7 +9,7 @@ export default async function CreatePostSkeleton() {
   return (
     <div
       className={clsx(
-        'relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white pt-22 pr-4 pb-4 pl-4'
+        'relative flex min-h-48 w-full flex-col desktop:min-w-[680px] justify-around gap-2 rounded-md bg-white pt-22 pr-4 pb-4 pl-4'
       )}
     >
       <div className="absolute top-4 left-[-32] flex h-16 w-full items-center justify-start gap-3">

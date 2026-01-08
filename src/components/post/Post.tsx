@@ -50,7 +50,10 @@ export default function Post({ post, detailView, onDeleted }: Props) {
   }
 
   return (
-    <div className="relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white p-4" id={post.id}>
+    <div
+      className="relative flex min-h-48 w-full flex-col desktop:min-w-[680px] justify-around gap-2 rounded-md bg-white p-4"
+      id={post.id}
+    >
       {isOwnPost && (
         <div className="absolute top-4 right-4 flex gap-2">
           <button
