@@ -40,7 +40,7 @@ export default async function PublicProfilePage({ params }: Props) {
       <ProfileHeader user={user} stats={{ followers: followersData.count }} />
       <ProfileFollow userId={user.id} userName={user.firstname || user.username} initialIsFollowing={isFollowing} />
       <div className="flex flex-col gap-4 mt-6">
-        <PostsList initialPosts={mumbles.data || []} filters={{ creatorIds: [user.id] }} />
+        <PostsList initialPosts={mumbles.data || []} filters={{ creatorIds: [user.id] }} userId={session?.user.sub} />
       </div>
     </section>
   )

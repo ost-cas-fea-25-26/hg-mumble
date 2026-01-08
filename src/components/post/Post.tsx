@@ -14,7 +14,7 @@ import { decodeTime } from 'ulidx'
 interface Props {
   post: MumblePost
   detailView?: boolean
-  userName?: string
+  userId?: string
   onDeleted?: () => void
 }
 
@@ -23,7 +23,7 @@ interface EditedPost {
   mediaUrl?: string
 }
 
-export default function Post({ post, detailView, userName, onDeleted }: Props) {
+export default function Post({ post, detailView, userId, onDeleted }: Props) {
   const date = useFormattedDate(new Date(decodeTime(post.id!)))
   const avatarPlaceholderText = getAvatarInitials(post.creator?.displayName || post.creator?.username)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
@@ -31,7 +31,7 @@ export default function Post({ post, detailView, userName, onDeleted }: Props) {
   const [editedPost, setEditedPost] = useState<EditedPost | null>(null)
 
   const displayText = editedPost?.text ?? post.text
-  const displayMediaUrl = editedPost?.mediaUrl ?? post.mediaUrl
+  const displayMediaUrl = editedPost ? editedPost.mediaUrl : post.mediaUrl
 
   const handleEditSuccess = (text: string, mediaUrl?: string) => {
     setEditedPost({ text, mediaUrl })
@@ -45,7 +45,7 @@ export default function Post({ post, detailView, userName, onDeleted }: Props) {
 
   return (
     <div className="relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white p-4" id={post.id}>
-      {userName === post.creator?.username && (
+      {userId === post.creator?.id && (
         <div className="absolute top-4 right-4 flex gap-2">
           <button
             onClick={() => setEditModalOpen(true)}

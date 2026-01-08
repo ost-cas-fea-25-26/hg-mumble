@@ -2,7 +2,7 @@
 
 import { deletePost } from '@/actions/posts/deletePost'
 import { Modal } from '@/lib/hg-storybook'
-import { Button, Loader } from 'hg-storybook'
+import { Button, Cross, Loader, Tick } from 'hg-storybook'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
@@ -35,10 +35,20 @@ export default function PostDeleteModal({ postId, onClose, onSuccess }: Props) {
         <p>{translate('delete-confirmation')}</p>
         <div className="flex gap-4">
           <Button variant="secondary" width="w-full" onClick={onClose}>
-            {translate('close')}
+            <span className="flex items-center gap-2">
+              {translate('close')}
+              <Cross size="xs" color="white" />
+            </span>
           </Button>
           <Button variant="primary" width="w-full" onClick={handleDelete}>
-            {isSaving ? <Loader size="small" color="white" /> : translate('delete')}
+            {isSaving ? (
+              <Loader size="small" color="white" />
+            ) : (
+              <span className="flex items-center gap-2">
+                {translate('delete')}
+                <Tick size="xs" color="white" />
+              </span>
+            )}
           </Button>
         </div>
       </div>
