@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 export default function PostSkeleton() {
   return (
-    <div className="relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white p-4">
+    <div className="relative flex min-h-48 w-full flex-col desktop:min-w-[680px] justify-around gap-2 rounded-md bg-white p-4">
       <div className="desktop:h-16 flex w-full items-center justify-start gap-3">
         <div className="absolute top-6 left-[-32]">
           <Avatar src={undefined} size={'m'} />

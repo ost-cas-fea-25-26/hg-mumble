@@ -18,7 +18,10 @@ export default function Post({ post, detailView }: Props) {
   const avatarPlaceholderText = getAvatarInitials(post.creator?.displayName || post.creator?.username)
 
   return (
-    <div className="relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white p-4" id={post.id}>
+    <div
+      className="relative flex min-h-48 w-full flex-col desktop:min-w-[680px] justify-around gap-2 rounded-md bg-white p-4"
+      id={post.id}
+    >
       <div className="desktop:h-16 flex w-full items-center justify-start gap-3">
         <div className="absolute top-6 -left-6">
           <Avatar src={post.creator?.avatarUrl || undefined} placeholderText={avatarPlaceholderText} size={'m'} />

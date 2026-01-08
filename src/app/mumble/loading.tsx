@@ -1,6 +1,7 @@
+import PageHeader from '@/components/general/PageHeader'
+import TabsSkeleton from '@/components/loading/TabsSkeleton'
 import PostSkeleton from '@/components/post/PostSkeleton'
 import CreatePostSkeleton from '@/components/post/create/CreatePostSkeleton'
-import clsx from 'clsx'
 import { getTranslations } from 'next-intl/server'
 
 export default async function Loading() {
@@ -8,11 +9,9 @@ export default async function Loading() {
 
   return (
     <div className={'mt-6 flex flex-col gap-4'}>
-      <div>
-        <h1 className={clsx('text-primary text-4xl font-bold')}>{translate('welcome-to-mumble')}</h1>
-        <span className={clsx('text-secondary text-lg font-semibold')}>{translate('welcome-subtitle')}</span>
-      </div>
+      <PageHeader />
       <CreatePostSkeleton />
+      <TabsSkeleton />
       <PostSkeleton />
       <PostSkeleton />
       <PostSkeleton />

@@ -8,7 +8,7 @@
     "login-unavailable": "Login momentan nur via Zitadel™ möglich.",
     "login": "mit Zitadel einloggen",
     "welcome-to-mumble": "Willkommen auf Mumble!",
-    "welcome-subtitle": "Voluptatem qui cumque voluptatem quia tempora dolores distinctio vel repellat dicta.",
+    "header-subtitle": "Teile deine Gedanken mit der Welt.",
     "not-logged-in": "Du bist noch nicht eingeloggt!",
     "password": "Passwort",
     "reveal-password": "Passwort anzeigen",
@@ -35,7 +35,13 @@
     "your-mumbles": "Deine Mumbles",
     "your-likes": "Deine Likes",
     "settings": "Settings",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "all-mumbles": "Alle Mumbles",
+    "my-feed": "Mein Feed",
+    "no-followees-message": "Du folgst noch niemandem",
+    "start-following-people": "Folge Leuten, um ihre Mumbles in deinem Feed zu sehen",
+    "no-posts-from-followees": "Noch keine Mumbles von deinen Follows",
+    "followees-havent-posted": "Die Leute, denen du folgst, haben noch nichts gepostet"
   },
   "mumble-post": {
     "new-posts": "Es gibt neue Mumbles!",
