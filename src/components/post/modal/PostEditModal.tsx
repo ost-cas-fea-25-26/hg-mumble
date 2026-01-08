@@ -25,6 +25,7 @@ export default function PostEditModal({ post, currentText, currentMediaUrl, onCl
   const [isSaving, setIsSaving] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [existingMediaUrl, setExistingMediaUrl] = useState<string | undefined>(currentMediaUrl)
+  const [mediaRemoved, setMediaRemoved] = useState(false)
 
   const formProps = useForm<FormValues>({
     defaultValues: {
@@ -41,9 +42,21 @@ export default function PostEditModal({ post, currentText, currentMediaUrl, onCl
         if (file) {
           formData.append('media', file)
         }
+        if (mediaRemoved) {
+          formData.append('removeMedia', 'true')
+        }
         await editPost(post.id!, formData)
         toast.success(translate('edit-success'))
-        const newMediaUrl = file ? URL.createObjectURL(file) : existingMediaUrl
+
+        let newMediaUrl: string | undefined
+        if (file) {
+          newMediaUrl = URL.createObjectURL(file)
+        } else if (mediaRemoved) {
+          newMediaUrl = undefined
+        } else {
+          newMediaUrl = existingMediaUrl
+        }
+
         onSuccess(text, newMediaUrl)
       } catch {
         toast.error(translate('edit-error'))
@@ -54,6 +67,7 @@ export default function PostEditModal({ post, currentText, currentMediaUrl, onCl
 
   const handleRemoveExistingMedia = () => {
     setExistingMediaUrl(undefined)
+    setMediaRemoved(true)
   }
 
   return (
