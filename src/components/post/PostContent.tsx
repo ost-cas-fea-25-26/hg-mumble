@@ -1,4 +1,5 @@
 import FsLightbox from 'fslightbox-react'
+import Image from 'next/image'
 import { JSX, useMemo, useState } from 'react'
 
 interface Props {
@@ -55,14 +56,16 @@ export default function PostContent({ text, mediaUrl }: Props) {
       {mediaUrl && (
         <>
           <FsLightbox
+            sources={[<img className={'rounded-md'} src={mediaUrl} alt={'user uploaded file'} key={mediaUrl} />]}
             toggler={lightboxOpen}
-            sources={[<img className={'rounded-md'} src={mediaUrl} alt={'user uploaded file'} />]}
           />
-          <img
+          <Image
             className={'w-full object-cover aspect-2/1 rounded-md cursor-pointer'}
             src={mediaUrl}
             alt={'user uploaded file'}
             onClick={() => setLightboxOpen(!lightboxOpen)}
+            width={600}
+            height={600}
           />
         </>
       )}

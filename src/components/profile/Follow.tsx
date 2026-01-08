@@ -51,7 +51,8 @@ export default function ProfileFollow({ userId, initialIsFollowing, userName }: 
       startTransition(() => {
         router.refresh()
       })
-    } catch (error) {
+      // eslint-disable-next-line no-unused-vars
+    } catch (e) {
       setIsFollowing(!newState)
       toast.error(t('unexpected-error'))
     } finally {

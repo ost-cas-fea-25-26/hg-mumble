@@ -8,7 +8,7 @@ import { getAvatarInitials } from '@/utils/getAvatarInitials'
 import clsx from 'clsx'
 import { Avatar, Button, FileInput, Modal, Mumble, Profile } from 'hg-storybook'
 import Image from 'next/image'
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
@@ -17,7 +17,7 @@ type Props = {
   stats?: {
     followers: number
   }
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 export default function ProfileHeader({ user, stats, children }: Props) {
