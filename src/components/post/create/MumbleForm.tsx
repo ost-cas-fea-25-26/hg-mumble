@@ -13,14 +13,25 @@ interface Props {
   file: File | null
   showModal: boolean
   isSaving: boolean
+  existingMediaUrl?: string
   /*eslint-disable no-unused-vars */
   handleSubmit: ({ text }: FormValues) => void
   setFile: (file: File | null) => void
   setShowModal: (show: boolean) => void
+  onRemoveExistingMedia?: () => void
   /* eslint-enable no-unused-vars */
 }
 
-export default function MumbleForm({ file, setFile, showModal, setShowModal, handleSubmit, isSaving }: Props) {
+export default function MumbleForm({
+  file,
+  setFile,
+  showModal,
+  setShowModal,
+  handleSubmit,
+  isSaving,
+  existingMediaUrl,
+  onRemoveExistingMedia,
+}: Props) {
   const { register, watch } = useFormContext<FormValues>()
   const translate = useTranslations('mumble-post')
   const sessionData = useSession()
@@ -54,6 +65,29 @@ export default function MumbleForm({ file, setFile, showModal, setShowModal, han
               className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}
               src={URL.createObjectURL(file)}
               alt={'user uploaded file'}
+              width={400}
+              height={400}
+            />
+          </span>
+        )}
+        {!file && existingMediaUrl && (
+          <span className={'relative'}>
+            <div className={'absolute top-2 right-2 w-fit'}>
+              <Button
+                size={'small'}
+                rounded
+                variant={'secondary'}
+                onClick={() => {
+                  onRemoveExistingMedia?.()
+                }}
+              >
+                <Cross color={'white'} size={'xs'} />
+              </Button>
+            </div>
+            <Image
+              className={'desktop:w-40 desktop:min-w-40 h-40 min-h-40 object-cover'}
+              src={existingMediaUrl}
+              alt={'existing media'}
               width={400}
               height={400}
             />

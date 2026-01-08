@@ -1,6 +1,7 @@
-import { expect, test } from '@playwright/test'
+import { expect } from '@playwright/test'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
+import test from '../e2e/fixtures/mumble'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -8,8 +9,6 @@ const __dirname = dirname(__filename)
 const authFile = path.join(__dirname, '../.auth/user.json')
 
 test('authenticate', async ({ page }) => {
-  await page.goto(process.env.E2E_HOST || '')
-
   await page.waitForURL('**/auth/signin')
   await page.getByTestId('login-button').click()
 
