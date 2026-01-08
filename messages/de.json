@@ -62,7 +62,10 @@
     "delete": "Löschen",
     "edit-title": "Mumble bearbeiten",
     "edit-success": "Mumble erfolgreich bearbeitet.",
-    "edit-error": "Mumble konnte nicht bearbeitet werden."
+    "edit-error": "Mumble konnte nicht bearbeitet werden.",
+    "not-found-title": "Mumble nicht gefunden",
+    "not-found-description": "Der gesuchte Mumble existiert nicht oder wurde gelöscht.",
+    "back-to-feed": "Zurück zum Feed"
   },
   "recommendations": {
     "title": "Empfohlene Mumbler",
