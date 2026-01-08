@@ -49,19 +49,11 @@ export default async function ProfileIndex() {
           </TabList>
 
           <TabPanel className="mt-4 flex flex-col gap-4">
-            <PostsList
-              initialPosts={myMumbles.data || []}
-              filters={{ creatorIds: [userId] }}
-              userId={session?.user.sub}
-            />
+            <PostsList initialPosts={myMumbles.data || []} filters={{ creatorIds: [userId] }} />
           </TabPanel>
 
           <TabPanel className="mt-4 flex flex-col gap-4">
-            <PostsList
-              initialPosts={myLikes.data || []}
-              filters={{ likedByUserId: userId }}
-              userId={session?.user.sub}
-            />
+            <PostsList initialPosts={myLikes.data || []} filters={{ likedByUserId: userId }} />
           </TabPanel>
         </TabGroup>
       </div>

@@ -21,7 +21,7 @@ export default async function Home() {
         <span className={clsx('text-secondary text-lg font-semibold')}>{translate('welcome-subtitle')}</span>
       </div>
       {sessionData && <CreatePost sessionData={sessionData} />}
-      {posts.data && <PostsList initialPosts={posts.data} userId={sessionData.user.sub} />}
+      {posts.data && <PostsList initialPosts={posts.data} />}
     </div>
   )
 }

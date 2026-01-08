@@ -14,10 +14,9 @@ type Props = {
     creatorIds?: string[]
     likedByUserId?: string
   }
-  userId?: string
 }
 
-export default function PostsList({ initialPosts, filters, userId }: Props) {
+export default function PostsList({ initialPosts, filters }: Props) {
   const { posts, setPosts, canFetchMore, loading, loaderRef, prefetchRef, prefetchAnchorPostId } = useInfinitePosts({
     initialPosts,
     filters,
@@ -41,7 +40,7 @@ export default function PostsList({ initialPosts, filters, userId }: Props) {
 
         return (
           <span key={post.id} ref={shouldAttachPrefetchRef ? prefetchRef : undefined}>
-            <Post post={post} userId={userId} onDeleted={() => handlePostDeleted(post.id!)} />
+            <Post post={post} onDeleted={() => handlePostDeleted(post.id!)} />
           </span>
         )
       })}

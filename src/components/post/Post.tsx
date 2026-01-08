@@ -3,18 +3,18 @@ import PostButtons from '@/components/post/PostButtons'
 import PostContent from '@/components/post/PostContent'
 import PostDeleteModal from '@/components/post/modal/PostDeleteModal'
 import PostEditModal from '@/components/post/modal/PostEditModal'
+import { useSession } from '@/lib/auth-client'
 import { Avatar, Edit, Link, Profile, Time, Trash } from '@/lib/hg-storybook'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import { getAvatarInitials } from '@/utils/getAvatarInitials'
 import clsx from 'clsx'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { decodeTime } from 'ulidx'
 
 interface Props {
   post: MumblePost
   detailView?: boolean
-  userId?: string
   onDeleted?: () => void
 }
 
@@ -23,12 +23,18 @@ interface EditedPost {
   mediaUrl?: string
 }
 
-export default function Post({ post, detailView, userId, onDeleted }: Props) {
+export default function Post({ post, detailView, onDeleted }: Props) {
+  const { data: sessionData } = useSession()
   const date = useFormattedDate(new Date(decodeTime(post.id!)))
   const avatarPlaceholderText = getAvatarInitials(post.creator?.displayName || post.creator?.username)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [editedPost, setEditedPost] = useState<EditedPost | null>(null)
+
+  const isOwnPost = useMemo(
+    () => sessionData?.user?.sub === post.creator?.id,
+    [sessionData?.user?.sub, post.creator?.id]
+  )
 
   const displayText = editedPost?.text ?? post.text
   const displayMediaUrl = editedPost ? editedPost.mediaUrl : post.mediaUrl
@@ -45,7 +51,7 @@ export default function Post({ post, detailView, userId, onDeleted }: Props) {
 
   return (
     <div className="relative flex min-h-48 w-full flex-col justify-around gap-2 rounded-md bg-white p-4" id={post.id}>
-      {userId === post.creator?.id && (
+      {isOwnPost && (
         <div className="absolute top-4 right-4 flex gap-2">
           <button
             onClick={() => setEditModalOpen(true)}

@@ -6,15 +6,14 @@ import { useRouter } from 'next/navigation'
 
 interface Props {
   post: MumblePost
-  userId?: string
 }
 
-export default function PostDetail({ post, userId }: Props) {
+export default function PostDetail({ post }: Props) {
   const router = useRouter()
 
   const handleDeleted = () => {
     router.push('/mumble')
   }
 
-  return <Post post={post} detailView userId={userId} onDeleted={handleDeleted} />
+  return <Post post={post} detailView onDeleted={handleDeleted} />
 }
