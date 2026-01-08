@@ -15,5 +15,6 @@ export const updateUser = async (updatedUser: UserSettingsFormValues) => {
       },
     },
   })
-  return await response.json()
+  if (response.ok) return Promise.resolve(response.status)
+  return Promise.reject(response.status)
 }

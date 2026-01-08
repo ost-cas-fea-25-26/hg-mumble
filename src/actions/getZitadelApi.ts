@@ -4,7 +4,6 @@ class ZitadelApi {
   baseUrl = process.env.ZITADEL_API_URL
 
   private async fetch(method: string = 'GET', url: string, payload?: any, stringify: boolean = false) {
-    console.log(payload)
     return fetch(`${this.baseUrl}${url}`, {
       method: method,
       headers: {
@@ -18,7 +17,7 @@ class ZitadelApi {
     return this.fetch('POST', url, payload, stringify)
   }
   async updateUser(url: string, payload: any) {
-    return this.fetch('PATCH', url, payload)
+    return this.fetch('PATCH', url, payload, true)
   }
 }
 

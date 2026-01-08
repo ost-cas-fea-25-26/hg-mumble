@@ -1,15 +1,13 @@
 'use client'
 
-import { updateAvatar } from '@/actions/users/updateAvatar'
-import { updateAvatar as updateAvatarZitadel } from '@/actions/zitadel/updateAvatar'
+import UserSettingsModal from '@/components/UserSettingsModal'
 import { useSession } from '@/lib/auth-client'
 import { User } from '@/mumble/api/generated/MumbleApi'
 import { getAvatarInitials } from '@/utils/getAvatarInitials'
 import clsx from 'clsx'
-import { Avatar, Button, FileInput, Modal, Mumble, Profile } from 'hg-storybook'
+import { Avatar, Mumble, Profile } from 'hg-storybook'
 import Image from 'next/image'
 import { ReactNode, useState } from 'react'
-import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
 type Props = {
@@ -27,49 +25,14 @@ export default function ProfileHeader({ user, stats, children }: Props) {
 
   const [isImageLoaded, setIsImageLoaded] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
-  const [avatar, setAvatar] = useState<File | null>(null)
-
   const avatarPlaceholderText = getAvatarInitials(user.firstname + ' ' + user.lastname)
   const displayName = user.firstname && user.lastname ? `${user.firstname} ${user.lastname}` : user.username
   const coverImageUrl = `https://unsplash.it/1920/1080?random&seed=${user.id}`
   const isOwnProfile = sessionData?.user?.sub === user.id
 
-  const saveAvatar = () => {
-    if (avatar) {
-      Promise.allSettled([updateAvatarZitadel(avatar), updateAvatar(avatar)]).then(([res1, res2]) => {
-        setShowEditModal(false)
-        if ([res1.status, res2.status].every((s) => s === 'fulfilled')) {
-          return toast.success(translate('profile.edit-avatar-success'))
-        }
-        return toast.error(translate('profile.edit-avatar-error'))
-      })
-    }
-  }
-
   return (
     <>
-      {showEditModal && (
-        <Modal title={translate('profile.edit-avatar')} onClose={() => setShowEditModal(false)}>
-          <div className={clsx('flex flex-col gap-4')}>
-            <FileInput
-              label={translate('profile.edit-avatar')}
-              description={translate('mumble-post.file-input-accepted-images')}
-              size={'small'}
-              files={[avatar].filter(Boolean) as File[]}
-              onDrop={([file]) => {
-                setAvatar(file)
-              }}
-              setFiles={([file]) => {
-                setAvatar(file)
-              }}
-            />
-            <Button onClick={saveAvatar} variant={'primary'} width={'w-full'}>
-              {translate('general.save')}
-            </Button>
-          </div>
-        </Modal>
-      )}
-
+      {showEditModal && <UserSettingsModal close={() => setShowEditModal(false)}></UserSettingsModal>}
       <div className="mb-6 flex flex-col items-center justify-center gap-5">
         <div className="relative h-80 w-full rounded-md bg-slate-200">
           <Image
