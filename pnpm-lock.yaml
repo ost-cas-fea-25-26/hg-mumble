@@ -28,7 +28,7 @@ importers:
         version: 4.1.0
       fslightbox-react:
         specifier: ^2.0.0
-        version: 2.0.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        version: 2.0.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       hg-storybook:
         specifier: ^1.26.1
         version: 1.26.1(@headlessui/react@2.2.9(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(clsx@2.1.1)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)
@@ -2208,8 +2208,8 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  fslightbox-react@2.0.0:
-    resolution: {integrity: sha512-M0Ek3uPmmaS0X1iwvpwd1139AoLmaTS0QZd24vapDEHtlnZv96yBHP5YbrfAHuF83E6uB5bUGtoQy1veJ/n3Zg==}
+  fslightbox-react@2.0.2:
+    resolution: {integrity: sha512-eqAau3ywpeVdpw2bVw1qEga7eIBFK9K7JLDkNQa5PEnwZ8OGXpBwNxgjq8IJUF4C3B1hTztJ2U6C6HYEeIx7zw==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
@@ -6113,7 +6113,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  fslightbox-react@2.0.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+  fslightbox-react@2.0.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
