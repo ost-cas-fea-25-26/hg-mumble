@@ -6,7 +6,7 @@ import { Avatar, Link, Profile, Time } from '@/lib/hg-storybook'
 import { Reply as ReplyType } from '@/mumble/api/generated/MumbleApi'
 import { useFormattedDate } from '@/utils/dates/useFormattedDate'
 import clsx from 'clsx'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { decodeTime } from 'ulidx'
 
 interface Props {
@@ -14,7 +14,6 @@ interface Props {
 }
 
 export default function Reply({ reply }: Props) {
-  const [lightboxOpen, setLightboxOpen] = useState(false)
   const data = useFormattedDate(new Date(decodeTime(reply.id!)))
   const avatarPlaceholderText = useMemo(() => {
     if (reply.creator?.displayName) {
