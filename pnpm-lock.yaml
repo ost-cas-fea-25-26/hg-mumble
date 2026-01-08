@@ -30,7 +30,7 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       hg-storybook:
-        specifier: ^1.25.1
+        specifier: ^1.26.1
         version: 1.26.1(@headlessui/react@2.2.9(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(clsx@2.1.1)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)
       next:
         specifier: 16.1.1
