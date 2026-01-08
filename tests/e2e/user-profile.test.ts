@@ -1,8 +1,8 @@
-import { expect, test } from '@playwright/test'
+import { expect } from '@playwright/test'
+import test from './fixtures/mumble'
 
 test.describe('Profile Navigation', () => {
   test('navigates to profile from post author link', async ({ page }) => {
-    await page.goto(process.env.E2E_HOST || '')
     await page.getByTestId('post-author-link').first().click()
     await expect(page).toHaveURL(/\/mumble\/profile\//)
     await expect(page.getByTestId('profile-header')).toBeVisible()
@@ -11,7 +11,6 @@ test.describe('Profile Navigation', () => {
 
 test.describe('Public Profile Page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(process.env.E2E_HOST || '')
     await page.getByTestId('post-author-link').first().click()
     await page.waitForURL(/\/mumble\/profile\//)
   })
@@ -31,7 +30,6 @@ test.describe('Public Profile Page', () => {
 
 test.describe('Profile Follow Functionality', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(process.env.E2E_HOST || '')
     await page.getByTestId('post-author-link').first().click()
     await page.waitForURL(/\/mumble\/profile\//)
   })
