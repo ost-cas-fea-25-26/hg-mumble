@@ -6,6 +6,7 @@ import { useInfinitePosts } from '@/hooks/useInfinitePosts'
 import usePostCreated from '@/hooks/usePostCreated'
 import { Post as MumblePost } from '@/mumble/api/generated/MumbleApi'
 import { Loader } from 'hg-storybook'
+import { useCallback } from 'react'
 
 type Props = {
   initialPosts: MumblePost[]
@@ -13,9 +14,10 @@ type Props = {
     creatorIds?: string[]
     likedByUserId?: string
   }
+  userName?: string
 }
 
-export default function PostsList({ initialPosts, filters }: Props) {
+export default function PostsList({ initialPosts, filters, userName }: Props) {
   const { posts, setPosts, canFetchMore, loading, loaderRef, prefetchRef, prefetchAnchorPostId } = useInfinitePosts({
     initialPosts,
     filters,
@@ -25,6 +27,13 @@ export default function PostsList({ initialPosts, filters }: Props) {
 
   usePostCreated(setPosts, posts)
 
+  const handlePostDeleted = useCallback(
+    (postId: string) => {
+      setPosts((prev) => prev.filter((p) => p.id !== postId))
+    },
+    [setPosts]
+  )
+
   return (
     <>
       {posts.map((post: MumblePost) => {
@@ -32,7 +41,7 @@ export default function PostsList({ initialPosts, filters }: Props) {
 
         return (
           <span key={post.id} ref={shouldAttachPrefetchRef ? prefetchRef : undefined}>
-            <Post post={post} />
+            <Post post={post} userName={userName} onDeleted={() => handlePostDeleted(post.id!)} />
           </span>
         )
       })}
