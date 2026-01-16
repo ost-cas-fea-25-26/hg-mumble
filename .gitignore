@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+/test-results/*
+/tests/.auth/*
+/playwright-report/*
 
 # next.js
 /.next/
@@ -39,3 +42,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/.idea/
+/sqlite.db
+/secrets/
+/playwright-report/

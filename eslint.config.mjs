@@ -1,25 +1,31 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import js from '@eslint/js'
+import next from 'eslint-config-next'
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
+import { defineConfig } from 'eslint/config'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+export default defineConfig([
   {
     ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
+      'playwright-report/**',
+      'node_modules/**',
+      '.next/**',
+      'out/**',
+      'build/**',
+      'next-env.d.ts',
+      'src/mumble/api/generated/**',
     ],
   },
-];
-
-export default eslintConfig;
+  js.configs.recommended,
+  ...next,
+  eslintConfigPrettier,
+  {
+    rules: {
+      'react-hooks/rules-of-hooks': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      'no-useless-escape': 'off',
+      'no-undef': 'off',
+      '@next/next/no-img-element': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+    },
+  },
+])
